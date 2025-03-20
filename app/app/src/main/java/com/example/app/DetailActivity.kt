@@ -1,6 +1,8 @@
 package com.example.app
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -23,8 +25,12 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
-        binding.mainBack.setOnClickListener {
+        val mainBack: ImageView = findViewById(R.id.main_back)
 
+        mainBack.setOnClickListener{
+            val intent = Intent(this@DetailActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

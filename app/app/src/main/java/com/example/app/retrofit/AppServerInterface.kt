@@ -1,6 +1,7 @@
 package com.example.app.retrofit
 
 import com.example.app.dto.UserDTO
+import com.example.app.dto.TrainDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -36,6 +37,11 @@ interface AppServerInterface {
 
   @DELETE("deletetest1")
   fun deleteTest1(@Query("param1") param1: String): Call<String>
+
+
+
+  @GET("app")
+  fun getTest5(): Call<String>
 }
 
 

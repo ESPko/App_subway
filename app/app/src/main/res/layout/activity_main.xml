@@ -72,4 +72,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_get5"
+        android:text="get 방식 테스트"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"/>
+
 </LinearLayout>

@@ -127,6 +127,12 @@ class MainActivity : AppCompatActivity() {
       val call = api.deleteTest1(param1 = "매개변수 1")
       retrofitResponse(call)
     }
+    binding.btnGet5.setOnClickListener {
+      Log.d("csy", "gettest5 시작")
+      val api = AppServerClass.instance
+      val call = api.getTest5()
+      retrofitResponse(call)
+    }
 
   }
 

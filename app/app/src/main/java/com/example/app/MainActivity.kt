@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.LinearLayout
@@ -35,6 +36,41 @@ class MainActivity : AppCompatActivity() {
     binding.toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
       Log.d("fullstack503", "역 검색")
       Toast.makeText(this, "역검색 클릭", Toast.LENGTH_SHORT).show()
+
+      val intent = Intent(this, TestActivity::class.java)
+      startActivity(intent)
+
+    }
+
+    binding.toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
+      Log.d("fullstack503", "빠른 검색")
+      Toast.makeText(this, "빠른검색 클릭", Toast.LENGTH_SHORT).show()
+
+      val intent = Intent(this, Test2Activity::class.java)
+      startActivity(intent)
+    }
+
+    binding.toolbar.findViewById<LinearLayout>(R.id.around).setOnClickListener {
+      Log.d("fullstack503", "내 주변")
+      Toast.makeText(this, "내 주변", Toast.LENGTH_SHORT).show()
+
+      val intent = Intent(this, Test3Activity::class.java)
+      startActivity(intent)
+
+    }
+
+    binding.toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
+      Log.d("fullstack503", "설정")
+      Toast.makeText(this, "설정", Toast.LENGTH_SHORT).show()
+
+      val intent = Intent(this, Test4Activity::class.java)
+      startActivity(intent)
+    }
+
+    binding.toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
+      Log.d("fullstack503", "더보기")
+      Toast.makeText(this, "더보기", Toast.LENGTH_SHORT).show()
+
     }
 
     initEventListener()

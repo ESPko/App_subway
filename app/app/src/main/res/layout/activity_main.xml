@@ -7,14 +7,24 @@
     android:padding="16dp"
     android:gravity="center">
 
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_detail"
+        android:text="detail 액티비티로 이동"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="8dp"
+        android:backgroundTint="@color/black" />
+
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_get1"
         android:text="GET 방식 통신 1"
         android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="8dp"
-        android:backgroundTint="@color/black"/>
+        android:layout_marginHorizontal="8dp" />
 
     <Button
         android:layout_width="match_parent"

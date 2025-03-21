@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+  private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
@@ -28,6 +31,14 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun initEventListener() {
+
+    // detail 액티비티로 이동
+    binding.btnDetail.setOnClickListener {
+      val intent = Intent(this@MainActivity, DetailActivity::class.java)
+      startActivity(intent)
+      finish()
+    }
+
 
 //    기본 GET 방식 통신, 파라미터 없음
     binding.btnGet1.setOnClickListener {

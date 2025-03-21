@@ -2,6 +2,8 @@ package com.example.app
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,6 +29,12 @@ class MainActivity : AppCompatActivity() {
       val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
       insets
+
+    }
+
+    binding.toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
+      Log.d("fullstack503", "역 검색")
+      Toast.makeText(this, "역검색 클릭", Toast.LENGTH_SHORT).show()
     }
 
     initEventListener()

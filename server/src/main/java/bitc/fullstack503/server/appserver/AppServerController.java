@@ -2,6 +2,7 @@ package bitc.fullstack503.server.appserver;
 
 import bitc.fullstack503.server.dto.UserDTO;
 import bitc.fullstack503.server.dto.station.SItemDTO;
+import bitc.fullstack503.server.dto.train.TItemDTO;
 import bitc.fullstack503.server.service.Apiservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,8 +18,14 @@ public class AppServerController {
   @Value("${team3.station.service.key}")
   private String stationServiceKey;
 
+  @Value("${team3.train.service.key}")
+  private String trainServiceKey;
+
   @Value("${team3.station.service.url}")
   private String stationServiceUrl;
+
+  @Value("${team3.train.service.url}")
+  private String trainServiceUrl;
 
   @Autowired
   private Apiservice apiservice;
@@ -49,6 +56,46 @@ public class AppServerController {
 
     return StationJsonList.toString();
   }
+
+  @GetMapping("/android")
+  public String getAndroid() throws Exception {
+
+    String serviceKey = "?serviceKey=" + trainServiceKey;
+
+    // 필수옵션
+    // 선택옵션 scode 는 역외부코드 입력하는부분
+    String trainServiceKeyParam = "?serviceKey=" + trainServiceKey;
+    String essentialOpt2 = "&act=json";
+    String scode = "119";
+    String Opt2 = "&scode=" + scode;
+    String trainDay = "&day=1";  // 평일
+    String trainUpDown = "&updown=1";  // 상행선
+    String trainStartTime = "&stime=1227";  // 시작 시간 (예: 1300 = 13:00)
+    String trainEndTime = "&etime=1400";  // 끝 시간 (예: 1400 = 14:00)
+    String trainEnum = "&enum=5";  // 검색 시 리스트할 갯수
+    String trainAct = "&act=json";  // 응답 형식 (json)
+
+
+
+    String trainUrl = trainServiceUrl + trainServiceKeyParam + trainDay + trainUpDown + trainStartTime + trainEndTime + trainEnum + trainAct+ essentialOpt2 + Opt2;
+
+
+    List<TItemDTO> TrainJsonList = apiservice.getTrainJson(trainUrl);
+
+    // 데이터가 잘 조회되었는지 확인
+    if (TrainJsonList == null || TrainJsonList.isEmpty()) {
+      System.out.println("TrainJsonList가 비어 있습니다.");
+      return "데이터 없음.";
+    }
+
+    // 데이터 출력 (JSON 형태로 보기 쉽게)
+    return TrainJsonList.toString();
+  }
+
+
+
+
+
 
 //  파라미터로만 데이터 받을 경우
   @GetMapping("/gettest2")

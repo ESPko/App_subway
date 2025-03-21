@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.app.databinding.ActivityMainBinding
 import com.example.app.dto.UserDTO
 import com.example.app.retrofit.AppServerClass
+import com.naver.maps.map.NaverMap
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,6 +36,12 @@ class MainActivity : AppCompatActivity() {
     // detail 액티비티로 이동
     binding.btnDetail.setOnClickListener {
       val intent = Intent(this@MainActivity, DetailActivity::class.java)
+      startActivity(intent)
+      finish()
+    }
+    // 네이버 액티비티로 이동
+    binding.btnNaver.setOnClickListener {
+      val intent = Intent(this@MainActivity, NaverMapActivity::class.java)
       startActivity(intent)
       finish()
     }

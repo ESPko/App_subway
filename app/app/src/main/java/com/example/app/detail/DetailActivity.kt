@@ -2,6 +2,7 @@ package com.example.app.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -38,6 +39,9 @@ class DetailActivity : AppCompatActivity() {
             finish()
         }
         // 상단 역위치 변경 버튼
+        binding.btnDetailChange.setOnClickListener {
+
+        }
         // 상단 도착 역이름 버튼
         // 상단 즐겨찾기 버튼
     }

@@ -1,10 +1,14 @@
 package bitc.fullstack503.server.appserver;
 
 import bitc.fullstack503.server.dto.UserDTO;
+import bitc.fullstack503.server.dto.mysql.CategoryDTO;
 import bitc.fullstack503.server.dto.station.SItemDTO;
 import bitc.fullstack503.server.service.Apiservice;
+import bitc.fullstack503.server.service.Categoryservice;
+import bitc.fullstack503.server.service.Testservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +27,12 @@ public class AppServerController {
   @Autowired
   private Apiservice apiservice;
 
+  @Autowired
+  private Categoryservice categoryservice;
+
+  @Autowired
+  private Testservice testservice;
+
 
   @GetMapping("/gettest1")
   public String getTest1() {
@@ -31,8 +41,26 @@ public class AppServerController {
     return "get test1";
   }
 
+  @GetMapping("/app/category")
+  public List<CategoryDTO> getCategory() throws Exception {
+
+    List<CategoryDTO> categoryList = categoryservice.getCategoryList();
+
+    return categoryList;
+  }
+  @GetMapping("/app/category/{line}")
+  public List<CategoryDTO> getCategory(@PathVariable String line) throws Exception {
+
+
+    line = "1";
+
+    List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(line);
+
+    return categoryList;
+  }
+
   @GetMapping("/app")
-  public String getApp() throws Exception {
+  public List<SItemDTO> getApp() throws Exception {
 
     String serviceKey = "?serviceKey=" + stationServiceKey;
 
@@ -40,14 +68,14 @@ public class AppServerController {
     String essentialOpt = "&act=json";
     // 선택옵션 scode 는 역외부코드 입력하는부분
     String scode = "101";
+
     String Opt1 = "&scode=" + scode;
 
     String url = stationServiceUrl + serviceKey + essentialOpt + Opt1;
 
     List<SItemDTO> StationJsonList = apiservice.getStationJson(url);
 
-
-    return StationJsonList.toString();
+    return StationJsonList;
   }
 
 //  파라미터로만 데이터 받을 경우
@@ -68,6 +96,50 @@ public class AppServerController {
     System.out.println("param2: " + param2);
 
     return "get test3";
+  }
+
+
+
+  @GetMapping("/app/{param1}/{param2}")
+  public int getApi2(@PathVariable("param1") String param1, @PathVariable("param2") String param2) {
+    System.out.println("안드로이드 스튜디오에서 수정된 값을 전달받음");
+    System.out.println("수정된 dist: " + param1);
+    System.out.println("수정된 endSc: " + param2);
+
+    int result =0;
+
+    int num0 = Integer.parseInt(param1);
+    int num1 = Integer.parseInt(param2);
+
+    result = num0 + num1;
+
+
+
+    return result;
+  }
+
+
+  @GetMapping("/app/{param1}")
+  public List<SItemDTO> getApi3(@PathVariable("param1") String param1) throws Exception {
+    String serviceKey = "?serviceKey=" + stationServiceKey;
+
+    // 필수옵션
+    String essentialOpt = "&act=json";
+    // 선택옵션 scode 는 역외부코드 입력하는부분
+    String scode = param1;
+
+    String Opt1 = "&scode=" + scode;
+
+    String url = stationServiceUrl + serviceKey + essentialOpt + Opt1;
+
+    List<SItemDTO> StationJsonList = apiservice.getStationJson(url);
+
+    if(StationJsonList != null){
+      return StationJsonList;
+    }else{
+      return null;
+    }
+
   }
 
   @PostMapping("/posttest1")

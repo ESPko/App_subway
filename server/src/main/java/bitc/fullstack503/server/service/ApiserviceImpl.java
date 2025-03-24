@@ -35,17 +35,26 @@ public class ApiserviceImpl implements Apiservice {
             if (contentType != null && contentType.contains("charset=")) {
                 encoding = contentType.substring(contentType.indexOf("charset=") + 8);
             }
+
             reader = new BufferedReader(new InputStreamReader(UrlCon.getInputStream(), encoding));
+
 
             StringBuilder sb = new StringBuilder();
             String line;
 
+
+
             while((line = reader.readLine()) != null){
+                if(line.contains("<!DOCTYPE")) {
+                    return null;
+                }
                 sb.append(line);
             }
 
 //            System.out.println("응답 데이터: " + sb.toString());
             Gson gson = new Gson();
+
+
 
             StationDTO StationJson = gson.fromJson(sb.toString(), StationDTO.class);
 

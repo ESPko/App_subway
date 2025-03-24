@@ -4,68 +4,80 @@
     android:layout_height="match_parent"
     android:id="@+id/main"
     android:orientation="vertical">
-    <!-- 툴박스 -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="#00BCD4">
-    </LinearLayout>
     <!-- 출발역, 도착역 표시 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:orientation="horizontal"
-        android:background="#03A9F4">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="뒤로가기"
-            android:layout_marginRight="8dp"/>
+        android:background="#141827">
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="뒤로가기"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            android:id="@+id/btn_detail_back"
+            android:background="#141827"
+            android:layout_alignParentStart= "true"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
+            android:layout_marginTop="20dp"
             android:layout_marginHorizontal="8dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="출발"
-                android:textColor="#0000FD"/>
+                android:textColor="#03A9F4"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_detail_start1"
+                android:backgroundTint="#141827"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:text="역이름"/>
         </LinearLayout>
-        <TextView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="경유 / 화살표"
+            android:contentDescription="위치변경"
+            android:src="@drawable/baseline_swap_horiz_24"
+            android:layout_alignParentStart= "true"
+            android:id="@+id/btn_detail_change"
+            android:background="#141827"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="10dp"/>
+            android:layout_marginHorizontal="11dp"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center"
+            android:layout_marginTop="20dp"
             android:layout_marginHorizontal="8dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="도착"
-                android:textColor="#0000FD"/>
+                android:textColor="#03A9F4"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_detail_arrival1"
+                android:backgroundTint="#141827"
+                android:textStyle="bold"
+                android:textSize="20sp"
                 android:text="역이름"/>
         </LinearLayout>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="즐겨찾기"
-            android:layout_marginLeft="8dp"/>
+        <ImageButton
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:contentDescription="즐겨찾기"
+            android:src="@drawable/baseline_star_rate_24"
+            android:layout_alignParentStart= "true"
+            android:id="@+id/btn_detail_hotlist"
+            android:background="#141827"/>
     </LinearLayout>
 
 

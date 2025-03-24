@@ -167,6 +167,10 @@ class MainActivity : AppCompatActivity() {
       val call = api.getTest5()
       retrofitResponse(call)
     }
+    binding.btnGet6.setOnClickListener {
+      val intent = Intent(this, NaverMapActivity::class.java)
+      startActivity(intent)
+    }
 
   }
 

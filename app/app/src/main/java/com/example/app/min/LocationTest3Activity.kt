@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.ArrayAdapter
 import com.example.app.R
+import com.naver.maps.map.NaverMapSdk
 
 
 class LocationTest3Activity : AppCompatActivity() {
@@ -73,7 +74,7 @@ class LocationTest3Activity : AppCompatActivity() {
             val spinnerAdapter = ArrayAdapter(
                 this@LocationTest3Activity,
                 android.R.layout.simple_spinner_dropdown_item,
-                listOf("옵션1", "옵션2", "옵션3")
+                listOf("300m", "500m", "1km", "2km")
             )
             adapter = spinnerAdapter
         }
@@ -92,6 +93,7 @@ class LocationTest3Activity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("s06jicv68m")
     }
 
     override fun onSupportNavigateUp(): Boolean {

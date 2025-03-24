@@ -56,9 +56,11 @@ class LocationTest3Activity : AppCompatActivity() {
             layoutParams = LinearLayout.LayoutParams(
                 0,
                 LinearLayout.LayoutParams.WRAP_CONTENT,
-                1f  // 가중치를 1로 설정하여 EditText가 남은 공간을 차지하도록 함
+                1f
             )
         }
+
+
 
         val searchSpinner = Spinner(this).apply {
             layoutParams = LinearLayout.LayoutParams(

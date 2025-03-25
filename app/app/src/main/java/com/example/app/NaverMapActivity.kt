@@ -1,11 +1,13 @@
 package com.example.app
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.app.databinding.ActivityNaverMapBinding
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.naver.maps.map.NaverMapSdk
 
 class NaverMapActivity : AppCompatActivity() {
@@ -20,8 +22,10 @@ class NaverMapActivity : AppCompatActivity() {
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
       insets
     }
+
 //    NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("s5lqkqcw4y")
 
     NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("s06jicv68m")
+
   }
 }

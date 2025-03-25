@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- 배경 동그라미 -->
+    <path
+        android:fillColor="#1F88DB"
+        android:pathData="M24,0 C37.44,0 48,10.56 48,24 C48,37.44 37.44,48 24,48 C10.56,48 0,37.44 0,24 C0,10.56 10.56,0 24,0 Z"/>
+
+    <!-- 느낌표 아이콘 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M23,9 L25,9 L25,26 L23,26 Z M24,32 C23.2,32 22.5,31.3 22.5,30.5 C22.5,29.7 23.2,29 24,29 C24.8,29 25.5,29.7 25.5,30.5 C25.5,31.3 24.8,32 24,32 Z"/>
+</vector>

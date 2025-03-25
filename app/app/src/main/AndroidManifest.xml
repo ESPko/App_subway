@@ -24,16 +24,16 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
-            android:name=".Test4Activity"
+            android:name=".min.SettingTest4Activity"
             android:exported="false" />
         <activity
-            android:name=".Test3Activity"
+            android:name=".min.LocationTest3Activity"
             android:exported="false" />
         <activity
-            android:name=".Test2Activity"
+            android:name=".min.QuickTest2Activity"
             android:exported="false" />
         <activity
-            android:name=".TestActivity"
+            android:name=".min.SearchTestActivity"
             android:exported="false" />
         <activity
             android:name=".detail.DetailActivity"
@@ -56,7 +56,8 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="s5lqkqcw4y" />
+            android:value="s06jicv68m"/>
+<!--            android:value="s5lqkqcw4y" />-->
     </application>
 
 </manifest>

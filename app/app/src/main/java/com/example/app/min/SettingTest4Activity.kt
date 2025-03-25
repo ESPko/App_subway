@@ -1,4 +1,4 @@
-package com.example.app
+package com.example.app.min
 
 import android.os.Bundle
 import android.view.Gravity
@@ -9,9 +9,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.app.R
 import com.example.app.databinding.ActivityTest4Binding
 
-class Test4Activity : AppCompatActivity() {
+class SettingTest4Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

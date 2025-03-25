@@ -12,6 +12,10 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.app.databinding.ActivityMainBinding
 import com.example.app.detail.DetailActivity
 import com.example.app.dto.UserDTO
+import com.example.app.min.LocationTest3Activity
+import com.example.app.min.QuickTest2Activity
+import com.example.app.min.SearchTestActivity
+import com.example.app.min.SettingTest4Activity
 import com.example.app.retrofit.AppServerClass
 import com.naver.maps.map.NaverMap
 import retrofit2.Call
@@ -25,51 +29,37 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContentView(binding.root)
+
     ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
       val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
       insets
-
     }
 
-    binding.toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
-      Log.d("fullstack503", "역 검색")
+    val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+
+    toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
       Toast.makeText(this, "역검색 클릭", Toast.LENGTH_SHORT).show()
-
-      val intent = Intent(this, TestActivity::class.java)
-      startActivity(intent)
-
+      startActivity(Intent(this, SearchTestActivity::class.java))
     }
 
-    binding.toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
-      Log.d("fullstack503", "빠른 검색")
+    toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
       Toast.makeText(this, "빠른검색 클릭", Toast.LENGTH_SHORT).show()
-
-      val intent = Intent(this, Test2Activity::class.java)
-      startActivity(intent)
+      startActivity(Intent(this, QuickTest2Activity::class.java))
     }
 
-    binding.toolbar.findViewById<LinearLayout>(R.id.around).setOnClickListener {
-      Log.d("fullstack503", "내 주변")
-      Toast.makeText(this, "내 주변", Toast.LENGTH_SHORT).show()
-
-      val intent = Intent(this, Test3Activity::class.java)
-      startActivity(intent)
-
+    toolbar.findViewById<LinearLayout>(R.id.around).setOnClickListener {
+      Toast.makeText(this, "내 주변 클릭", Toast.LENGTH_SHORT).show()
+      startActivity(Intent(this, LocationTest3Activity::class.java))
     }
 
-    binding.toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
-      Log.d("fullstack503", "설정")
-      Toast.makeText(this, "설정", Toast.LENGTH_SHORT).show()
-
-      val intent = Intent(this, Test4Activity::class.java)
-      startActivity(intent)
+    toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
+      Toast.makeText(this, "설정 클릭", Toast.LENGTH_SHORT).show()
+      startActivity(Intent(this, SettingTest4Activity::class.java))
     }
 
-    binding.toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
-      Log.d("fullstack503", "더보기")
-      Toast.makeText(this, "더보기", Toast.LENGTH_SHORT).show()
-
+    toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
+      Toast.makeText(this, "더보기 클릭", Toast.LENGTH_SHORT).show()
     }
 
     initEventListener()
@@ -189,6 +179,10 @@ class MainActivity : AppCompatActivity() {
       val api = AppServerClass.instance
       val call = api.getTest5()
       retrofitResponse(call)
+    }
+    binding.btnGet6.setOnClickListener {
+      val intent = Intent(this, NaverMapActivity::class.java)
+      startActivity(intent)
     }
 
   }

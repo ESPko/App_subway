@@ -2,8 +2,6 @@ package bitc.fullstack503.server.service;
 
 import bitc.fullstack503.server.dto.station.SItemDTO;
 import bitc.fullstack503.server.dto.station.StationDTO;
-import bitc.fullstack503.server.dto.train.TItemDTO;
-import bitc.fullstack503.server.dto.train.TrainDTO;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
@@ -69,55 +67,4 @@ public class ApiserviceImpl implements Apiservice {
 
         return StationList;
     }
-
-    // train
-
-    @Override
-    public List<TItemDTO> getTrainJson(String url) throws Exception {
-
-        List<TItemDTO> TrainList = new ArrayList<>();
-
-        URL Serviceurl = null;
-        HttpURLConnection UrlCon = null;
-        BufferedReader reader = null;
-
-        try{
-            Serviceurl = new URL(url);
-            UrlCon = (HttpURLConnection) Serviceurl.openConnection();
-            UrlCon.setRequestMethod("GET");
-
-            String contentType = UrlCon.getHeaderField("Content-Type");
-            String encoding = "UTF-8";  // 기본값은 UTF-8
-
-            if (contentType != null && contentType.contains("charset=")) {
-                encoding = contentType.substring(contentType.indexOf("charset=") + 8);
-            }
-            reader = new BufferedReader(new InputStreamReader(UrlCon.getInputStream(), encoding));
-
-            StringBuilder sb = new StringBuilder();
-            String line;
-
-            while((line = reader.readLine()) != null){
-                sb.append(line);
-            }
-
-//            System.out.println("응답 데이터: " + sb.toString());
-            Gson gson = new Gson();
-
-            TrainDTO TrainJson = gson.fromJson(sb.toString(), TrainDTO.class);
-
-
-           TrainList = TrainJson.getResponse().getBody().getItem();
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-
-        return TrainList;
-    }
-
-
-
-
 }

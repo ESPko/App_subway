@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.fragment.app.DialogFragment
 import com.example.app.R
 import com.example.app.databinding.ActivityDetailBinding
 import com.example.app.databinding.FragmentBlank1Binding
@@ -23,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [BlankFragment1.newInstance] factory method to
  * create an instance of this fragment.
  */
-class BlankFragment1 : Fragment() {
+class BlankFragment1 : DialogFragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,6 +38,8 @@ class BlankFragment1 : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // DialogFragment의 스타일 설정 (필요 시 다이얼로그 크기, 스타일 등을 설정 가능)
+        setStyle(STYLE_NO_TITLE, android.R.style.Theme_Holo_Light_Dialog_NoActionBar)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -68,8 +71,8 @@ class BlankFragment1 : Fragment() {
             val detailInfoLayout: LinearLayout = activity?.findViewById(R.id.detail_info_layout)!!
             detailInfoLayout.visibility = View.VISIBLE
 
-            // 프래그먼트 숨기기
-            fragmentManager?.beginTransaction()?.remove(this)?.commit()
+            // 다이얼로그 닫기
+            dismiss()
         }
 
         return view

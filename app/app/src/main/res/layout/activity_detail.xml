@@ -106,24 +106,31 @@
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="평일"
             android:textSize="15sp" />
+
         <!-- 시간 -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_op2"
             android:layout_width="90dp"
             android:layout_height="48dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
-            android:layout_marginRight="5dp"
-            android:text="시간" />
+            android:text="시간"
+            android:textSize="15sp" />
+
+
         <!-- 출발시간/ 도착시간 -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_op3"
             android:layout_width="90dp"
             android:layout_height="48dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
-            android:layout_marginRight="5dp"
-            android:text="출발시간" />
+            android:text="출발시간"
+            android:textSize="15sp" />
+
+
         <!-- 최소시간/ 최소환승 -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_op4"
@@ -131,9 +138,10 @@
             android:layout_height="48dp"
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
-            android:text="최소시간" />
-    </LinearLayout>
+            android:text="최소시간"
+            android:textSize="15sp" />
 
+    </LinearLayout>
 
 
     <!-- 정보 -->
@@ -143,27 +151,21 @@
         android:background="#D3D3D3"
         android:gravity="center"
         android:orientation="horizontal">
+        <!-- 평일, 토요일, 공휴일 설정을 위한 프래그먼트를 뛰울 컨테이너 -->
         <FrameLayout
+            android:id="@+id/detail_fragment1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_op1"
-            android:id="@+id/detail_fragment1"/>
+            android:backgroundTint="@color/white" />
+        <!-- 시간 설정을 위한 프래그먼트를 띄울 컨테이너 -->
+        <FrameLayout
+            android:id="@+id/timePickerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <!-- 출발역, 종착역, 호선, 도착역 정보 (처음에는 보임) -->
         <LinearLayout
             android:id="@+id/detail_info_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-        <Button
-            android:id="@+id/btn_detail_start2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:text="역이름" />
-
-        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -172,25 +174,78 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:text="종착역" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="호선" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_detail_start2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/detail_btn1"
+                    android:gravity="center"
+                    android:text="역이름"
+                    android:textSize="16sp" />
+
+                <!-- 호선별로 색깔 변경될 수 있도록 해야함 -->
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="-15dp"
+                    android:layout_marginRight="-15dp"
+                    android:background="#1A8032"
+                    android:gravity="center"
+                    android:text="호선"
+                    android:textColor="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_detail_arrival2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="@drawable/detail_btn1"
+                    android:gravity="center"
+                    android:text="역이름"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:background="#000000" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="00:00"
+                    android:textSize="16sp" />
 
 
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_detail_arrival2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="10dp"
-            android:text="역이름" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+
 
     <!-- 소요시간 / 이전,다음열차 -->
     <LinearLayout

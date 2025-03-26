@@ -112,6 +112,16 @@ class DetailActivity : AppCompatActivity() {
             val startBtnFragment = StartBtnFragment()
             startBtnFragment.show(supportFragmentManager, "startBtnFragment")
         }
+        // btn_detail_arrival2 버튼 클릭 시 ArrivalBtnFragment를 다이얼로그로 표시
+        binding.btnDetailArrival2.setOnClickListener {
+            val arrivalBtnFragment = ArrivalBtnFragment()
+            arrivalBtnFragment.show(supportFragmentManager, "arrivalBtnFragment")
+        }
+        // 요금정보
+        binding.rateInformation.setOnClickListener{
+           val intent = Intent(this, RateInformationActivity::class.java)
+            startActivity(intent)
+        }
 
 
 

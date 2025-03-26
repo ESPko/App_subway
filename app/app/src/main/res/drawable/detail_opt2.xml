@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="0dp"/> <!-- 모서리가 직각인 테두리 -->
+    <stroke android:color="#CFB3B1B1" android:width="1dp"/> <!-- 테두리 색상 검정색과 두께 설정 -->
+    <solid android:color="@color/white"/> <!-- 배경색 하얀색 -->
+</shape>

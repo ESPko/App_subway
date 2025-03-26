@@ -3,26 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:orientation="vertical">
 
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_detail"
-        android:text="detail 액티비티로 이동"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="8dp"
-        android:backgroundTint="@color/black" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include
+        android:id="@+id/custom_toolbar"
+        layout="@layout/toolbar_layout"/>
+</LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_naver"
-        android:text="네이버맵 액티비티로 이동"
-        android:layout_marginTop="16dp"
+        android:id="@+id/btn_search"
+        android:text="search 액티비티로 이동"
         android:layout_marginHorizontal="8dp"
         android:backgroundTint="@color/black" />
 
@@ -31,72 +26,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_get1"
-        android:text="GET 방식 통신 1"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="8dp" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get2"
-        android:text="GET 방식 통신 2"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get3"
-        android:text="GET 방식 통신 3"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_post1"
-        android:text="POST 방식 통신 1"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_post2"
-        android:text="POST 방식 통신 2"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_put1"
-        android:text="PUT 방식 통신 1"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_put2"
-        android:text="PUT 방식 통신 2"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_delete"
-        android:text="DELETE 방식 통신 1"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get5"
         android:text="get 방식 테스트"
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_get6"
+        android:text="지도 방식 테스트"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_text1"
+        android:hint="출발역"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp" />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_text2"
+        android:hint="도착역"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_intro"
+        android:text="경로 검색"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp" />
+
+    </LinearLayout>
+
 </LinearLayout>
+

@@ -8,7 +8,7 @@ import kotlin.jvm.java
 //  Retrofit 의 기본 설정 클래스
 object AppServerClass {
 
-  private val BASE_URL = "http://10.100.203.88:8080/app/"
+  private val BASE_URL = "http://10.100.203.16:8080/app/"
 
   val instance: AppServerInterface by lazy {
     Retrofit.Builder()

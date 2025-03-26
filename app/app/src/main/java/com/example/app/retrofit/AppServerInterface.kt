@@ -1,5 +1,6 @@
 package com.example.app.retrofit
 
+import com.example.app.Station
 import com.example.app.dto.UserDTO
 import com.example.app.dto.TrainDTO
 import retrofit2.Call
@@ -42,6 +43,15 @@ interface AppServerInterface {
 
   @GET("app")
   fun getTest5(): Call<String>
+
+  @GET("app/category")
+  fun getTest6(): Call<String>
+
+  @GET("time")
+  fun getTime() : Call<List<String>>
+
+  @GET("category/stations")
+  fun getStations(): Call<List<Station>>
 }
 
 

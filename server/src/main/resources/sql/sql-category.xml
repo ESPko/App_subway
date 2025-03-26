@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitc.fullstack503.server.mapper.CategoryMapper">
+
+    <select id="getCategoryList" resultType="bitc.fullstack503.server.dto.mysql.CategoryDTO">
+        SELECT * FROM category
+    </select>
+
+    <select id="getCategoryLineList" parameterType="String" resultType="bitc.fullstack503.server.dto.mysql.CategoryDTO">
+        SELECT * FROM category
+        WHERE line = #{line}
+    </select>
+
+
+</mapper>

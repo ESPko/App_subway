@@ -42,6 +42,12 @@ interface AppServerInterface {
 
   @GET("app")
   fun getTest5(): Call<String>
+
+  @GET("app/category")
+  fun getTest6(): Call<String>
+
+  @GET("time")
+  fun getTime() : Call<List<String>>
 }
 
 

@@ -39,6 +39,18 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
+        // Intent로부터 데이터를 받아오기
+        val departure = intent.getStringExtra("departure")
+        val arrival = intent.getStringExtra("arrival")
+
+        // 받아온 데이터를 화면에 표시
+        binding.btnDetailStart1.text = "$departure"
+        binding.btnDetailArrival1.text = "$arrival"
+
+        binding.btnDetailStart2.text = "$departure"
+        binding.btnDetailArrival2.text = "$arrival"
+
+
         // 상단 뒤로가기 버튼
         binding.btnDetailBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)

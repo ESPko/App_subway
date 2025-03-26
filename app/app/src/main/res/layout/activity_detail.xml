@@ -189,6 +189,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:background="@drawable/detail_btn1"
                     android:gravity="center"
+                    android:textColor="@color/black"
                     android:text="역이름"
                     android:textSize="16sp" />
 
@@ -208,6 +209,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginHorizontal="10dp"
+                    android:textColor="@color/black"
                     android:background="@drawable/detail_btn1"
                     android:gravity="center"
                     android:text="역이름"

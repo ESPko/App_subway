@@ -37,22 +37,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+ />
 
     <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_detail"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="detail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.575"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.304" />
+        android:text="detail" />
 
     <Button
         android:layout_width="match_parent"
@@ -69,6 +60,36 @@
         android:text="지도 방식 테스트"
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_text1"
+        android:hint="출발역"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp" />
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/edit_text2"
+        android:hint="도착역"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_search"
+        android:text="경로 검색"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="8dp" />
+
+    </LinearLayout>
 </LinearLayout>
 

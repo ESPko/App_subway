@@ -77,6 +77,9 @@ dependencies {
   implementation("com.squareup.retrofit2:converter-simplexml:2.11.0")
   // 구글 플레이 지도 서비스
   implementation("com.google.android.gms:play-services-location:21.0.1")
+  // 레트로핏 scalars 컨버터
+  // https://mvnrepository.com/artifact/com.squareup.retrofit2/converter-scalars
+  implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
 
   // 네이버 지도 SDK
   implementation("com.naver.maps:map-sdk:3.20.0")

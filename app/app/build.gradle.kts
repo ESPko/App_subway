@@ -34,9 +34,6 @@ android {
   viewBinding{
     enable = true
   }
-    buildFeatures {
-        compose = true
-    }
 }
 
 dependencies {
@@ -56,6 +53,8 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
     testImplementation(libs.junit)
+  implementation(libs.cronet.embedded)
+  testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
 

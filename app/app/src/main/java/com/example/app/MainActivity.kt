@@ -66,47 +66,51 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun initEventListener() {
-
-    // 버튼 클릭 이벤트 설정
+//   Search 이동
     binding.btnSearch.setOnClickListener {
-      // EditText에서 입력값 가져오기
-      val departure = binding.editText1.text.toString()
-      val arrival = binding.editText2.text.toString()
-
-      // 값이 비어있지 않다면 Intent로 전달
-      if (departure.isNotEmpty() && arrival.isNotEmpty()) {
-        val intent = Intent(this, DetailActivity::class.java).apply {
-          putExtra("departure", departure)
-          putExtra("arrival", arrival)
-        }
-        startActivity(intent)
-      } else {
-        // 빈 값이 있을 경우 Toast 메시지 출력
-        Toast.makeText(this, "출발역과 도착역을 입력해주세요", Toast.LENGTH_SHORT).show()
-      }
+      val intent = Intent(this@MainActivity, SubSearchActivity::class.java)
+      startActivity(intent)
+      finish()
     }
-
 
     // detail 액티비티로 이동
     binding.btnDetail.setOnClickListener {
       val intent = Intent(this@MainActivity, DetailActivity::class.java)
       startActivity(intent)
       finish()
-    }
 
-    binding.btnLocation.setOnClickListener {
-      val intent = Intent(this@MainActivity, LocationTest3Activity::class.java)
-      startActivity(intent)
-      finish()
-    }
+      // 버튼 클릭 이벤트 설정
+      binding.btnIntro.setOnClickListener {
+        // EditText에서 입력값 가져오기
+        val departure = binding.editText1.text.toString()
+        val arrival = binding.editText2.text.toString()
+
+        // 값이 비어있지 않다면 Intent로 전달
+        if (departure.isNotEmpty() && arrival.isNotEmpty()) {
+          val intent = Intent(this, DetailActivity::class.java).apply {
+            putExtra("departure", departure)
+            putExtra("arrival", arrival)
+          }
+          startActivity(intent)
+        } else {
+          // 빈 값이 있을 경우 Toast 메시지 출력
+          Toast.makeText(this, "출발역과 도착역을 입력해주세요", Toast.LENGTH_SHORT).show()
+        }
+      }
 
 
-//    // 네이버 액티비티로 이동
-//    binding.btnNaver.setOnClickListener {
-//      val intent = Intent(this@MainActivity, NaverMapActivity::class.java)
-//      startActivity(intent)
-//      finish()
-//    }
+      // detail 액티비티로 이동
+      binding.btnDetail.setOnClickListener {
+        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+        startActivity(intent)
+        finish()
+      }
+
+      binding.btnLocation.setOnClickListener {
+        val intent = Intent(this@MainActivity, LocationTest3Activity::class.java)
+        startActivity(intent)
+        finish()
+      }
 
 
 //    기본 GET 방식 통신, 파라미터 없음
@@ -201,22 +205,17 @@ class MainActivity : AppCompatActivity() {
 //      val call = api.deleteTest1(param1 = "매개변수 1")
 //      retrofitResponse(call)
 //    }
-      binding.btnGet5.setOnClickListener {
-        Log.d("csy", "gettest5 시작")
-        val api = AppServerClass.instance
-        val call = api.getTest5()
-        retrofitResponse(call)
-      }
 
 
     }
 
+  }
 
-    //  Retrofit 통신 응답 부분을 따로 메소드로 분리
-    private fun retrofitResponse(call: Call<String>) {
+  //  Retrofit 통신 응답 부분을 따로 메소드로 분리
+  private fun retrofitResponse(call: Call<String>) {
 
-      call.enqueue(object : Callback<String> {
-        override fun onResponse(p0: Call<String>, res: Response<String>) {
+    call.enqueue(object : Callback<String> {
+      override fun onResponse(p0: Call<String>, res: Response<String>) {
           if (res.isSuccessful) {
             val result = res.body()
             Log.d("csy", "result : $result")

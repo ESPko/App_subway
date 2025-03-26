@@ -21,6 +21,12 @@
         android:theme="@style/Theme.App"
         tools:targetApi="31">
         <activity
+            android:name=".detail.GetOffActivity"
+            android:exported="false" />
+        <activity
+            android:name=".detail.RouteActivity"
+            android:exported="false" />
+        <activity
             android:name=".detail.RateInformationActivity"
             android:exported="false" />
         <activity

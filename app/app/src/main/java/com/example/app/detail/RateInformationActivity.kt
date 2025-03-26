@@ -25,7 +25,7 @@ class RateInformationActivity : AppCompatActivity() {
             insets
         }
         // 닫기 버튼 클릭 시 DetailActivity로 돌아가기
-        binding.closeButton.setOnClickListener {
+        binding.closeBtn.setOnClickListener {
             val intent = Intent(this, DetailActivity::class.java)
             startActivity(intent)
             finish()

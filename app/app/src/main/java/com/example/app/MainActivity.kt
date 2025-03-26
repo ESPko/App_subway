@@ -32,12 +32,19 @@ class MainActivity : AppCompatActivity() {
   }
 
   private fun initEventListener() {
-
-    // detail 액티비티로 이동
-    binding.btnDetail.setOnClickListener {
-      val intent = Intent(this@MainActivity, DetailActivity::class.java)
+//   Search 이동
+    binding.btnSearch.setOnClickListener {
+      val intent = Intent(this@MainActivity, SubSearchActivity::class.java)
       startActivity(intent)
       finish()
+    }
+
+      // detail 액티비티로 이동
+      binding.btnDetail.setOnClickListener {
+        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+        startActivity(intent)
+        finish()
+
     }
     // 네이버 액티비티로 이동
     binding.btnNaver.setOnClickListener {
@@ -146,6 +153,8 @@ class MainActivity : AppCompatActivity() {
       val call = api.getTest5()
       retrofitResponse(call)
     }
+
+
 
   }
 

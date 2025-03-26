@@ -3,14 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:gravity="center">
+    android:orientation="vertical">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <include
         android:id="@+id/custom_toolbar"
         layout="@layout/toolbar_layout"/>
+</LinearLayout>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,49 +24,8 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-
-    <Button
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_get1"
-        android:text="GET 방식 통신 1"
-        android:layout_marginTop="16dp"
-        android:layout_marginHorizontal="8dp"
-        android:backgroundTint="@color/black"/>
-
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get2"
-        android:text="GET 방식 통신 2"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
- />
-
-    <Button
-        android:id="@+id/btn_detail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="detail 액티비티로 이동" />
-
-    <Button
-        android:id="@+id/btn_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="location test 액티비티로 이동" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get5"
         android:text="get 방식 테스트"
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp"/>
@@ -76,6 +37,8 @@
         android:text="지도 방식 테스트"
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp"/>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,5 +70,6 @@
         android:layout_marginHorizontal="8dp" />
 
     </LinearLayout>
+
 </LinearLayout>
 

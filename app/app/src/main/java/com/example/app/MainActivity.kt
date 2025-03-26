@@ -73,77 +73,58 @@ class MainActivity : AppCompatActivity() {
       finish()
     }
 
-    // detail 액티비티로 이동
-    binding.btnDetail.setOnClickListener {
-      val intent = Intent(this@MainActivity, DetailActivity::class.java)
-      startActivity(intent)
-      finish()
 
-      // 버튼 클릭 이벤트 설정
-      binding.btnIntro.setOnClickListener {
-        // EditText에서 입력값 가져오기
-        val departure = binding.editText1.text.toString()
-        val arrival = binding.editText2.text.toString()
+    // 버튼 클릭 이벤트 설정
+    binding.btnIntro.setOnClickListener {
+      // EditText에서 입력값 가져오기
+      val departure = binding.editText1.text.toString()
+      val arrival = binding.editText2.text.toString()
 
-        // 값이 비어있지 않다면 Intent로 전달
-        if (departure.isNotEmpty() && arrival.isNotEmpty()) {
-          val intent = Intent(this, DetailActivity::class.java).apply {
-            putExtra("departure", departure)
-            putExtra("arrival", arrival)
-          }
-          startActivity(intent)
-        } else {
-          // 빈 값이 있을 경우 Toast 메시지 출력
-          Toast.makeText(this, "출발역과 도착역을 입력해주세요", Toast.LENGTH_SHORT).show()
+      // 값이 비어있지 않다면 Intent로 전달
+      if (departure.isNotEmpty() && arrival.isNotEmpty()) {
+        val intent = Intent(this, DetailActivity::class.java).apply {
+          putExtra("departure", departure)
+          putExtra("arrival", arrival)
         }
-      }
-
-
-      // detail 액티비티로 이동
-      binding.btnDetail.setOnClickListener {
-        val intent = Intent(this@MainActivity, DetailActivity::class.java)
         startActivity(intent)
-        finish()
+      } else {
+        // 빈 값이 있을 경우 Toast 메시지 출력
+        Toast.makeText(this, "출발역과 도착역을 입력해주세요", Toast.LENGTH_SHORT).show()
       }
-
-      binding.btnLocation.setOnClickListener {
-        val intent = Intent(this@MainActivity, LocationTest3Activity::class.java)
-        startActivity(intent)
-        finish()
-      }
+    }
 
 
 //    기본 GET 방식 통신, 파라미터 없음
-      binding.btnGet1.setOnClickListener {
-        Log.d("csy", "gettest1 시작")
-        val api = AppServerClass.instance
-        val call = api.getTest1()
+    binding.btnGet1.setOnClickListener {
+      Log.d("csy", "gettest1 시작")
+      val api = AppServerClass.instance
+      val call = api.getTest1()
 
 //      Retrofit 통신 응답 부분, 따로 메소드로 만들어도 됨
 //      Callback<String> 부분이 서버에서 전달받을 데이터 타입임
-        call.enqueue(object : Callback<String> {
-          override fun onResponse(p0: Call<String>, res: Response<String>) {
-            if (res.isSuccessful) {
+      call.enqueue(object : Callback<String> {
+        override fun onResponse(p0: Call<String>, res: Response<String>) {
+          if (res.isSuccessful) {
 //            서버에서 전달받은 데이터만 변수로 저장
-              val result = res.body()
-              Log.d("csy", "result : $result")
-            } else {
-              Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
-            }
+            val result = res.body()
+            Log.d("csy", "result : $result")
+          } else {
+            Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
           }
+        }
 
-          override fun onFailure(p0: Call<String>, t: Throwable) {
-            Log.d("csy", "message : $t.message")
-          }
-        })
-      }
+        override fun onFailure(p0: Call<String>, t: Throwable) {
+          Log.d("csy", "message : $t.message")
+        }
+      })
+    }
 
-      binding.btnGet2.setOnClickListener {
-        Log.d("csy", "gettest2 시작")
-        val api = AppServerClass.instance
-        val call = api.getTest2("매개변수2")
-        retrofitResponse(call)
-      }
+//      binding.btnGet2.setOnClickListener {
+//        Log.d("csy", "gettest2 시작")
+//        val api = AppServerClass.instance
+//        val call = api.getTest2("매개변수2")
+//        retrofitResponse(call)
+//      }
 
 //    binding.btnGet3.setOnClickListener {
 //      Log.d("csy", "gettest3 시작")
@@ -207,26 +188,25 @@ class MainActivity : AppCompatActivity() {
 //    }
 
 
-    }
-
   }
+
 
   //  Retrofit 통신 응답 부분을 따로 메소드로 분리
   private fun retrofitResponse(call: Call<String>) {
 
     call.enqueue(object : Callback<String> {
       override fun onResponse(p0: Call<String>, res: Response<String>) {
-          if (res.isSuccessful) {
-            val result = res.body()
-            Log.d("csy", "result : $result")
-          } else {
-            Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
-          }
+        if (res.isSuccessful) {
+          val result = res.body()
+          Log.d("csy", "result : $result")
+        } else {
+          Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
         }
+      }
 
-        override fun onFailure(p0: Call<String>, t: Throwable) {
-          Log.d("csy", "message : $t.message")
-        }
-      })
-    }
+      override fun onFailure(p0: Call<String>, t: Throwable) {
+        Log.d("csy", "message : $t.message")
+      }
+    })
   }
+}

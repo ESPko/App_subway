@@ -73,6 +73,7 @@ class SubSearchActivity : AppCompatActivity() {
       Station("하단", 1),
       Station("서면", 1),
       Station("부산역", 1),
+      Station("서면",1),
 
       // 2호선
       Station("장산", 2),

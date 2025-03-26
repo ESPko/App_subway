@@ -31,26 +31,30 @@
             android:textColor="@android:color/white" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/start_button"
-        android:backgroundTint="#3F51B5"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="16dp"
-        android:layout_gravity="center_horizontal"
-        android:padding="0dp"
-        android:text="출발" />
+        <ImageButton
+            android:id="@+id/start_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/start"
+            android:contentDescription="출발"
+            android:background="@drawable/btn_style"
+            android:scaleType="centerInside" />
 
-    <Button
-        android:id="@+id/sub_info_button"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginRight="24dp"
-        android:padding="0dp"
-        android:text="정보" />
+
+        <ImageButton
+            android:id="@+id/sub_info_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="16dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/info"
+            android:contentDescription="출발"
+            android:background="@drawable/btn_style"
+            android:scaleType="centerInside" />
     </LinearLayout>
 
 <View

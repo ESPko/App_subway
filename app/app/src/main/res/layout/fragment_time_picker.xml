@@ -25,6 +25,7 @@
             android:layout_weight="1"
             android:background="@drawable/detail_opt1"
             android:text="취소"
+            android:textColor="#000000"
             android:textSize="18sp" />
 
         <androidx.appcompat.widget.AppCompatButton

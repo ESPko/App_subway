@@ -38,6 +38,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="#141827"
                 android:text="역이름1"
+                android:textColor="#FFFFFF"
                 android:textSize="23sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -70,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#141827"
+                android:textColor="#FFFFFF"
                 android:text="역이름2"
                 android:textSize="23sp"
                 android:textStyle="bold" />
@@ -99,6 +101,7 @@
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="평일"
+            android:textColor="#000000"
             android:textSize="15sp" />
         <!-- 시간 -->
         <androidx.appcompat.widget.AppCompatButton
@@ -109,6 +112,7 @@
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="시간"
+            android:textColor="#000000"
             android:textSize="15sp" />
         <!-- 출발시간/ 도착시간 -->
         <androidx.appcompat.widget.AppCompatButton
@@ -119,6 +123,7 @@
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="출발시간"
+            android:textColor="#000000"
             android:textSize="15sp" />
         <!-- 최소시간/ 최소환승 -->
         <androidx.appcompat.widget.AppCompatButton
@@ -128,6 +133,7 @@
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="최소시간"
+            android:textColor="#000000"
             android:textSize="15sp" />
     </LinearLayout>
     <!-- 메인 정보 -->
@@ -161,6 +167,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/last_train"
+                android:textColor="#000000"
                 android:text="종착역" />
             <!-- 출발, 호선, 도착 -->
             <LinearLayout
@@ -176,6 +183,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:background="@drawable/detail_btn1"
                     android:gravity="center"
+                    android:textColor="#000000"
                     android:text="역이름"
                     android:textSize="16sp" />
                 <!-- 호선별로 색깔 변경될 수 있도록 해야함 -->
@@ -197,6 +205,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:background="@drawable/detail_btn1"
                     android:gravity="center"
+                    android:textColor="#000000"
                     android:text="역이름"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -211,6 +220,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
+                    android:textColor="#000000"
                     android:id="@+id/detail_start"
                     android:textSize="16sp" />
                 <!-- 중간선 -->
@@ -226,6 +236,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/detail_arrival"
                     android:text="00:00"
+                    android:textColor="#000000"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
@@ -307,6 +318,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:textColor="#000000"
                 android:background="@drawable/detail_opt2"
                 android:drawableStart="@drawable/baseline_arrow_left_24"
                 android:text="이전열차" />
@@ -317,6 +329,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="3dp"
                 android:layout_weight="1"
+                android:textColor="#000000"
                 android:background="@drawable/detail_opt2"
                 android:text="경유보기" />
             <!-- 하차알람 -->
@@ -326,6 +339,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
+                android:textColor="#000000"
                 android:background="@drawable/detail_opt2"
                 android:text="하차알람" />
             <!-- 다음열차 -->
@@ -335,6 +349,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:textColor="#000000"
                 android:background="@drawable/detail_opt2"
                 android:drawableEnd="@drawable/baseline_arrow_right_24"
                 android:text="다음열차" />

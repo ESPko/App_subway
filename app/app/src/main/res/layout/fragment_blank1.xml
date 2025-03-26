@@ -17,6 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="#000000"
             android:text="평일" />
 
         <RadioButton
@@ -24,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-
+            android:textColor="#000000"
             android:text="토요일" />
 
         <RadioButton
@@ -32,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-
+            android:textColor="#000000"
             android:text="공휴일" />
     </RadioGroup>
 

@@ -43,7 +43,13 @@
         android:id="@+id/btn_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="detail" />
+        android:text="detail 액티비티로 이동" />
+
+    <Button
+        android:id="@+id/btn_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="location test 액티비티로 이동" />
 
     <Button
         android:layout_width="match_parent"

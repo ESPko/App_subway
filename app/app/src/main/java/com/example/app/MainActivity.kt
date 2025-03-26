@@ -93,6 +93,14 @@ class MainActivity : AppCompatActivity() {
       startActivity(intent)
       finish()
     }
+
+    binding.btnLocation.setOnClickListener {
+      val intent = Intent(this@MainActivity, LocationTest3Activity::class.java)
+      startActivity(intent)
+      finish()
+    }
+
+
 //    // 네이버 액티비티로 이동
 //    binding.btnNaver.setOnClickListener {
 //      val intent = Intent(this@MainActivity, NaverMapActivity::class.java)
@@ -199,10 +207,7 @@ class MainActivity : AppCompatActivity() {
         val call = api.getTest5()
         retrofitResponse(call)
       }
-      binding.btnGet6.setOnClickListener {
-        val intent = Intent(this, NaverMapActivity::class.java)
-        startActivity(intent)
-      }
+
 
     }
 

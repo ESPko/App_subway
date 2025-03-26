@@ -1,6 +1,7 @@
 package com.example.app.min
 
 
+import android.health.connect.datatypes.ExerciseRoute.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -18,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.app.R
 import com.example.app.databinding.ActivityTest3Binding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapSdk
@@ -153,6 +155,7 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
         val uiSettings = naverMap.uiSettings
         uiSettings.isLocationButtonEnabled = true
 
+
         // 현재 위치 가져오기
         val locationOverlay = naverMap.locationOverlay
         locationOverlay.isVisible = true
@@ -177,4 +180,6 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
         finish()
         return true
     }
+
+
 }

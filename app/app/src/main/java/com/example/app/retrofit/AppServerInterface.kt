@@ -2,7 +2,6 @@ package com.example.app.retrofit
 
 import com.example.app.Station
 import com.example.app.dto.UserDTO
-import com.example.app.dto.TrainDTO
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -44,7 +43,7 @@ interface AppServerInterface {
   @GET("app")
   fun getTest5(): Call<String>
 
-  @GET("category/stations")
+  @GET("app/category")
   fun getStations(): Call<List<Station>>
 }
 

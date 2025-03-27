@@ -3,4 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="btnBackgroundColor">#141827</color>
+    <color name="line1Color">#FFA500</color> <!-- 1호선 색상 -->
+    <color name="line2Color">#008000</color> <!-- 2호선 색상 -->
+    <color name="line3Color">#8B4513</color> <!-- 3호선 색상 -->
+    <color name="line4Color">#87CEEB</color> <!-- 4호선 색상 -->
+    <color name="defaultColor">#000000</color> <!-- 기본 색상 -->
 </resources>

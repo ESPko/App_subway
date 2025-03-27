@@ -6,11 +6,14 @@
     android:background="@android:color/white">
 
     <LinearLayout
+        android:id="@+id/lineBackground"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal"
         android:background="#4CAF50"
         android:gravity="center">
+
+        <!-- 출발역 텍스트 -->
         <TextView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -19,25 +22,35 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="60dp"
             android:gravity="center"/>
+
+        <!-- 출발역 이름 표시 -->
         <TextView
+            android:id="@+id/startStationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="출발역"
             android:layout_weight="1"
             android:textStyle="bold"
             android:textSize="20sp"/>
+
+        <!-- 화살표 이미지 -->
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_keyboard_double_arrow_right_20"
             android:layout_gravity="center" />
+
+        <!-- 화살표 이미지 -->
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/baseline_keyboard_double_arrow_right_20"
             android:layout_gravity="center"
             android:layout_marginRight="60dp"/>
+
+        <!-- 도착역 이름 표시 -->
         <TextView
+            android:id="@+id/endStationTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -46,6 +59,4 @@
             android:textSize="20sp"/>
     </LinearLayout>
 
-
 </LinearLayout>
-

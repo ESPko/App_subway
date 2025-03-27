@@ -168,6 +168,7 @@
             android:id="@+id/detail_info_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -195,7 +196,8 @@
 
                 <!-- 호선별로 색깔 변경될 수 있도록 해야함 -->
                 <TextView
-                    android:layout_width="80dp"
+                    android:id="@+id/lineColor"
+                    android:layout_width="87dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="-15dp"
                     android:layout_marginRight="-15dp"

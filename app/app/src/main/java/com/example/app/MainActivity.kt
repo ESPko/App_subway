@@ -21,11 +21,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainActivity : AppCompatActivity() {
 
   private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+  private lateinit var categories: List<CategoryDTO> // 카테고리 데이터를 저장할 변수 추가
+  private var selectedDeparture: CategoryDTO? = null // 선택된 출발역
+  private var selectedArrival: CategoryDTO? = null // 선택된 도착역
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
 
+    // 검색 버튼 클릭 리스너
     binding.btnSearch.setOnClickListener {
       val intent = Intent(this@MainActivity, SubSearchActivity::class.java)
       startActivity(intent)
@@ -62,10 +66,10 @@ class MainActivity : AppCompatActivity() {
       val arrivalText = btnArrival.text.toString()
 
       if (departureText.isNotEmpty() && arrivalText.isNotEmpty()) {
-        // 검색 후 디테일 액티비티로 이동
+        // 출발역과 도착역이 모두 선택되었을 때만 DetailActivity로 이동
         val intent = Intent(this, DetailActivity::class.java).apply {
-          putExtra("departure", departureText)
-          putExtra("arrival", arrivalText)
+          putExtra("departure", selectedDeparture)  // 출발역 선택된 CategoryDTO 객체 전달
+          putExtra("arrival", selectedArrival)      // 도착역 선택된 CategoryDTO 객체 전달
         }
         startActivity(intent)
       } else {
@@ -80,6 +84,8 @@ class MainActivity : AppCompatActivity() {
       override fun onResponse(call: Call<List<CategoryDTO>>, response: Response<List<CategoryDTO>>) {
         if (response.isSuccessful && response.body() != null) {
           val categories = response.body()
+          this@MainActivity.categories = categories ?: emptyList() // 가져온 카테고리 데이터를 클래스 변수에 저장
+
           val categoryNames = categories?.map { it.name } ?: emptyList()
 
           // PopupMenu로 리스트 표시
@@ -115,6 +121,16 @@ class MainActivity : AppCompatActivity() {
 
     popupMenu.setOnMenuItemClickListener { item: MenuItem ->
       button.text = item.title  // 선택된 항목을 버튼 텍스트로 설정
+
+      // 선택된 카테고리 찾기
+      val selectedCategory = categories.find { it.name == item.title.toString() }
+
+      if (type == "departure") {
+        selectedDeparture = selectedCategory  // 출발역 선택 저장
+      } else {
+        selectedArrival = selectedCategory  // 도착역 선택 저장
+      }
+
       true
     }
 

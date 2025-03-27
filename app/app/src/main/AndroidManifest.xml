@@ -23,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".min.SubSearchAdapterTest"
+            android:exported="false" />
+        <activity
             android:name=".min.SettingTest4Activity"
             android:exported="false" />
         <activity
@@ -52,8 +55,7 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="s06jicv68m"/>
-<!--            android:value="s5lqkqcw4y" />-->
+            android:value="s06jicv68m" />
     </application>
 
 </manifest>

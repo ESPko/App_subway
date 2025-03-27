@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
       Toast.makeText(this, "더보기 클릭", Toast.LENGTH_SHORT).show()
     }
-    
+
 
     binding.btnSearch.setOnClickListener {
       val intent = Intent(this@MainActivity, SubSearchActivity::class.java)

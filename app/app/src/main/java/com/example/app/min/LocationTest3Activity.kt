@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresPermission
@@ -262,7 +263,7 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
             results[0] <= 1000 // 1km 이내인지 확인
         }
 
-        // 마커 추가
+
         nearbyStations.forEach { station ->
           val markers =  Marker().apply {
                 position = station

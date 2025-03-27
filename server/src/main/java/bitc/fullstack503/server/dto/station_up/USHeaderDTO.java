@@ -1,9 +1,9 @@
-package bitc.fullstack503.server.dto.station;
+package bitc.fullstack503.server.dto.station_up;
 
 import lombok.Data;
 
 @Data
-public class SHeaderDTO {
+public class USHeaderDTO {
     private String resultCode;
     private String resultMsg;
 }

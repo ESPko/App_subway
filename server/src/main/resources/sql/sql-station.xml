@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitc.fullstack503.server.mapper.StationMapper">
+
+
+    <select id="getStationDistanceList" parameterType="String" resultType="bitc.fullstack503.server.dto.station_up.SItemDTO">
+        SELECT * FROM station_dist_schedule
+        WHERE start_sc = #{startSc}
+        AND end_sc = #{endSc}
+    </select>
+
+<!--    지하철 역 간 이동 거리(상행) -->
+    <select id="getDistanceTotalUp" resultType="int" parameterType="map">
+        SELECT ROUND(SUM(dist) / 10, 1) FROM station_up
+        WHERE start_Sc BETWEEN #{stStation} AND #{edStation}
+    </select>
+
+    <!--    지하철 역 간 이동 거리(하행) -->
+    <select id="getDistanceTotalDown" resultType="int" parameterType="map">
+        SELECT ROUND(SUM(dist) / 10, 1) FROM station_down
+        WHERE start_Sc BETWEEN #{stStation} AND #{edStation}
+    </select>
+
+
+<!--    지하철 역 간 이동 시간(상행) -->
+    <select id="getTimeTotalUp" resultType="int" parameterType="map">
+        SELECT round((SUM(time) + SUM(stopping_time)) / 60) AS total_sum
+        FROM station_up
+        WHERE start_Sc BETWEEN #{stStation} AND #{edStation}
+    </select>
+
+    <!--    지하철 역 간 이동 시간(하행) -->
+    <select id="getTimeTotalDown" resultType="int" parameterType="map">
+        SELECT round((SUM(time) + SUM(stopping_time)) / 60) AS total_sum
+        FROM station_up
+        WHERE start_Sc BETWEEN #{stStation} AND #{edStation}
+    </select>
+
+
+
+
+
+
+
+
+</mapper>

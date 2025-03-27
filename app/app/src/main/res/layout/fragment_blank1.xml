@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <RadioGroup
+        android:id="@+id/radioGroupDays"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radio_weekday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="평일" />
+
+        <RadioButton
+            android:id="@+id/radio_saturday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:text="토요일" />
+
+        <RadioButton
+            android:id="@+id/radio_holiday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+
+            android:text="공휴일" />
+    </RadioGroup>
+
+</LinearLayout>

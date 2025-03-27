@@ -23,7 +23,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".min.SubSearchAdapterTest"
+            android:name=".SubSearchActivity"
             android:exported="false" />
         <activity
             android:name=".min.SettingTest4Activity"
@@ -38,7 +38,7 @@
             android:name=".min.SearchTestActivity"
             android:exported="false" />
         <activity
-            android:name=".NaverMapActivity"
+            android:name=".detail.DetailActivity"
             android:exported="false" />
         <activity
             android:name=".GeometryActivity"

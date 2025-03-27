@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="#4CAF50"
+        android:gravity="center">
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:text="2"
+            android:background="@drawable/detail_text1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="60dp"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출발역"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_keyboard_double_arrow_right_20"
+            android:layout_gravity="center" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_keyboard_double_arrow_right_20"
+            android:layout_gravity="center"
+            android:layout_marginRight="60dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="도착역"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+
+</LinearLayout>
+

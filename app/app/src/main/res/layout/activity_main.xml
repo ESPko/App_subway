@@ -1,101 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:id="@+id/main"
+    android:orientation="vertical">
 
-
-    <include
-        android:id="@+id/custom_toolbar"
-        layout="@layout/toolbar_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/custom_toolbar"
+            layout="@layout/toolbar_layout"/>
+    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_get1"
-        android:text="GET 방식 통신 1"
-        android:layout_marginTop="16dp"
+        android:id="@+id/btn_search"
+        android:text="search 액티비티로 이동"
         android:layout_marginHorizontal="8dp"
-        android:backgroundTint="@color/black"/>
+        android:backgroundTint="@color/black" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- 출발역 선택 버튼 -->
+        <Button
+            android:id="@+id/btnDeparture"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="출발역 선택"
+            android:layout_margin="8dp"/>
+
+        <!-- 도착역 선택 버튼 -->
+        <Button
+            android:id="@+id/btnArrival"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="도착역 선택"
+            android:layout_margin="8dp"/>
+    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_get2"
-        android:text="GET 방식 통신 2"
+        android:id="@+id/btn_intro"
+        android:text="경로 검색"
         android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get3"
-        android:text="GET 방식 통신 3"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_post1"
-        android:text="POST 방식 통신 1"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_post2"
-        android:text="POST 방식 통신 2"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_put1"
-        android:text="PUT 방식 통신 1"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_put2"
-        android:text="PUT 방식 통신 2"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_delete"
-        android:text="DELETE 방식 통신 1"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get5"
-        android:text="get 방식 테스트"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get6"
-        android:text="지도 방식 테스트"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
+        android:layout_marginHorizontal="8dp" />
 
 </LinearLayout>
-

@@ -3,7 +3,7 @@
 <!--    solid로 색상 변경-->
     <solid android:color="#FFEBEB" />
 <!--    0dp는 모서리를 사각형으로 만듭니다-->
-    <corners android:raduis="80dp"/>
+    <corners android:radius="80dp"/>
 <!--    테두리 굵기와 색상 주기-->
     <stroke android:width="8dp" android:color="#85790C"/>
 

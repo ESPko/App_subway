@@ -1,7 +1,7 @@
 package bitc.fullstack503.server.service.init;
 
-import bitc.fullstack503.server.dto.station.SItemDTO;
-import bitc.fullstack503.server.dto.station.StationDTO;
+import bitc.fullstack503.server.dto.station_up.SItemDTO;
+import bitc.fullstack503.server.dto.station_up.UStationDTO;
 import bitc.fullstack503.server.mapper.init.InitMapper;
 import com.google.gson.Gson;
 import jakarta.annotation.PostConstruct;
@@ -20,7 +20,7 @@ public class InitServiceImpl implements InitService {
     @Value("${team3.station.service.url}")
     private String stationUrl;
 
-    @Value("${team3.station.service.userKey}")
+    @Value("${team3.station.service.key}")
     private String stationUserKey;
 
 
@@ -28,17 +28,17 @@ public class InitServiceImpl implements InitService {
     @PostConstruct
     public void init() throws Exception {
         String serviceKey = "?serviceKey=";
-        String opt1 = "&pageNo=";
-        String opt2 = "&numOfRows=";
-        String ResultJson = "&resultType=json";
-        String StationUrl = stationUrl + serviceKey + stationUserKey + opt1 + "1" + opt2 + "197" + ResultJson;
+        String opt2 = "&numOfRows=328";
+        String ResultJson = "&act=json";
+        String StationUrl = stationUrl + serviceKey + stationUserKey + opt2 + ResultJson;
 
 
         System.out.println("지하철 역 간 거리 URL : " + StationUrl);
 
+//        getStationList(StationUrl);
     }
 
-    //getStationList(StationUrl);
+
 
     @Autowired
     private InitMapper initMapper;
@@ -57,7 +57,15 @@ public class InitServiceImpl implements InitService {
             UrlCon = (HttpURLConnection) Serviceurl.openConnection();
             UrlCon.setRequestMethod("GET");
 
-            reader = new BufferedReader(new InputStreamReader(UrlCon.getInputStream()));
+
+            String contentType = UrlCon.getHeaderField("Content-Type");
+            String encoding = "UTF-8";
+
+            if (contentType != null && contentType.contains("charset=")) {
+                encoding = contentType.substring(contentType.indexOf("charset=") + 8);
+            }
+
+            reader = new BufferedReader(new InputStreamReader(UrlCon.getInputStream(), encoding));
 
             StringBuilder sb = new StringBuilder();
             String line;
@@ -67,7 +75,7 @@ public class InitServiceImpl implements InitService {
             }
             Gson gson = new Gson();
 
-            StationDTO stationDTOList = gson.fromJson(sb.toString(), StationDTO.class);
+            UStationDTO stationDTOList = gson.fromJson(sb.toString(), UStationDTO.class);
 
             stationList = stationDTOList.getResponse().getBody().getItem();
 

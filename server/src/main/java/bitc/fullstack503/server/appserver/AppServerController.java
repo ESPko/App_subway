@@ -2,13 +2,12 @@ package bitc.fullstack503.server.appserver;
 
 import bitc.fullstack503.server.dto.UserDTO;
 import bitc.fullstack503.server.dto.mysql.CategoryDTO;
-import bitc.fullstack503.server.dto.station.SItemDTO;
-import bitc.fullstack503.server.service.Apiservice;
-import bitc.fullstack503.server.service.Categoryservice;
-import bitc.fullstack503.server.service.Testservice;
+import bitc.fullstack503.server.dto.mysql.StationInfoDTO;
+import bitc.fullstack503.server.dto.mysql.TimeUPDTO;
+import bitc.fullstack503.server.dto.station_up.SItemDTO;
+import bitc.fullstack503.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +32,8 @@ public class AppServerController {
   @Autowired
   private Testservice testservice;
 
+  @Autowired
+  private StationService stationservice;
 
   @GetMapping("/gettest1")
   public String getTest1() {
@@ -41,6 +42,7 @@ public class AppServerController {
     return "get test1";
   }
 
+  // 지하철 호선 정보
   @GetMapping("/app/category")
   public List<CategoryDTO> getCategory() throws Exception {
 
@@ -48,6 +50,8 @@ public class AppServerController {
 
     return categoryList;
   }
+
+  // 지하철 호선 이름
   @GetMapping("/app/category/{line}")
   public List<CategoryDTO> getCategory(@PathVariable String line) throws Exception {
 
@@ -58,6 +62,43 @@ public class AppServerController {
 
     return categoryList;
   }
+
+  // 지하철 역 정보
+  @GetMapping("/app/stationinfo")
+  public List<StationInfoDTO> getStation() throws Exception {
+
+    List<StationInfoDTO> stationInfoList = stationservice.getstationInfoList();
+
+    return stationInfoList;
+  }
+
+
+  // 지하철 역간 이동거리
+
+  @GetMapping("/distance/total/{stStation}/{edStation}")
+  public int getDistance(@PathVariable String stStation, @PathVariable String edStation) throws Exception {
+    // startSc와 endSc에 해당하는 dist 값을 합산하여 반환
+
+    int result = stationservice.getDistanceTotal(stStation, edStation);
+
+    return result;
+  }
+
+
+  // 지하철 역간 이동시간
+  @GetMapping("/time/total/{stStation}/{edStation}")
+  public int getTime(@PathVariable String stStation, @PathVariable String edStation) throws Exception {
+    // startSc와 endSc에 해당하는 dist 값을 합산하여 반환
+
+    int result = stationservice.getTimeTotal(stStation, edStation);
+
+    return result;
+  }
+
+
+
+
+
 
   @GetMapping("/app")
   public List<SItemDTO> getApp() throws Exception {

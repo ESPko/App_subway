@@ -1,7 +1,7 @@
 package bitc.fullstack503.server.service;
 
-import bitc.fullstack503.server.dto.station.SItemDTO;
-import bitc.fullstack503.server.dto.station.StationDTO;
+import bitc.fullstack503.server.dto.station_up.SItemDTO;
+import bitc.fullstack503.server.dto.station_up.UStationDTO;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +55,7 @@ public class ApiserviceImpl implements Apiservice {
 
 
 
-            StationDTO StationJson = gson.fromJson(sb.toString(), StationDTO.class);
+            UStationDTO StationJson = gson.fromJson(sb.toString(), UStationDTO.class);
 
             StationList = StationJson.getResponse().getBody().getItem();
 

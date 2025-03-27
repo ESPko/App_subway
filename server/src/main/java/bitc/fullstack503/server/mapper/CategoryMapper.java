@@ -9,5 +9,5 @@ import java.util.List;
 public interface CategoryMapper {
     List<CategoryDTO> getCategoryList() throws Exception;
 
-    List<CategoryDTO> getCategoryLineList(String line) throws Exception;
+    List<CategoryDTO> getCategoryLineList(String scode) throws Exception;
 }

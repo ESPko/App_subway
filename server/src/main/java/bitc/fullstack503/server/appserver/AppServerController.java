@@ -3,6 +3,7 @@ package bitc.fullstack503.server.appserver;
 import bitc.fullstack503.server.dto.UserDTO;
 import bitc.fullstack503.server.dto.mysql.CategoryDTO;
 import bitc.fullstack503.server.dto.station.SItemDTO;
+import bitc.fullstack503.server.dto.train.TItemDTO;
 import bitc.fullstack503.server.service.Apiservice;
 import bitc.fullstack503.server.service.Categoryservice;
 import bitc.fullstack503.server.service.Testservice;
@@ -23,6 +24,13 @@ public class AppServerController {
 
   @Value("${team3.station.service.url}")
   private String stationServiceUrl;
+
+
+  @Value("${team3.train.service.url}")
+  private String trainServiceUrl;
+
+  @Value("${team3.train.service.key}")
+  private String trainServiceKey;
 
   @Autowired
   private Apiservice apiservice;
@@ -48,16 +56,8 @@ public class AppServerController {
 
     return categoryList;
   }
-  @GetMapping("/app/category/{line}")
-  public List<CategoryDTO> getCategory(@PathVariable String line) throws Exception {
 
 
-    line = "1";
-
-    List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(line);
-
-    return categoryList;
-  }
 
   @GetMapping("/app")
   public List<SItemDTO> getApp() throws Exception {
@@ -69,14 +69,18 @@ public class AppServerController {
     // 선택옵션 scode 는 역외부코드 입력하는부분
     String scode = "101";
 
-    String Opt1 = "&scode=" + scode;
+//    String Opt1 = "&scode=" + scode;
 
-    String url = stationServiceUrl + serviceKey + essentialOpt + Opt1;
+    String url = stationServiceUrl + serviceKey + essentialOpt + "&numOfRows=328" ;
+
+    System.out.println(url);
 
     List<SItemDTO> StationJsonList = apiservice.getStationJson(url);
 
     return StationJsonList;
   }
+
+
 
 //  파라미터로만 데이터 받을 경우
   @GetMapping("/gettest2")

@@ -20,7 +20,7 @@ public class CategoryserviceImpl implements Categoryservice {
     }
 
     @Override
-    public List<CategoryDTO> getCategoryLineList(String line) throws Exception {
-        return categoryMapper.getCategoryLineList(line);
+    public List<CategoryDTO> getCategoryLineList(String scode) throws Exception {
+        return categoryMapper.getCategoryLineList(scode);
     }
 }

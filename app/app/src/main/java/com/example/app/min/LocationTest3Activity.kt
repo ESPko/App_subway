@@ -51,7 +51,7 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationSource: FusedLocationSource
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
-    // 1km 반경 내 역 목록 (임시 데이터, 실제 API 사용 가능)
+    // 1km 반경 내 역 목록 (임시 데이터)
     private val subwayStations = listOf(
         LatLng(35.164632338, 129.060161295), // 부전역 동해선
         LatLng(35.162474865, 129.062859882), // 부전역 1호선

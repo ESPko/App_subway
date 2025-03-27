@@ -138,12 +138,13 @@
     <FrameLayout
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="320dp"
         android:background="@color/white"
         app:behavior_hideable="true"
         app:behavior_peekHeight="0dp"
-        app:behavior_expandedOffset="400dp"
+        app:behavior_expandedOffset="350dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -154,7 +155,7 @@
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         app:behavior_fitToContents="false"
         app:behavior_peekHeight="0dp"
-        app:behavior_expandedOffset="400dp"
+        app:behavior_expandedOffset="350dp"
         android:background="@color/white"
         app:behavior_hideable="false">
 

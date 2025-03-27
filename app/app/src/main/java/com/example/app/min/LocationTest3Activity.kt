@@ -2,6 +2,8 @@ package com.example.app.min
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.health.connect.datatypes.ExerciseRoute
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -35,6 +37,7 @@ import com.naver.maps.map.NaverMapOptions
 import com.naver.maps.map.NaverMapSdk
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 
 
@@ -47,6 +50,17 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    // 1km 반경 내 역 목록 (임시 데이터, 실제 API 사용 가능)
+    private val subwayStations = listOf(
+        LatLng(35.164632338, 129.060161295), // 부전역 동해선
+        LatLng(35.162474865, 129.062859882), // 부전역 1호선
+        LatLng(35.157759003, 129.059317193), // 서면역
+        LatLng(35.152854756, 129.065219588), // 전포역
+        LatLng(35.147270790, 129.059239350), // 범내골역
+        LatLng(35.205521616, 129.078490642)  // 동래역 (1호선, 1km 밖일 수도 있음)
+    )
+
 
     @RequiresPermission(allOf = [Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION])
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -139,6 +153,7 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
                 // 위치를 가져왔을 때
                 val userLocation = LatLng(location.latitude, location.longitude)
 
+
                 // NaverMapOptions 설정
                 val options = NaverMapOptions()
                     .camera(CameraPosition(userLocation, 16.0))
@@ -170,6 +185,9 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
                         true // 이벤트가 소비되었음을 알림
                     }
                 }
+
+                Log.d("LOCATION_DEBUG", "User location: $userLocation")
+
 
             } else {
                 // 위치를 가져올 수 없을 때
@@ -207,27 +225,51 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
                 ).show()
             }
 
+            // 기본 UI 설정 활성화
+            val uiSettings = naverMap.uiSettings
+            uiSettings.isLocationButtonEnabled = true // 기본 위치 버튼 숨김
+
+
             // 위치 권한 확인
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
                 naverMap.locationTrackingMode = LocationTrackingMode.Follow
 
-                // 현재 위치 가져오기 (비동기 처리)
-                val location = locationSource.lastLocation
-                if (location != null) {
-
-                    val userLocation = LatLng(location.latitude, location.longitude)
-                    // 카메라 위치 이동
-                    val cameraUpdate = CameraUpdate.scrollTo(userLocation)
-                    naverMap.moveCamera(cameraUpdate)
+                // 현재 위치 가져와서 마커 추가
+                fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+                    if (location != null) {
+                        val userLocation = LatLng(location.latitude, location.longitude)
+                        addNearbyStationsMarkers(userLocation, naverMap)
+                    }
                 }
+
             } else {
                 // 권한 요청
                 ActivityCompat.requestPermissions(this, LOCATION_PERMISSIONS, LOCATION_PERMISSION_REQUEST_CODE)
             }
 
         }
+
+    private fun addNearbyStationsMarkers(userLocation: LatLng, naverMap: NaverMap) {
+        val nearbyStations = subwayStations.filter { station ->
+            val results = FloatArray(1)
+            Location.distanceBetween(
+                userLocation.latitude, userLocation.longitude,
+                station.latitude, station.longitude,
+                results
+            )
+            results[0] <= 1000 // 1km 이내인지 확인
+        }
+
+        // 마커 추가
+        nearbyStations.forEach { station ->
+            Marker().apply {
+                position = station
+                map = naverMap
+            }
+        }
+    }
 
         companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
@@ -238,6 +280,19 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+
+
+
+
+//                    Log.d("LOCATION_DEBUG", "User location: $userLocation")
+//
+//                    // 위치 오버레이 설정
+//                    val locationOverlay = naverMap.locationOverlay
+//                    locationOverlay.isVisible = true
+//                    locationOverlay.icon = OverlayImage.fromResource(R.drawable.location_overlay_icon)
+//                    locationOverlay.position = userLocation
+//                    locationOverlay.iconWidth = 80
+//                    locationOverlay.iconHeight = 80
 
 
 //import android.Manifest

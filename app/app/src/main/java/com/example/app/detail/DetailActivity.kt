@@ -68,10 +68,14 @@ class DetailActivity : AppCompatActivity() {
             // btn_detail_start1과 btn_detail_arrival1 버튼의 텍스트를 서로 교환
             val startText = binding.btnDetailStart1.text.toString()
             val arrivalText = binding.btnDetailArrival1.text.toString()
+            val startText3 = binding.btnDetailStart2.text.toString()
+            val arrivalText3 = binding.btnDetailArrival2.text.toString()
 
             // 텍스트 교환
             binding.btnDetailStart1.text = arrivalText
             binding.btnDetailArrival1.text = startText
+            binding.btnDetailStart2.text = arrivalText3
+            binding.btnDetailArrival2.text = startText3
         }
         // 상단 도착 역이름 버튼 - 역이름 불러와야함
         binding.btnDetailArrival1.setOnClickListener {

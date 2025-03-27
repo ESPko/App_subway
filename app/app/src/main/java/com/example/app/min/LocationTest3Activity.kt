@@ -264,9 +264,16 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
 
         // 마커 추가
         nearbyStations.forEach { station ->
-            Marker().apply {
+          val markers =  Marker().apply {
                 position = station
                 map = naverMap
+            }
+            markers.setOnClickListener {
+
+                // BottomSheet을 완전히 펼치기
+                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+                Toast.makeText(this@LocationTest3Activity, "마커 클릭됨!", Toast.LENGTH_SHORT).show()
+                true // 이벤트가 소비되었음을 알림
             }
         }
     }

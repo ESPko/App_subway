@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:orientation="vertical">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <include
-        android:id="@+id/custom_toolbar"
-        layout="@layout/toolbar_layout"/>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            android:id="@+id/custom_toolbar"
+            layout="@layout/toolbar_layout"/>
+    </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
@@ -21,55 +21,36 @@
         android:layout_marginHorizontal="8dp"
         android:backgroundTint="@color/black" />
 
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get1"
-        android:text="get 방식 테스트"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_get6"
-        android:text="지도 방식 테스트"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
-
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_text1"
-        android:hint="출발역"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp" />
+        <!-- 출발역 선택 버튼 -->
+        <Button
+            android:id="@+id/btnDeparture"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="출발역 선택"
+            android:layout_margin="8dp"/>
 
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_text2"
-        android:hint="도착역"
-        android:layout_marginTop="8dp"
-        android:layout_marginHorizontal="8dp"/>
+        <!-- 도착역 선택 버튼 -->
+        <Button
+            android:id="@+id/btnArrival"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="도착역 선택"
+            android:layout_margin="8dp"/>
+    </LinearLayout>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_intro"
         android:text="경로 검색"
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="8dp" />
 
-    </LinearLayout>
-
 </LinearLayout>
-

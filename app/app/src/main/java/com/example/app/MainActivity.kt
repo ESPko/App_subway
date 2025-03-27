@@ -3,210 +3,121 @@ package com.example.app
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.LinearLayout
+import android.view.MenuItem
+import android.widget.Button
+import android.widget.PopupMenu
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.app.databinding.ActivityMainBinding
 import com.example.app.detail.DetailActivity
-import com.example.app.dto.UserDTO
-import com.example.app.min.LocationTest3Activity
-import com.example.app.min.QuickTest2Activity
-import com.example.app.min.SearchTestActivity
-import com.example.app.min.SettingTest4Activity
-import com.example.app.retrofit.AppServerClass
-import com.naver.maps.map.NaverMap
+import com.example.app.dto.CategoryDTO
+import com.example.app.retrofit.AppServerInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class MainActivity : AppCompatActivity() {
+
   private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    enableEdgeToEdge()
     setContentView(binding.root)
 
-    ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-      val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-      v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-      insets
-    }
-
-    val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
-
-    toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
-      Toast.makeText(this, "역검색 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, SearchTestActivity::class.java))
-    }
-
-    toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
-      Toast.makeText(this, "빠른검색 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, QuickTest2Activity::class.java))
-    }
-
-    toolbar.findViewById<LinearLayout>(R.id.around).setOnClickListener {
-      Toast.makeText(this, "내 주변 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, LocationTest3Activity::class.java))
-    }
-
-    toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
-      Toast.makeText(this, "설정 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, SettingTest4Activity::class.java))
-    }
-
-    toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
-      Toast.makeText(this, "더보기 클릭", Toast.LENGTH_SHORT).show()
-    }
-
-    initEventListener()
-  }
-
-  private fun initEventListener() {
-//   Search 이동
     binding.btnSearch.setOnClickListener {
       val intent = Intent(this@MainActivity, SubSearchActivity::class.java)
       startActivity(intent)
       finish()
     }
 
+    // Retrofit 초기화
+    val retrofit = Retrofit.Builder()
+      .baseUrl("http://10.100.203.88:8080/app/")  // 실제 서버 URL로 변경
+      .addConverterFactory(GsonConverterFactory.create())
+      .build()
 
-    // 버튼 클릭 이벤트 설정
-    binding.btnIntro.setOnClickListener {
-      // EditText에서 입력값 가져오기
-      val departure = binding.editText1.text.toString()
-      val arrival = binding.editText2.text.toString()
+    val api = retrofit.create(AppServerInterface::class.java)
 
-      // 값이 비어있지 않다면 Intent로 전달
-      if (departure.isNotEmpty() && arrival.isNotEmpty()) {
+    val btnDeparture: Button = findViewById(R.id.btnDeparture)
+    val btnArrival: Button = findViewById(R.id.btnArrival)
+
+    // 출발역 버튼 클릭 리스너
+    btnDeparture.setOnClickListener {
+      // 출발역 데이터 가져오기
+      fetchCategories(api, "departure")
+    }
+
+    // 도착역 버튼 클릭 리스너
+    btnArrival.setOnClickListener {
+      // 도착역 데이터 가져오기
+      fetchCategories(api, "arrival")
+    }
+
+    // 검색 버튼 클릭 리스너
+    val searchButton: Button = findViewById(R.id.btn_intro)
+    searchButton.setOnClickListener {
+      val departureText = btnDeparture.text.toString()
+      val arrivalText = btnArrival.text.toString()
+
+      if (departureText.isNotEmpty() && arrivalText.isNotEmpty()) {
+        // 검색 후 디테일 액티비티로 이동
         val intent = Intent(this, DetailActivity::class.java).apply {
-          putExtra("departure", departure)
-          putExtra("arrival", arrival)
+          putExtra("departure", departureText)
+          putExtra("arrival", arrivalText)
         }
         startActivity(intent)
       } else {
-        // 빈 값이 있을 경우 Toast 메시지 출력
-        Toast.makeText(this, "출발역과 도착역을 입력해주세요", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "출발역과 도착역을 선택해주세요.", Toast.LENGTH_SHORT).show()
       }
     }
-
-
-//    기본 GET 방식 통신, 파라미터 없음
-    binding.btnGet1.setOnClickListener {
-      Log.d("csy", "gettest1 시작")
-      val api = AppServerClass.instance
-      val call = api.getTest1()
-
-//      Retrofit 통신 응답 부분, 따로 메소드로 만들어도 됨
-//      Callback<String> 부분이 서버에서 전달받을 데이터 타입임
-      call.enqueue(object : Callback<String> {
-        override fun onResponse(p0: Call<String>, res: Response<String>) {
-          if (res.isSuccessful) {
-//            서버에서 전달받은 데이터만 변수로 저장
-            val result = res.body()
-            Log.d("csy", "result : $result")
-          } else {
-            Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
-          }
-        }
-
-        override fun onFailure(p0: Call<String>, t: Throwable) {
-          Log.d("csy", "message : $t.message")
-        }
-      })
-    }
-
-//      binding.btnGet2.setOnClickListener {
-//        Log.d("csy", "gettest2 시작")
-//        val api = AppServerClass.instance
-//        val call = api.getTest2("매개변수2")
-//        retrofitResponse(call)
-//      }
-
-//    binding.btnGet3.setOnClickListener {
-//      Log.d("csy", "gettest3 시작")
-//      val api = AppServerClass.instance
-//      val call = api.getTest3(param1 = "path 방식 파라미터1", param2 = "path 방식 파라미터2")
-//      retrofitResponse(call)
-//    }
-//
-//    binding.btnPost1.setOnClickListener {
-//      Log.d("csy", "posttest1 시작")
-//      val api = AppServerClass.instance
-//      val call = api.postTest1()
-//      retrofitResponse(call)
-//    }
-//
-//    binding.btnPost2.setOnClickListener {
-//      Log.d("csy", "posttest2 시작")
-//
-////      DTO 타입 객체 생성
-//      val user: UserDTO = UserDTO(
-//        "test1",
-//        "1234",
-//        "테스터1",
-//        "test1@bitc.ac.kr"
-//      )
-//
-//      val api = AppServerClass.instance
-////      DTO 타입을 서버로 전달
-//      val call = api.postTest2(user)
-//      retrofitResponse(call)
-//    }
-//
-//    binding.btnPut1.setOnClickListener {
-//      Log.d("csy", "puttest1 시작")
-//      val api = AppServerClass.instance
-//      val call = api.putTest1()
-//      retrofitResponse(call)
-//    }
-//
-//    binding.btnPut2.setOnClickListener {
-//      Log.d("csy", "puttest2 시작")
-//
-//      val user: UserDTO = UserDTO(
-//        "test1",
-//        "1234",
-//        "테스터1",
-//        "test1@bitc.ac.kr"
-//      )
-//
-//      val api = AppServerClass.instance
-////      DTO 타입과 일반 데이터를 함께 전달
-//      val call = api.putTest2(user, param1 = "매개변수 1")
-//      retrofitResponse(call)
-//    }
-//
-//    binding.btnDelete.setOnClickListener {
-//      Log.d("csy", "deletetest1 시작")
-//      val api = AppServerClass.instance
-//      val call = api.deleteTest1(param1 = "매개변수 1")
-//      retrofitResponse(call)
-//    }
-
-
   }
 
+  // Retrofit을 통해 카테고리 데이터를 가져오는 함수
+  private fun fetchCategories(api: AppServerInterface, type: String) {
+    api.getCategories().enqueue(object : Callback<List<CategoryDTO>> {
+      override fun onResponse(call: Call<List<CategoryDTO>>, response: Response<List<CategoryDTO>>) {
+        if (response.isSuccessful && response.body() != null) {
+          val categories = response.body()
+          val categoryNames = categories?.map { it.name } ?: emptyList()
 
-  //  Retrofit 통신 응답 부분을 따로 메소드로 분리
-  private fun retrofitResponse(call: Call<String>) {
-
-    call.enqueue(object : Callback<String> {
-      override fun onResponse(p0: Call<String>, res: Response<String>) {
-        if (res.isSuccessful) {
-          val result = res.body()
-          Log.d("csy", "result : $result")
+          // PopupMenu로 리스트 표시
+          showPopupMenu(categoryNames, type)
+          Log.d("API Response", "Categories fetched successfully: $categoryNames")
         } else {
-          Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
+          // 서버 응답이 성공적이지 않음
+          Log.e("API Error", "Error: ${response.code()} - ${response.message()}")
+          Toast.makeText(this@MainActivity, "카테고리 데이터를 가져오는데 실패했습니다. (응답 코드: ${response.code()})", Toast.LENGTH_SHORT).show()
         }
       }
 
-      override fun onFailure(p0: Call<String>, t: Throwable) {
-        Log.d("csy", "message : $t.message")
+      override fun onFailure(call: Call<List<CategoryDTO>>, t: Throwable) {
+        // API 호출 실패 시
+        Log.e("API Failure", "Failed to fetch categories", t)
+        Toast.makeText(this@MainActivity, "API 호출 실패: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
       }
     })
+  }
+
+  // PopupMenu로 카테고리 리스트를 표시하고, 선택된 항목을 버튼 텍스트에 설정
+  private fun showPopupMenu(categoryNames: List<String>, type: String) {
+    val button: Button = if (type == "departure") {
+      findViewById(R.id.btnDeparture)
+    } else {
+      findViewById(R.id.btnArrival)
+    }
+
+    val popupMenu = PopupMenu(this, button)
+    categoryNames.forEach { name ->
+      popupMenu.menu.add(name)
+    }
+
+    popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+      button.text = item.title  // 선택된 항목을 버튼 텍스트로 설정
+      true
+    }
+
+    popupMenu.show()
   }
 }

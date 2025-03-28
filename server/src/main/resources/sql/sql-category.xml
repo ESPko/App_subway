@@ -13,5 +13,11 @@
         WHERE scode BETWEEN #{scode} - 1 AND #{scode} + 1
     </select>
 
+    <select id="getStationName" parameterType="String" resultType="String">
+        SELECT name
+        FROM category
+        WHERE scode = #{downendcode}
+    </select>
+
 
 </mapper>

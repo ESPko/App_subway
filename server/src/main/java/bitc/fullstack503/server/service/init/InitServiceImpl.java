@@ -1,7 +1,7 @@
 package bitc.fullstack503.server.service.init;
 
-import bitc.fullstack503.server.dto.station_up.SItemDTO;
-import bitc.fullstack503.server.dto.station_up.UStationDTO;
+import bitc.fullstack503.server.dto.mysql.station_up.USItemDTO;
+import bitc.fullstack503.server.dto.mysql.station_up.UStationDTO;
 import bitc.fullstack503.server.mapper.init.InitMapper;
 import com.google.gson.Gson;
 import jakarta.annotation.PostConstruct;
@@ -46,7 +46,7 @@ public class InitServiceImpl implements InitService {
     @Override
     public void getStationList (String url) throws Exception {
 
-        List<SItemDTO> stationList;
+        List<USItemDTO> stationList;
 
         URL Serviceurl = null;
         HttpURLConnection UrlCon = null;

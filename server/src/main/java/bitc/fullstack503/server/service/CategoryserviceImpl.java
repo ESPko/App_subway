@@ -23,4 +23,9 @@ public class CategoryserviceImpl implements Categoryservice {
     public List<CategoryDTO> getCategoryLineList(String scode) throws Exception {
         return categoryMapper.getCategoryLineList(scode);
     }
+
+    @Override
+    public String getStationName(String downendcode) throws Exception {
+        return categoryMapper.getStationName(downendcode);
+    }
 }

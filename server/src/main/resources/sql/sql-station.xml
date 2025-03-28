@@ -5,7 +5,7 @@
 <mapper namespace="bitc.fullstack503.server.mapper.StationMapper">
 
 
-    <select id="getStationDistanceList" parameterType="String" resultType="bitc.fullstack503.server.dto.station_up.SItemDTO">
+    <select id="getStationDistanceList" parameterType="String" resultType="bitc.fullstack503.server.dto.mysql.station_up.USItemDTO">
         SELECT * FROM station_dist_schedule
         WHERE start_sc = #{startSc}
         AND end_sc = #{endSc}

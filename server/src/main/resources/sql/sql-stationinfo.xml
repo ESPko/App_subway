@@ -7,13 +7,7 @@
 <!-- 지하철 역 정보 -->
     <select id="getStationInfoList" parameterType="String" resultType="bitc.fullstack503.server.dto.mysql.StationInfoDTO">
         SELECT * FROM station
+        WHERE scode = #{scode}
     </select>
-
-
-
-
-
-
-
 
 </mapper>

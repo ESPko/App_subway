@@ -1,4 +1,4 @@
-package bitc.fullstack503.server.dto.station_down;
+package bitc.fullstack503.server.dto.mysql.station_down;
 
 
 import lombok.Data;

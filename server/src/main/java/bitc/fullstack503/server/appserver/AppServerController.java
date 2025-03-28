@@ -2,18 +2,12 @@ package bitc.fullstack503.server.appserver;
 
 import bitc.fullstack503.server.dto.UserDTO;
 import bitc.fullstack503.server.dto.mysql.CategoryDTO;
-import bitc.fullstack503.server.dto.station_up.SItemDTO;
-import bitc.fullstack503.server.dto.train.TItemDTO;
 import bitc.fullstack503.server.service.Apiservice;
 import bitc.fullstack503.server.service.Categoryservice;
 import bitc.fullstack503.server.service.Testservice;
-import bitc.fullstack503.server.dto.mysql.StationInfoDTO;
-import bitc.fullstack503.server.dto.mysql.TimeUPDTO;
-import bitc.fullstack503.server.dto.station_up.SItemDTO;
 import bitc.fullstack503.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -65,26 +59,14 @@ public class AppServerController {
   }
 
   // 지하철 호선 이름
-  @GetMapping("/app/category/{line}")
-  public List<CategoryDTO> getCategory(@PathVariable String line) throws Exception {
-      line = "1";
-
-      List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(line);
-
-      return categoryList;
-  }
-
-
-
-
-  // 지하철 역 정보
-  @GetMapping("/app/stationinfo")
-  public List<StationInfoDTO> getStation() throws Exception {
-
-    List<StationInfoDTO> stationInfoList = stationservice.getstationInfoList();
-
-    return stationInfoList;
-  }
+//  @GetMapping("/app/category/{line}")
+//  public List<CategoryDTO> getCategory(@PathVariable String line) throws Exception {
+//      line = "1";
+//
+//      List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(line);
+//
+//      return categoryList;
+//  }
 
 
   // 지하철 역간 이동거리
@@ -114,26 +96,26 @@ public class AppServerController {
 
 
 
-  @GetMapping("/app")
-  public List<SItemDTO> getApp() throws Exception {
-
-    String serviceKey = "?serviceKey=" + stationServiceKey;
-
-    // 필수옵션
-    String essentialOpt = "&act=json";
-    // 선택옵션 scode 는 역외부코드 입력하는부분
-    String scode = "101";
-
-//    String Opt1 = "&scode=" + scode;
-
-    String url = stationServiceUrl + serviceKey + essentialOpt + "&numOfRows=328" ;
-
-    System.out.println(url);
-
-    List<SItemDTO> StationJsonList = apiservice.getStationJson(url);
-
-    return StationJsonList;
-  }
+//  @GetMapping("/app")
+//  public List<USItemDTO> getApp() throws Exception {
+//
+//    String serviceKey = "?serviceKey=" + stationServiceKey;
+//
+//    // 필수옵션
+//    String essentialOpt = "&act=json";
+//    // 선택옵션 scode 는 역외부코드 입력하는부분
+//    String scode = "101";
+//
+////    String Opt1 = "&scode=" + scode;
+//
+//    String url = stationServiceUrl + serviceKey + essentialOpt + "&numOfRows=328" ;
+//
+//    System.out.println(url);
+//
+//    List<USItemDTO> StationJsonList = apiservice.getStationJson(url);
+//
+//    return StationJsonList;
+//  }
 
 
 
@@ -178,28 +160,28 @@ public class AppServerController {
   }
 
 
-  @GetMapping("/app/{param1}")
-  public List<SItemDTO> getApi3(@PathVariable("param1") String param1) throws Exception {
-    String serviceKey = "?serviceKey=" + stationServiceKey;
-
-    // 필수옵션
-    String essentialOpt = "&act=json";
-    // 선택옵션 scode 는 역외부코드 입력하는부분
-    String scode = param1;
-
-    String Opt1 = "&scode=" + scode;
-
-    String url = stationServiceUrl + serviceKey + essentialOpt + Opt1;
-
-    List<SItemDTO> StationJsonList = apiservice.getStationJson(url);
-
-    if(StationJsonList != null){
-      return StationJsonList;
-    }else{
-      return null;
-    }
-
-  }
+//  @GetMapping("/app/{param1}")
+//  public List<USItemDTO> getApi3(@PathVariable("param1") String param1) throws Exception {
+//    String serviceKey = "?serviceKey=" + stationServiceKey;
+//
+//    // 필수옵션
+//    String essentialOpt = "&act=json";
+//    // 선택옵션 scode 는 역외부코드 입력하는부분
+//    String scode = param1;
+//
+//    String Opt1 = "&scode=" + scode;
+//
+//    String url = stationServiceUrl + serviceKey + essentialOpt + Opt1;
+//
+//    List<USItemDTO> StationJsonList = apiservice.getStationJson(url);
+//
+//    if(StationJsonList != null){
+//      return StationJsonList;
+//    }else{
+//      return null;
+//    }
+//
+//  }
 
   @PostMapping("/posttest1")
   public String postTest1() {

@@ -27,11 +27,11 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-data class Station(
-  val name: String,
-  val scode: Int,
-  val line: Int
-)
+//data class Station(
+//  val name: String,
+//  val scode: Int,
+//  val line: Int
+//)
 data class Train(
   val hour: Int,
   val time: Int,

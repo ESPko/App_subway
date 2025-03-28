@@ -59,6 +59,7 @@ interface AppServerInterface {
 
   @GET("app/train/{scode}/{sttime}/{day}")
   fun getTrainTimeAndName(@Path("scode") scode: String, @Path("sttime") sttime: String, @Path("day") day: String): Call<TrainResponse>
+
 }
 
 

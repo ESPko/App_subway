@@ -1,5 +1,6 @@
 package com.example.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -7,7 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.app.databinding.ActivityMainBinding
+import com.example.app.databinding.ActivityStationDetailBinding
 import com.example.app.dto.UserDTO
+import com.example.app.jsy.StationDetailActivity
+import com.example.app.jsy.StationInfoActivity
 import com.example.app.retrofit.AppServerClass
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,9 +32,13 @@ class MainActivity : AppCompatActivity() {
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
       insets
     }
-
+    binding.btnDetail.setOnClickListener{
+      val intent = Intent(this@MainActivity,StationDetailActivity::class.java)
+      startActivity(intent)
+    }
     initEventListener()
   }
+
 
   private fun initEventListener() {
 
@@ -128,6 +136,14 @@ class MainActivity : AppCompatActivity() {
       retrofitResponse(call)
     }
 
+    binding.btnApi.setOnClickListener{
+      Log.d("csy","api 시작")
+      val api = AppServerClass.instance
+      val call = api.getApi()
+      retrofitResponse(call)
+    }
+
+
   }
 
 
@@ -139,6 +155,13 @@ class MainActivity : AppCompatActivity() {
         if (res.isSuccessful) {
           val result = res.body()
           Log.d("csy", "result : $result")
+
+
+          // 데이터 intent랑 같이 전달
+          val intent = Intent(this@MainActivity,StationInfoActivity::class.java)
+          intent.putExtra("data",result)
+          startActivity(intent)
+
         }
         else {
           Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")

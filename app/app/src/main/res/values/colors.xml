@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="lineColor_1">#F06A00</color> <!-- 1호선 색상 -->
+    <color name="lineColor_2">#81BF48</color> <!-- 2호선 색상 -->
+    <color name="lineColor_3">#BB8C00</color>
+    <color name="lineColor_4">#217DCB</color>
 </resources>

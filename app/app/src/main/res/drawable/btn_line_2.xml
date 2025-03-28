@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/lineColor_2"/> <!-- 버튼 색상 -->
+    <corners android:radius="25dp"/> <!-- 동그란 모양으로 만들기 위해 반지름을 50%로 설정 -->
+    <padding
+        android:left="8dp"
+        android:top="8dp"
+        android:right="8dp"
+        android:bottom="8dp"/>
+</shape>

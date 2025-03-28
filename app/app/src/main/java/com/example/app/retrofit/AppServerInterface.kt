@@ -1,6 +1,8 @@
 package com.example.app.retrofit
 
 import com.example.app.dto.UserDTO
+import com.example.app.jsy.Station
+import com.example.app.jsy.Train
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -36,6 +38,20 @@ interface AppServerInterface {
 
   @DELETE("deletetest1")
   fun deleteTest1(@Query("param1") param1: String): Call<String>
+
+
+  @GET("app")
+  fun getApi(): Call<String>
+
+
+  @GET("app/{param1}/{param2}")
+  fun getApi2(@Path("param1") param1: String, @Path("param2") param2: String): Call<String>
+
+  @GET("app/category/{scode}")
+  fun getCategoryName(@Path("scode") scode: String): Call<List<Station>>
+
+  @GET("app/train/{scode}/{sttime}/{day}")
+  fun getTrainTimeAndName(@Path("scode") scode: String, @Path("sttime") sttime: String, @Path("day") day: String): Call<List<Train>>
 }
 
 

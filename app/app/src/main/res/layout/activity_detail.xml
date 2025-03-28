@@ -173,12 +173,12 @@
             android:gravity="center"
             android:orientation="vertical">
             <!-- 종착역 호출 -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/last_train"
-                android:textColor="#000000"
-                android:text="종착역" />
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/last_train"-->
+<!--                android:textColor="#000000"-->
+<!--                android:text="종착역" />-->
             <!-- 출발, 호선, 도착 -->
             <LinearLayout
                 android:layout_width="wrap_content"

@@ -16,12 +16,14 @@ import com.example.app.R
 import com.example.app.databinding.ActivityDetailBinding
 import com.example.app.dto.CategoryDTO
 import com.example.app.retrofit.AppServerClass
+import okhttp3.Callback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
+
 
 class DetailActivity : AppCompatActivity() {
 
@@ -72,8 +74,8 @@ class DetailActivity : AppCompatActivity() {
         // 출발역과 도착역 정보가 있을 때 API 호출
         selectedDeparture?.let { departure ->
             selectedArrival?.let { arrival ->
-                // 출발역과 도착역의 이름을 전달하여 getTravelTime 호출
                 getTravelTime(departure.name, arrival.name)
+                getExchangeCount(departure.name, arrival.name)
             }
         }
 
@@ -252,10 +254,35 @@ class DetailActivity : AppCompatActivity() {
                 }
             }
 
-            // onFailure 시 네트워크 오류 처리
             override fun onFailure(call: Call<Int>, t: Throwable) {
-                // 실패 시 로그와 토스트 메시지 출력
-                Log.e("DetailActivity", "API 호출 실패: ${t.message}")
+                Log.e("csy", "API 호출 실패: ${t.message}")
+                Toast.makeText(this@DetailActivity, "네트워크 오류", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    // 경유 갯수를 가져오는 메소드
+    private fun getExchangeCount(stationStart: String, stationEnd: String) {
+        val api = AppServerClass.instance
+
+        // 서버에서 경유 갯수를 요청
+        api.getExchange(stationStart, stationEnd).enqueue(object : Callback<Int> {
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                if (response.isSuccessful) {
+                    val exchangeCount = response.body()
+
+                    exchangeCount?.let {
+                        // 경유 갯수를 화면에 표시
+                        binding.stationNumber.text = "$it 개"
+                    }
+                } else {
+                    Log.d("csy", "API 호출 실패: ${response.code()}")
+                    Toast.makeText(this@DetailActivity, "경유 갯수 가져오기 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                Log.e("csy", "API 호출 실패: ${t.message}")
                 Toast.makeText(this@DetailActivity, "네트워크 오류", Toast.LENGTH_SHORT).show()
             }
         })

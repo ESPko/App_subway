@@ -52,6 +52,9 @@ interface AppServerInterface {
     @Path("edStation") edStation: String
   ): Call<Int>  // 소요 시간(분)을 반환
 
+  // 추가: 경유 갯수 가져오기
+  @GET("station/exchange/{stStation}/{edStation}")
+  fun getExchange(@Path("stStation") stStation: String, @Path("edStation") edStation: String): Call<Int>
 
   @GET("app")
   fun getApi(): Call<String>

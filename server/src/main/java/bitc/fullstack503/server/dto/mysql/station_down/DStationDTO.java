@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class DStationDTO {
-    private SDResponseDTO response;
+    private DSResponseDTO response;
 }

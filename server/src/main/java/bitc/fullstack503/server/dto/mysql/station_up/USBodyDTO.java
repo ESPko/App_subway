@@ -1,12 +1,12 @@
-package bitc.fullstack503.server.dto.station_down;
+package bitc.fullstack503.server.dto.station_up;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class SDBodyDTO {
-    private List<SDItemDTO> item;
+public class USBodyDTO {
+    private List<USItemDTO> item;
     private String numOfRows; // int 로 해도됨
     private String pageNo;
     private String totalCount;

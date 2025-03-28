@@ -1,10 +1,10 @@
-package bitc.fullstack503.server.dto.station_up;
+package bitc.fullstack503.server.dto.station_down;
 
 
 import lombok.Data;
 
 @Data
-public class SItemDTO {
+public class DSItemDTO {
     private String startSn;
     private String startSc;
     private String endSn;

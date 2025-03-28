@@ -8,4 +8,6 @@ public interface Categoryservice {
     List<CategoryDTO> getCategoryList() throws Exception;
 
     List<CategoryDTO> getCategoryLineList(String scode) throws Exception;
+
+    String getStationName(String downendcode) throws Exception;
 }

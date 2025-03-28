@@ -1,5 +1,7 @@
 package com.example.app
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -65,7 +67,10 @@ class SubSearchActivity : AppCompatActivity() {
 //    서버에서 역 목록
     loadStationsFromServer()
 
+    // SubSearchAdapter에서 출발 버튼 클릭 리스너 추가
+
   }
+
 
   // 역 목록 데이터 생성
   private fun setupRecyclerView() {
@@ -172,7 +177,6 @@ class SubSearchActivity : AppCompatActivity() {
       }
     })
   }
-
 
 }
 

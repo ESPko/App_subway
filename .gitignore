@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+server/.idea/vcs.xml
+server/.idea/workspace.xml

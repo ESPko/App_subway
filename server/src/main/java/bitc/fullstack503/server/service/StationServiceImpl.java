@@ -14,10 +14,6 @@ public class StationServiceImpl implements StationService {
     @Autowired
     private StationMapper stationMapper;
 
-    @Override
-    public List<USItemDTO> getStationDistanceList(String startSc, String endSc) throws Exception {
-        return stationMapper.getStationDistanceList(startSc, endSc);
-    }
 
 
     @Override
@@ -25,23 +21,31 @@ public class StationServiceImpl implements StationService {
         return stationMapper.getStationInfoList(scode); // 지하철역 편의시설 정보
     }
 
-    @Override
-    public int getDistanceTotal(String stStation, String edStation) throws Exception {
-        return stationMapper.getDistanceTotal(stStation, edStation);
 
+    @Override
+    public int getTimeTotalUp(String stStation, String edStation) throws Exception {
+        return stationMapper.getTimeTotalUp(stStation, edStation);
     }
 
     @Override
-    public int getTimeTotal(String stStation, String edStation) throws Exception {
-        return stationMapper.getTimeTotal(stStation, edStation);
-
-
+    public int getTimeTotalDown(String stStation, String edStation) throws Exception {
+        return stationMapper.getTimeTotalDown(stStation, edStation);
     }
+
+    @Override
+    public int getExchangeUp(String stStation, String edStation) throws Exception {
+        return stationMapper.getExchangeUp(stStation, edStation);
+    }
+
+    @Override
+    public int getExchangeDown(String stStation, String edStation) throws Exception {
+        return stationMapper.getExchangeDown(stStation, edStation);
+    }
+
+
+
+
+
 }
-
-
-
-
-
 
 

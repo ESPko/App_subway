@@ -1,16 +1,22 @@
 package bitc.fullstack503.server.appserver;
 
 import bitc.fullstack503.server.dto.UserDTO;
+import bitc.fullstack503.server.dto.api.train.TItemDTO;
 import bitc.fullstack503.server.dto.mysql.CategoryDTO;
+import bitc.fullstack503.server.dto.api.station.SItemDTO;
 import bitc.fullstack503.server.service.Apiservice;
 import bitc.fullstack503.server.service.Categoryservice;
 import bitc.fullstack503.server.service.Testservice;
+import bitc.fullstack503.server.dto.mysql.StationInfoDTO;
 import bitc.fullstack503.server.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //  서버 기본 주소
 @RequestMapping("/app")
@@ -59,37 +65,135 @@ public class AppServerController {
   }
 
   // 지하철 호선 이름
-//  @GetMapping("/app/category/{line}")
-//  public List<CategoryDTO> getCategory(@PathVariable String line) throws Exception {
-//      line = "1";
+  @GetMapping("/app/category/{line}")
+  public List<CategoryDTO> getCategory(@PathVariable String line) throws Exception {
+      line = "1";
+
+      List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(line);
+
+      return categoryList;
+  }
+
+
+ // 지하철 역간 이동시간
+  @GetMapping("/time/total/{stStation}/{edStation}")
+  public int getDistance(@PathVariable String stStation, @PathVariable String edStation) throws Exception {
+
+    int result;
+    // startSc와 endSc에 해당하는 dist 값을 합산하여 반환
+
+
+    int stStationInt = Integer.parseInt(stStation);
+    int edStationInt = Integer.parseInt(edStation);
+
+
+    if (stStationInt < edStationInt) {
+
+      int temp = stStationInt;
+      stStationInt = edStationInt;
+      edStationInt = temp;
+
+      result = stationservice.getTimeTotalDown(stStation, edStation);
+
+    }
+    else {
+
+      result = stationservice.getTimeTotalUp(stStation, edStation);
+    }
+
+    return result;
+  }
+
+  // 지하철 경유 갯수
+  @GetMapping("/station/exchange/{stStation}/{edStation}")
+  public int getExchange(@PathVariable String stStation, @PathVariable String edStation) throws Exception {
+
+    int result;
+    // startSc와 endSc에 해당하는 dist 값을 합산하여 반환
+
+
+    int stStationInt = Integer.parseInt(stStation);
+    int edStationInt = Integer.parseInt(edStation);
+
+
+    if (stStationInt < edStationInt) {
+
+      result = stationservice.getExchangeUp(stStation, edStation);
+    }
+
+    else {
+
+      result = stationservice.getExchangeDown(stStation, edStation);
+    }
+
+    return result;
+  }
+
+  // 현재 시간과 가까운 지하철 시간 선택( 평일/ 주말 / 공휴일 )
 //
-//      List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(line);
+//  @GetMapping("/app/traintime/{tscode}/{tsttime}/{tday}")
+//  public Map<String, List<Integer>> gettraintime(@PathVariable String tscode, @PathVariable String tsttime, @PathVariable String tday) throws Exception {
 //
-//      return categoryList;
+//    int hour = Integer.parseInt(tsttime.substring(0,2));
+//    int minutes = Integer.parseInt(tsttime.substring(2, 4));
+//    int minTime = hour * 60 + minutes;
+//
+//    String serviceKey = "?serviceKey=" + trainServiceKey;
+//    String tstime = "&tstime=" + tsttime;
+//
+//    // 필수옵션
+//    String essentialOpt = "&act=json";
+//    String essentialOpt1 = "&tscode=" + tscode;
+//
+//    String url = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&tday=" + tday + tstime + "&enum=3&updown=0"  ;
+//    String url2 = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&tday=" + tday + tstime + "&enum=3&updown=1"  ;
+////        System.out.println(url);
+//
+//    List<TItemDTO> TrainJsonList = apiservice.getTrainJson(url);
+//    List<TItemDTO> TrainJsonList2 = apiservice.getTrainJson(url2);
+//
+//    String downendcode = TrainJsonList.get(0).getEndcode();
+//    String upendcode = TrainJsonList2.get(0).getEndcode();
+//
+//    // 종착역 이름 나오는거
+//    String DownendStationName =categoryservice.getStationName(downendcode);
+//    String UpendStationName =categoryservice.getStationName(upendcode);
+//
+//    // 리스트로 만든값
+//    List<Integer> resultList1 = new ArrayList<>();  // 다대포해수욕장의 result 값들
+//    List<Integer> resultList2 = new ArrayList<>(); // 노포 result 값
+//
+//    System.out.println(DownendStationName);
+//    for (TItemDTO train : TrainJsonList) {
+//      int trainTimeHour = train.getHour();
+//      int trainTimeMinutes = train.getTime();
+//      int trainminTime = trainTimeHour * 60 + trainTimeMinutes;
+//      int result = trainminTime - minTime;
+//
+//      System.out.println("result = " + result);
+//      resultList1.add(result); // 다대포해수욕장의 result 값들
+//
+//    }
+//    System.out.println(UpendStationName);
+//    for(TItemDTO train : TrainJsonList2){
+//      int trainTimeHour = train.getHour();
+//      int trainTimeMinutes = train.getTime();
+//      int trainminTime = trainTimeHour * 60 + trainTimeMinutes;
+//      int result2 = trainminTime - minTime;
+//
+//      System.out.println("result2 = " + result2);
+//      resultList2.add(result2); // 노포의 result2 값들
+//    }
+//    // map List 로 만들어서 값 넘기기.
+//    Map<String, List<Integer>> resultMap = new HashMap<>();
+//    resultMap.put(DownendStationName, resultList1);
+//    resultMap.put(UpendStationName, resultList2);
+//
+//
+//    return resultMap;
 //  }
 
 
-  // 지하철 역간 이동거리
-
-  @GetMapping("/distance/total/{stStation}/{edStation}")
-  public int getDistance(@PathVariable String stStation, @PathVariable String edStation) throws Exception {
-    // startSc와 endSc에 해당하는 dist 값을 합산하여 반환
-
-    int result = stationservice.getDistanceTotal(stStation, edStation);
-
-    return result;
-  }
-
-
-  // 지하철 역간 이동시간
-  @GetMapping("/time/total/{stStation}/{edStation}")
-  public int getTime(@PathVariable String stStation, @PathVariable String edStation) throws Exception {
-    // startSc와 endSc에 해당하는 dist 값을 합산하여 반환
-
-    int result = stationservice.getTimeTotal(stStation, edStation);
-
-    return result;
-  }
 
 
 

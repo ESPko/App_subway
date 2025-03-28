@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface Apiservice {
     List<SItemDTO> getStationJson(String url) throws Exception;
+    List<TItemDTO> getTrainJson(String url) throws Exception;
 
-    List<TItemDTO> getTrainJson(String url);
+
 
 }

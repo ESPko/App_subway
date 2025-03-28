@@ -10,12 +10,12 @@ public interface StationService {
     // 역정보
     List<StationInfoDTO> getStationInfoList(String scode) throws Exception;
 
-    List<USItemDTO> getStationDistanceList(String stStation, String edStation) throws Exception;
 
-   int getDistanceTotal(String stStation, String edStation) throws Exception;
+   int getTimeTotalUp(String stStation, String edStation) throws Exception;
+   int getTimeTotalDown(String stStation, String edStation) throws Exception;
 
-   int getTimeTotal(String stStation, String edStation) throws Exception;
-
+    int getExchangeUp(String stStation, String edStation) throws Exception;
+    int getExchangeDown(String stStation, String edStation) throws Exception;
 
 
 

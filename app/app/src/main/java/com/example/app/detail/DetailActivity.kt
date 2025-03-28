@@ -3,6 +3,7 @@ package com.example.app.detail
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -34,26 +35,30 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
-        // Intent로부터 CategoryDTO 객체들을 받아오기
-        val categories = intent.getParcelableArrayListExtra<CategoryDTO>("categories")
+        // 초기 화면에서 정보 보이도록 설정
+        binding.detailInfoLayout.visibility = View.VISIBLE
+        binding.timePickerContainer.visibility = View.GONE
 
-        // 첫 번째 카테고리 (출발역)
-        val departure = categories?.firstOrNull()
-        // 두 번째 카테고리 (도착역)
-        val arrival = categories?.lastOrNull()
+        // Intent로부터 CategoryDTO 객체들을 받아오기
+        val selectedDeparture: CategoryDTO? = intent.getParcelableExtra("departure")
+        val selectedArrival: CategoryDTO? = intent.getParcelableExtra("arrival")
+
+        Log.d("csy", "Received departure: $selectedDeparture, arrival: $selectedArrival")
 
         // 출발역과 도착역 정보를 화면에 표시
-        departure?.let {
+        selectedDeparture?.let {
             binding.btnDetailStart1.text = it.name
             binding.btnDetailStart2.text = it.name
         }
-        arrival?.let {
+        selectedArrival?.let {
             binding.btnDetailArrival1.text = it.name
             binding.btnDetailArrival2.text = it.name
         }
 
         // 출발역의 lineColor 설정
-        setLineColor(departure?.line ?: 1)
+        selectedDeparture?.let {
+            setLineColor(it.line)
+        }
 
         // 상단 뒤로가기 버튼
         binding.btnDetailBack.setOnClickListener {

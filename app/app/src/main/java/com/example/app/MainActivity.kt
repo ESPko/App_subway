@@ -12,7 +12,6 @@ import com.example.app.databinding.ActivityMainBinding
 import com.example.app.detail.DetailActivity
 import com.example.app.dto.CategoryDTO
 import com.example.app.retrofit.AppServerInterface
-import com.example.app.retrofit.AppServerClass
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,12 +32,6 @@ class MainActivity : AppCompatActivity() {
     // 검색 버튼 클릭 리스너
     binding.btnSearch.setOnClickListener {
       val intent = Intent(this@MainActivity, SubSearchActivity::class.java)
-      startActivity(intent)
-      finish()
-    }
-
-    binding.btnIntro.setOnClickListener {
-      val intent = Intent(this@MainActivity, DetailActivity::class.java)
       startActivity(intent)
       finish()
     }
@@ -76,8 +69,11 @@ class MainActivity : AppCompatActivity() {
       // 선택된 출발역과 도착역을 포함한 CategoryDTO 리스트 생성
       val categoryList = categories.toMutableList() // 이미 가져온 카테고리 데이터
       val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
-        putParcelableArrayListExtra("categories", ArrayList(categoryList)) // CategoryDTO 리스트 전달
+        // Pass the selected departure and arrival as extras in the Intent
+        putExtra("departure", selectedDeparture)
+        putExtra("arrival", selectedArrival)
       }
+      Log.d("csy", "출발역: ${selectedDeparture?.name}, 도착역: ${selectedArrival?.name}")
       startActivity(intent)
       finish()
     }

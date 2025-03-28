@@ -8,4 +8,8 @@
     <color name="line3Color">#8B4513</color> <!-- 3호선 색상 -->
     <color name="line4Color">#87CEEB</color> <!-- 4호선 색상 -->
     <color name="defaultColor">#000000</color> <!-- 기본 색상 -->
+    <color name="lineColor_1">#F06A00</color> <!-- 1호선 색상 -->
+    <color name="lineColor_2">#81BF48</color> <!-- 2호선 색상 -->
+    <color name="lineColor_3">#BB8C00</color>
+    <color name="lineColor_4">#217DCB</color>
 </resources>

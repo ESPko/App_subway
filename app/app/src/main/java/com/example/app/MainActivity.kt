@@ -12,6 +12,11 @@ import com.example.app.databinding.ActivityMainBinding
 import com.example.app.detail.DetailActivity
 import com.example.app.dto.CategoryDTO
 import com.example.app.retrofit.AppServerInterface
+import com.example.app.databinding.ActivityStationDetailBinding
+import com.example.app.dto.UserDTO
+import com.example.app.jsy.StationDetailActivity
+import com.example.app.jsy.StationInfoActivity
+import com.example.app.retrofit.AppServerClass
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -59,22 +64,18 @@ class MainActivity : AppCompatActivity() {
       fetchCategories(api, "arrival")
     }
 
-    // 검색 버튼 클릭 리스너
-    val searchButton: Button = findViewById(R.id.btn_intro)
-    searchButton.setOnClickListener {
-      val departureText = btnDeparture.text.toString()
-      val arrivalText = btnArrival.text.toString()
+    binding.btnGet3.setOnClickListener {
+      Log.d("csy", "gettest3 시작")
+      val api = AppServerClass.instance
+      val call = api.getTest3(param1 = "path 방식 파라미터1", param2 = "path 방식 파라미터2")
+      retrofitResponse(call)
+    }
 
-      if (departureText.isNotEmpty() && arrivalText.isNotEmpty()) {
-        // 출발역과 도착역이 모두 선택되었을 때만 DetailActivity로 이동
-        val intent = Intent(this, DetailActivity::class.java).apply {
-          putExtra("departure", selectedDeparture)  // 출발역 선택된 CategoryDTO 객체 전달
-          putExtra("arrival", selectedArrival)      // 도착역 선택된 CategoryDTO 객체 전달
-        }
-        startActivity(intent)
-      } else {
-        Toast.makeText(this, "출발역과 도착역을 선택해주세요.", Toast.LENGTH_SHORT).show()
-      }
+    binding.btnPost1.setOnClickListener {
+      Log.d("csy", "posttest1 시작")
+      val api = AppServerClass.instance
+      val call = api.postTest1()
+      retrofitResponse(call)
     }
   }
 

@@ -3,6 +3,8 @@ package com.example.app.retrofit
 import com.example.app.Station
 import com.example.app.dto.CategoryDTO
 import com.example.app.dto.UserDTO
+import com.example.app.jsy.Station
+import com.example.app.jsy.Train
 import com.example.app.dto.TrainDTO
 import retrofit2.Call
 import retrofit2.http.Body
@@ -42,18 +44,24 @@ interface AppServerInterface {
 
 
 
-  @GET("app")
-  fun getTest5(): Call<String>
-
-  @GET("time")
-  fun getTime() : Call<List<String>>
-
-
   @GET("app/category")
   fun getStations(): Call<List<Station>>
 
   fun getCategories(): Call<List<CategoryDTO>>  // Returns the list of CategoryDTO
 
+
+  @GET("app")
+  fun getApi(): Call<String>
+
+
+  @GET("app/{param1}/{param2}")
+  fun getApi2(@Path("param1") param1: String, @Path("param2") param2: String): Call<String>
+
+  @GET("app/category/{scode}")
+  fun getCategoryName(@Path("scode") scode: String): Call<List<Station>>
+
+  @GET("app/train/{scode}/{sttime}/{day}")
+  fun getTrainTimeAndName(@Path("scode") scode: String, @Path("sttime") sttime: String, @Path("day") day: String): Call<List<Train>>
 }
 
 

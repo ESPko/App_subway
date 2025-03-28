@@ -12,10 +12,6 @@ import com.example.app.databinding.ActivityMainBinding
 import com.example.app.detail.DetailActivity
 import com.example.app.dto.CategoryDTO
 import com.example.app.retrofit.AppServerInterface
-import com.example.app.databinding.ActivityStationDetailBinding
-import com.example.app.dto.UserDTO
-import com.example.app.jsy.StationDetailActivity
-import com.example.app.jsy.StationInfoActivity
 import com.example.app.retrofit.AppServerClass
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,8 +36,9 @@ class MainActivity : AppCompatActivity() {
       startActivity(intent)
       finish()
     }
-    binding.btnDetail.setOnClickListener {
-      val intent = Intent(this@MainActivity, StationDetailActivity::class.java)
+
+    binding.btnIntro.setOnClickListener {
+      val intent = Intent(this@MainActivity, DetailActivity::class.java)
       startActivity(intent)
       finish()
     }
@@ -69,6 +66,21 @@ class MainActivity : AppCompatActivity() {
       fetchCategories(api, "arrival")
     }
 
+    // 'Intro' 버튼 클릭 시 출발역과 도착역이 선택되지 않았으면 알림
+    binding.btnIntro.setOnClickListener {
+      if (selectedDeparture == null || selectedArrival == null) {
+        Toast.makeText(this@MainActivity, "출발역과 도착역을 선택해 주세요.", Toast.LENGTH_SHORT).show()
+        return@setOnClickListener
+      }
+
+      // 선택된 출발역과 도착역을 포함한 CategoryDTO 리스트 생성
+      val categoryList = categories.toMutableList() // 이미 가져온 카테고리 데이터
+      val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
+        putParcelableArrayListExtra("categories", ArrayList(categoryList)) // CategoryDTO 리스트 전달
+      }
+      startActivity(intent)
+      finish()
+    }
   }
 
   // Retrofit을 통해 카테고리 데이터를 가져오는 함수

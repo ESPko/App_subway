@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.MainActivity
 import com.example.app.R
-import com.example.app.StationSearch
 import com.example.app.databinding.ItemStationBinding
+import com.example.app.dto.CategoryDTO
 import com.example.app.jsy.StationDetailActivity
 
-class SubSearchAdapter(private var categories: List<StationSearch>) : RecyclerView.Adapter<SubSearchAdapter.StationViewHolder>() {
+class SubSearchAdapter(private var categories: List<CategoryDTO>) : RecyclerView.Adapter<SubSearchAdapter.StationViewHolder>() {
 
   // ViewHolder 클래스: 각 역 항목(ItemStationBinding)을 화면에 바인딩하는 역할을 수행
   class StationViewHolder(val binding: ItemStationBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(stationSearch: StationSearch) {
+    fun bind(stationSearch: CategoryDTO) {
 
       // 역 이름class SubSearchAdapter(private var categories: List<Station>) : RecyclerView.Adapter<SubSearchAdapter.StationViewHolder>() {
       //
@@ -139,7 +139,7 @@ class SubSearchAdapter(private var categories: List<StationSearch>) : RecyclerVi
   override fun getItemCount() = categories.size
 
   // RecyclerView 데이터 업데이트 함수
-  fun updateData(newCategories: List<StationSearch>) {
+  fun updateData(newCategories: List<CategoryDTO>) {
     this.categories = newCategories
     notifyDataSetChanged()
   }

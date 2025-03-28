@@ -53,7 +53,9 @@ class Line1Fragment : Fragment() {
   private lateinit var tvRightGt: TextView
 
   // scode 받아오는 초기값
-  private var scode: Int = 96
+  private var scode: Int = 103
+  private var stationName: String? = null  // For station name (optional)
+  private var lineNumber: Int = 0  // Line number (optional)
   var currentTime: String = ""
 
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +78,16 @@ class Line1Fragment : Fragment() {
     tvRight = binding.findViewById(R.id.tv_right)
     tvLeftLt = binding.findViewById(R.id.tv_left_lt)
     tvRightGt = binding.findViewById(R.id.tv_right_gt)
+
+    // Retrieve the arguments (scode, name, and line) from the fragment's arguments
+    arguments?.let {
+      scode = it.getInt("scode", 96)  // Default to 96 if not found
+      stationName = it.getString("name", "")  // Default to empty string if not found
+      lineNumber = it.getInt("line", 0)  // Default to 0 if not found
+    }
+    Log.d("csy", "Received scode: $scode, stationName: $stationName, lineNumber: $lineNumber")
+
+
     CurrentTime()
     loadData(scode)
     loadTrainData(scode)

@@ -10,21 +10,21 @@ data class CategoryDTO (
   var name: String,
 
   @SerializedName("scode")
-  var scode: String,
+  var scode: Int,
 
   @SerializedName("line")
-  var line: String
+  var line: Int
 ) : Parcelable {
   constructor(parcel: Parcel) : this(
     parcel.readString() ?: "",
-    parcel.readString() ?: "",
-    parcel.readString() ?: ""
+    parcel.readInt() ,
+    parcel.readInt()
   )
 
   override fun writeToParcel(parcel: Parcel, flags: Int) {
     parcel.writeString(name)
-    parcel.writeString(scode)
-    parcel.writeString(line)
+    parcel.writeInt(scode)
+    parcel.writeInt(line)
   }
 
   override fun describeContents(): Int = 0

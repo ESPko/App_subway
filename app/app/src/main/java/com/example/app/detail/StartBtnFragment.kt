@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.example.app.R
 import com.example.app.databinding.FragmentStartBtnBinding
-import com.example.app.dto.CategoryDTO  // CategoryDTO를 가져옴
+import com.example.app.dto.CategoryDTO
 
 class StartBtnFragment : DialogFragment() {
 
@@ -17,7 +17,7 @@ class StartBtnFragment : DialogFragment() {
     // 전달받은 데이터를 저장할 변수
     private var startStation: String? = null  // 출발역 이름
     private var endStation: String? = null    // 도착역 이름
-    private var line: String? = null          // 출발역 라인 정보
+    private var line: Int? = null             // 출발역 라인 정보 (Int?로 유지)
 
     companion object {
         // 새로운 인스턴스를 생성할 때 전달된 데이터를 받을 상수
@@ -32,7 +32,7 @@ class StartBtnFragment : DialogFragment() {
                 arguments = Bundle().apply {
                     putString(ARG_START_STATION, departure.name)  // 출발역 이름
                     putString(ARG_END_STATION, arrival.name)      // 도착역 이름
-                    putString(ARG_LINE, departure.line)           // 출발역 라인 정보
+                    putInt(ARG_LINE, departure.line ?: 1)         // 출발역 라인 정보 (Int?로 처리)
                 }
             }
     }
@@ -44,7 +44,7 @@ class StartBtnFragment : DialogFragment() {
         arguments?.let {
             startStation = it.getString(ARG_START_STATION)  // 출발역 이름
             endStation = it.getString(ARG_END_STATION)      // 도착역 이름
-            line = it.getString(ARG_LINE)                    // 출발역 라인 정보
+            line = it.getInt(ARG_LINE)                       // 출발역 라인 정보 (Int?로 처리)
         }
     }
 
@@ -66,13 +66,13 @@ class StartBtnFragment : DialogFragment() {
     }
 
     // 출발역 라인에 따른 배경 색상을 설정하는 메소드
-    private fun setLineBackgroundColor(line: String?) {
+    private fun setLineBackgroundColor(line: Int?) {
         val lineBackgroundView = binding.lineBackground
         when (line) {
-            "1" -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.line1Color))
-            "2" -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.line2Color))
-            "3" -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.line3Color))
-            "4" -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.line4Color))
+            1 -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.line1Color))
+            2 -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.line2Color))
+            3 -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.line3Color))
+            4 -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.line4Color))
             else -> lineBackgroundView.setBackgroundColor(resources.getColor(R.color.defaultColor))
         }
     }

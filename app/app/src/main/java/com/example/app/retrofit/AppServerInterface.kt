@@ -1,6 +1,4 @@
 package com.example.app.retrofit
-
-import com.example.app.StationSearch
 import com.example.app.TrainResponse
 import com.example.app.dto.CategoryDTO
 import com.example.app.dto.UserDTO
@@ -45,7 +43,6 @@ interface AppServerInterface {
 
 
   @GET("app/category")
-  fun getStations(): Call<List<StationSearch>>
 
   fun getCategories(): Call<List<CategoryDTO>>  // Returns the list of CategoryDTO
 

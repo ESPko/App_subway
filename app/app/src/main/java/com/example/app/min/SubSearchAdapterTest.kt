@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.app.R
-import com.example.app.StationSearch
+import com.example.app.dto.CategoryDTO
 import com.example.app.databinding.ItemStationTestBinding
-class SubSearchAdapterTest (private var stationSearches: List<StationSearch>) : RecyclerView.Adapter<SubSearchAdapterTest.StationViewHolder>() {
+class SubSearchAdapterTest (private var stationSearches: List<CategoryDTO>) : RecyclerView.Adapter<SubSearchAdapterTest.StationViewHolder>() {
 
-    private var allStationSearches: List<StationSearch> = stationSearches
+    private var allStationSearches: List<CategoryDTO> = stationSearches
 
     //  ViewHolder 클래스: 각 역 항목(ItemStationBinding)을 화면에 바인딩하는 역할을 수행
     class StationViewHolder(val binding: ItemStationTestBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(stationSearch: StationSearch) {
+        fun bind(stationSearch: CategoryDTO) {
 
 //      역 이름
             binding.stationName.text = stationSearch.name
@@ -51,14 +51,14 @@ class SubSearchAdapterTest (private var stationSearches: List<StationSearch>) : 
     override fun getItemCount() = stationSearches.size
 
     // RecyclerView 데이터 업데이트 함수
-    fun updateData(newStationSearches: List<StationSearch>) {
+    fun updateData(newStationSearches: List<CategoryDTO>) {
         this.allStationSearches = newStationSearches
         this.stationSearches = newStationSearches
         notifyDataSetChanged()
     }
 
     // 전체 역 데이터를 반환하는 함수 (필터링용)
-    fun getAllStations(): List<StationSearch>{
+    fun getAllStations(): List<CategoryDTO>{
         return allStationSearches
     }
 }

@@ -19,24 +19,23 @@ import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
 import android.widget.TextView
+import com.example.app.dto.CategoryDTO
 
-
-//  역 검색 화면을 관리하는 액티비티
+// 역 검색 화면을 관리하는 액티비티
 class SubSearchActivity : AppCompatActivity() {
-
 
   private val binding: ActivitySubSearchBinding by lazy {
     ActivitySubSearchBinding.inflate(layoutInflater)
   }
 
-  //  SubSearchAdapter 연결
+  // SubSearchAdapter 연결
   private lateinit var stationAdapter: SubSearchAdapter
 
   // 전체 역 리스트 저장
-  private var allStationSearch: List<StationSearch> = emptyList()
+  private var allStationSearch: List<CategoryDTO> = emptyList()
 
-  //  현재 선택된 필터 상태
-  private var selectedLine: Int? = null
+  // 현재 선택된 필터 상태
+  private var selectedLine: Int? = null  // 수정된 부분
   private var searchQuery: String = ""
 
   // Retrofit 인스턴스 가져오기
@@ -52,24 +51,19 @@ class SubSearchActivity : AppCompatActivity() {
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
       insets
     }
-// RecyclerView 설정 함수 호출
+
+    // RecyclerView 설정 함수 호출
     setupRecyclerView()
-//    노선 필터 버튼
+
+    // 노선 필터 버튼
     setupFilterButtons()
-//    검색
+
+    // 검색
     setupSearch()
 
-
-    stationAdapter.updateData(allStationSearch)
-
-
-//    서버에서 역 목록
+    // 서버에서 역 목록
     loadStationsFromServer()
-
-    // SubSearchAdapter에서 출발 버튼 클릭 리스너 추가
-
   }
-
 
   // 역 목록 데이터 생성
   private fun setupRecyclerView() {
@@ -80,8 +74,7 @@ class SubSearchActivity : AppCompatActivity() {
     }
   }
 
-
-  //  노선별 색상 지정
+  // 노선별 색상 지정
   private val lineColors = mapOf(
     1 to "#F06A00", // 1호선 주황색
     2 to "#81BF48", // 2호선 초록색
@@ -89,10 +82,10 @@ class SubSearchActivity : AppCompatActivity() {
     4 to "#217DCB"  // 4호선 파랑색
   )
 
-// 비활성화 버튼 색상
+  // 비활성화 버튼 색상
   private val defaultTextColor = "#BDBDBD"
 
-  //  호선 버튼 클릭 설정
+  // 호선 버튼 클릭 설정
   private fun setupFilterButtons() {
     val buttons = mapOf(
       1 to binding.btnLine1,
@@ -100,66 +93,62 @@ class SubSearchActivity : AppCompatActivity() {
       3 to binding.btnLine3,
       4 to binding.btnLine4
     )
-    buttons.forEach{(line, button) ->
-      button.setOnClickListener{
-        selectedLine = if (selectedLine == line) null else line
+    buttons.forEach { (line, button) ->
+      button.setOnClickListener {
+        selectedLine = if (selectedLine == line) null else line  // selectedLine 변경
         updateButtonStyles(buttons)
         applyFilters()
       }
     }
   }
 
-//  버튼 스타일 클릭시 반응
-  private fun updateButtonStyles(buttons: Map<Int, TextView>){
+  // 버튼 스타일 클릭 시 반응
+  private fun updateButtonStyles(buttons: Map<Int, TextView>) {
     buttons.forEach { (line, button) ->
-      if (selectedLine == line){
+      if (selectedLine == line) {
         button.setTextColor(Color.parseColor(lineColors[line]))
         button.setTypeface(null, Typeface.BOLD)
-      }else{
+      } else {
         button.setTextColor(Color.parseColor(defaultTextColor))
         button.setTypeface(null, Typeface.NORMAL)
       }
     }
   }
 
-
   // 역 검색 기능
   private fun setupSearch() {
     binding.searchBar.addTextChangedListener(object : TextWatcher {
       override fun afterTextChanged(s: Editable?) {
-        searchQuery  = s?.toString()?.trim() ?: ""
+        searchQuery = s?.toString()?.trim() ?: ""
         applyFilters()
       }
+
       override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
       override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
   }
 
-
   // 필터 적용 (검색어 + 노선)
-
   private fun applyFilters() {
     var filteredStations = allStationSearch
 
-//    검색어 필터
+    // 검색어 필터
     if (searchQuery.isNotEmpty()) {
       filteredStations = filteredStations.filter { it.name.contains(searchQuery, ignoreCase = true) }
     }
-//    노선 필터
+
+    // 노선 필터
     selectedLine?.let { line ->
       filteredStations = filteredStations.filter { it.line == line }
     }
+
     stationAdapter.updateData(filteredStations)
   }
 
-
-
-
-
-  //  서버에서 역정보 들고오기
+  // 서버에서 역정보 들고오기
   private fun loadStationsFromServer() {
-    apiService.getStations().enqueue(object : Callback<List<StationSearch>> {
-      override fun onResponse(call: Call<List<StationSearch>>, response: Response<List<StationSearch>>) {
+    apiService.getCategories().enqueue(object : Callback<List<CategoryDTO>> {
+      override fun onResponse(call: Call<List<CategoryDTO>>, response: Response<List<CategoryDTO>>) {
         if (response.isSuccessful) {
           response.body()?.let { stations ->
             allStationSearch = stations
@@ -168,16 +157,11 @@ class SubSearchActivity : AppCompatActivity() {
         } else {
           Log.d("fullstack503", "서버 응답 실패: ${response.errorBody()?.string()}")
         }
-
       }
 
-      override fun onFailure(call: Call<List<StationSearch>>, t: Throwable) {
+      override fun onFailure(call: Call<List<CategoryDTO>>, t: Throwable) {
         Log.d("fullstack503", "서버에서 데이터 가져오기 실패: ${t.message}")
       }
     })
   }
-
 }
-
-
-

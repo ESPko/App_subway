@@ -3,7 +3,6 @@ package com.example.app.jsy
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -12,9 +11,10 @@ import com.example.app.databinding.ActivityStationDetailBinding
 
 class StationDetailActivity : AppCompatActivity() {
 
-  private val binding:ActivityStationDetailBinding by lazy{
+  private val binding: ActivityStationDetailBinding by lazy {
     ActivityStationDetailBinding.inflate(layoutInflater)
   }
+
   private fun setActiveButton(activeButtonId: Int, inactiveButtonId: Int) {
     when (activeButtonId) {
       R.id.btn_line_1 -> binding.btnLine1.setBackgroundResource(R.drawable.btn_line_1)  // 1호선 배경
@@ -32,11 +32,21 @@ class StationDetailActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContentView(binding.root)
+
+    // 시스템 바 영역을 고려하여 뷰 패딩 설정
     ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
       val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
       v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
       insets
     }
+
+    // Intent에서 전달된 데이터를 받아오기
+    val stationCode = intent.getStringExtra("scode") ?: ""
+    val stationName = intent.getStringExtra("name") ?: ""
+    val lineNumber = intent.getIntExtra("line", 0)
+
+    // 로그로 확인 (디버깅용)
+    println("Station Code: $stationCode, Station Name: $stationName, Line Number: $lineNumber")
 
     // btn_line_1 버튼 클릭 시 1호선 정보 Fragment 표시
     binding.btnLine1.setOnClickListener {
@@ -49,12 +59,24 @@ class StationDetailActivity : AppCompatActivity() {
       setActiveButton(R.id.btn_line_2, R.id.btn_line_1)
       replaceFragment(Line2Fragment())  // 2호선 정보 Fragment로 변경
     }
+
+    // 초기 상태 설정 및 Fragment 표시
     if (savedInstanceState == null) {
       setActiveButton(R.id.btn_line_1, R.id.btn_line_2) // 초기 상태 설정 (1호선 활성화)
       replaceFragment(Line1Fragment())  // 첫 번째로 1호선 정보 Fragment를 표시
     }
   }
+
   private fun replaceFragment(fragment: Fragment) {
+    // Fragment에 데이터를 전달하기 위해 Bundle에 넣어서 전달
+    val stationData = Bundle()
+    stationData.putInt("scode", intent.getIntExtra("scode", 100))
+    stationData.putString("name", intent.getStringExtra("name"))
+    stationData.putInt("line", intent.getIntExtra("line", 0))
+
+    fragment.arguments = stationData  // Fragment에 인수로 데이터 전달
+
+    // Fragment 전환
     supportFragmentManager.beginTransaction()
       .replace(R.id.fragment_container, fragment)
       .addToBackStack(null)  // 백스택에 넣어두어 뒤로가기 시 이전 Fragment로 돌아갈 수 있게 함

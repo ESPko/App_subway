@@ -16,14 +16,12 @@ import com.example.app.R
 import com.example.app.databinding.ActivityDetailBinding
 import com.example.app.dto.CategoryDTO
 import com.example.app.retrofit.AppServerClass
-import okhttp3.Callback
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 
 class DetailActivity : AppCompatActivity() {
 
@@ -74,8 +72,9 @@ class DetailActivity : AppCompatActivity() {
         // 출발역과 도착역 정보가 있을 때 API 호출
         selectedDeparture?.let { departure ->
             selectedArrival?.let { arrival ->
-                getTravelTime(departure.name, arrival.name)
-                getExchangeCount(departure.name, arrival.name)
+                // 이제 name 대신 CategoryDTO 객체를 전달
+                getTravelTime(departure, arrival)
+                getExchangeCount(departure, arrival)
             }
         }
 
@@ -230,11 +229,11 @@ class DetailActivity : AppCompatActivity() {
     }
 
     // 출발역과 도착역 정보를 기반으로 소요 시간을 가져오는 메소드
-    private fun getTravelTime(stationStart: String, stationEnd: String) {
+    private fun getTravelTime(stationStart: CategoryDTO, stationEnd: CategoryDTO) {
         val api = AppServerClass.instance
 
         // 서버에서 이동 시간 소요를 요청
-        api.getDistance(stationStart, stationEnd).enqueue(object : Callback<Int> {
+        api.getDistance(stationStart.scode.toString(), stationEnd.scode.toString()).enqueue(object : Callback<Int> {
             // onResponse 시 서버 응답을 처리하는 메소드
             override fun onResponse(call: Call<Int>, response: Response<Int>) {
                 if (response.isSuccessful) {
@@ -243,13 +242,12 @@ class DetailActivity : AppCompatActivity() {
 
                     // 소요 시간이 정상적으로 반환되었을 때
                     travelTime?.let {
-                        binding.useTime.text = "$it 분"
+                        binding.useTime.text = "$it 분 소요"
                     }
                 } else {
                     // 실패 시 로깅
-
                     Log.e("DetailActivity", "API 호출 실패: ${response.code()}")
-                    Log.d("DetailActivity", "Sending request with departure: $stationStart, arrival: $stationEnd")
+                    Log.d("DetailActivity", "Sending request with departure: ${stationStart.scode}, arrival: ${stationEnd.scode}")
                     Toast.makeText(this@DetailActivity, "소요 시간 가져오기 실패", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -262,18 +260,18 @@ class DetailActivity : AppCompatActivity() {
     }
 
     // 경유 갯수를 가져오는 메소드
-    private fun getExchangeCount(stationStart: String, stationEnd: String) {
+    private fun getExchangeCount(stationStart: CategoryDTO, stationEnd: CategoryDTO) {
         val api = AppServerClass.instance
 
         // 서버에서 경유 갯수를 요청
-        api.getExchange(stationStart, stationEnd).enqueue(object : Callback<Int> {
+        api.getExchange(stationStart.scode.toString(), stationEnd.scode.toString()).enqueue(object : Callback<Int> {
             override fun onResponse(call: Call<Int>, response: Response<Int>) {
                 if (response.isSuccessful) {
                     val exchangeCount = response.body()
 
                     exchangeCount?.let {
                         // 경유 갯수를 화면에 표시
-                        binding.stationNumber.text = "$it 개"
+                        binding.stationNumber.text = "$it 개역 경유"
                     }
                 } else {
                     Log.d("csy", "API 호출 실패: ${response.code()}")

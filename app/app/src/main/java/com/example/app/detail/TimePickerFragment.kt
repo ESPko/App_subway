@@ -2,6 +2,7 @@ package com.example.app.detail
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +64,8 @@ class TimePickerFragment : DialogFragment() {
 
         return binding.root
     }
+
+
     override fun onDismiss(dialog: DialogInterface) {
         super.onDismiss(dialog)
 

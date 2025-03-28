@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <!-- 출발역, 도착역 표시 -->
+    <!-- 상단 : 뒤로가기/ 출발역/ 도착역/ 즐겨찾기 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="110dp"
         android:background="#141827"
         android:orientation="horizontal">
-
+        <!-- 뒤로가기 : 이전 페이지로 돌아가기 -->
         <ImageButton
             android:id="@+id/btn_detail_back"
             android:layout_width="36dp"
@@ -19,7 +19,7 @@
             android:background="#141827"
             android:contentDescription="뒤로가기"
             android:src="@drawable/baseline_arrow_back_ios_24" />
-
+        <!-- 출발역 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
                 android:textSize="23sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
+        <!-- 출발역과 도착역 바꿈 -->
         <ImageButton
             android:id="@+id/btn_detail_change"
             android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
             android:background="#141827"
             android:contentDescription="위치변경"
             android:src="@drawable/baseline_swap_horiz_24" />
-
+        <!-- 도착역 -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,11 +74,12 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#141827"
+                android:textColor="#FFFFFF"
                 android:text="역이름2"
                 android:textSize="23sp"
                 android:textStyle="bold" />
         </LinearLayout>
-
+        <!-- 즐겨찾기 -->
         <ImageButton
             android:id="@+id/btn_detail_hotlist"
             android:layout_width="54dp"
@@ -88,9 +89,7 @@
             android:contentDescription="즐겨찾기"
             android:src="@drawable/baseline_star_rate_24" />
     </LinearLayout>
-
-
-    <!-- 평일/ 시간/ 출발시간/ 최소시간 -->
+    <!-- 메인 상단 버튼 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -105,6 +104,7 @@
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="평일"
+            android:textColor="#000000"
             android:textSize="15sp" />
 
         <!-- 시간 -->
@@ -116,6 +116,7 @@
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="시간"
+            android:textColor="#000000"
             android:textSize="15sp" />
 
 
@@ -128,26 +129,26 @@
             android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="출발시간"
+            android:textColor="#000000"
             android:textSize="15sp" />
 
 
         <!-- 최소시간/ 최소환승 -->
         <androidx.appcompat.widget.AppCompatButton
-            android:background="@drawable/detail_opt1"
             android:id="@+id/btn_op4"
             android:layout_width="90dp"
             android:layout_height="48dp"
+            android:background="@drawable/detail_opt1"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="최소시간"
+            android:textColor="#000000"
             android:textSize="15sp" />
 
     </LinearLayout>
-
-
-    <!-- 정보 -->
+    <!-- 메인 정보 -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="380dp"
         android:background="#D3D3D3"
         android:gravity="center"
         android:orientation="horizontal">
@@ -163,7 +164,7 @@
             android:id="@+id/timePickerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <!-- 출발역, 종착역, 호선, 도착역 정보 (처음에는 보임) -->
+        <!-- 출발역, 종착역, 호선, 도착역, 시간 -->
         <LinearLayout
             android:id="@+id/detail_info_layout"
             android:layout_width="wrap_content"
@@ -171,18 +172,20 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical">
-
+            <!-- 종착역 호출 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/last_train"
+                android:textColor="#000000"
                 android:text="종착역" />
-
+            <!-- 출발, 호선, 도착 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="horizontal">
-
+                <!-- 출발역명 호출 -->
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_detail_start2"
                     android:layout_width="80dp"
@@ -190,7 +193,7 @@
                     android:layout_marginHorizontal="10dp"
                     android:background="@drawable/detail_btn1"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="#000000"
                     android:text="역이름"
                     android:textSize="16sp" />
 
@@ -205,7 +208,7 @@
                     android:gravity="center"
                     android:text="호선"
                     android:textColor="@color/white" />
-
+                <!-- 도착역명 호출 -->
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_detail_arrival2"
                     android:layout_width="80dp"
@@ -218,139 +221,152 @@
                     android:textSize="16sp" />
 
             </LinearLayout>
-
+            <!-- 시간 -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
-
+                <!-- 출발시간 -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="00:00"
+                    android:textColor="#000000"
+                    android:id="@+id/detail_start"
                     android:textSize="16sp" />
-
+                <!-- 중간선 -->
                 <View
                     android:layout_width="100dp"
                     android:layout_height="1dp"
                     android:layout_gravity="center"
                     android:layout_marginHorizontal="10dp"
                     android:background="#000000" />
-
+                <!-- 도착시간 -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/detail_arrival"
                     android:text="00:00"
+                    android:textColor="#000000"
                     android:textSize="16sp" />
-
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-
-    <!-- 소요시간 / 이전,다음열차 -->
+    <!-- 하단-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:orientation="vertical">
-
+        <!-- 소요시간, 경유 갯수, 금액 -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
             android:orientation="horizontal">
-
+            <!-- 소요시간 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:id="@+id/use_time"
                 android:text="몇분소요"
                 android:textColor="#1F88DB" />
-
+            <!-- 구분표시 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginHorizontal="15dp"
+                android:gravity="center"
                 android:text="*"
                 android:textColor="#1F88DB" />
-
+            <!-- 경유 갯수 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:id="@+id/station_number"
                 android:text="몇개 역 경유"
                 android:textColor="#1F88DB" />
-
+            <!-- 구분표시 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_marginHorizontal="15dp"
+                android:gravity="center"
                 android:text="*"
                 android:textColor="#1F88DB" />
-
+            <!-- 금액 -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="카드 1600원"
                 android:textColor="#1F88DB" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:src="@drawable/baseline_detail_circle" />
+            <!-- 요금정보 -->
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:text="!"
+                android:background="@drawable/detail_btn3"
+                android:gravity="center"
+                android:layout_marginLeft="3dp"
+                android:textColor="@color/white"
+                android:id="@+id/rate_information"/>
         </LinearLayout>
-
+        <!-- 하단 버튼 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:orientation="horizontal">
-
+            <!-- 이전열차 -->
             <androidx.appcompat.widget.AppCompatButton
-                android:background="@drawable/detail_opt2"
-                android:drawableStart="@drawable/baseline_arrow_left_24"
-                android:id="@+id/btn_a"
+                android:id="@+id/previous_train"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:text="이전열차" />
-
-            <androidx.appcompat.widget.AppCompatButton
+                android:textColor="#000000"
                 android:background="@drawable/detail_opt2"
-                android:id="@+id/btn_b"
+                android:drawableStart="@drawable/baseline_arrow_left_24"
+                android:text="이전열차" />
+            <!-- 경유보기 -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_route"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="3dp"
                 android:layout_weight="1"
-
-                android:text="경유보기" />
-
-            <androidx.appcompat.widget.AppCompatButton
+                android:textColor="#000000"
                 android:background="@drawable/detail_opt2"
-                android:id="@+id/btn_c"
+                android:text="경유보기" />
+            <!-- 하차알람 -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_get_off"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
-                android:text="하차알람" />
-
-            <androidx.appcompat.widget.AppCompatButton
+                android:textColor="#000000"
                 android:background="@drawable/detail_opt2"
-                android:drawableEnd="@drawable/baseline_arrow_right_24"
-                android:id="@+id/btn_d"
+                android:text="하차알람" />
+            <!-- 다음열차 -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/next_train"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:textColor="#000000"
+                android:background="@drawable/detail_opt2"
+                android:drawableEnd="@drawable/baseline_arrow_right_24"
                 android:text="다음열차" />
         </LinearLayout>
     </LinearLayout>
+
+
 </LinearLayout>

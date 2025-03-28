@@ -38,11 +38,12 @@
         <activity
             android:name=".min.LocationTest3Activity"
             android:exported="false" />
+
         <activity
-            android:name=".min.QuickTest2Activity"
+            android:name=".detail.RouteActivity"
             android:exported="false" />
         <activity
-            android:name=".min.SearchTestActivity"
+            android:name=".detail.RateInformationActivity"
             android:exported="false" />
         <activity
             android:name=".detail.DetailActivity"

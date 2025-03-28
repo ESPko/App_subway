@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/background_circle.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 동그라미 배경 색상 설정 -->
+    <solid android:color="#1F88D8" />
+
+    <!-- 원 모양 설정 -->
+    <corners android:radius="10dp" /> <!-- 50%로 설정하면 완전한 원이 됩니다 -->
+</shape>
+

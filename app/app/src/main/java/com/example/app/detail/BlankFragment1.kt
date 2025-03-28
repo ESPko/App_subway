@@ -1,6 +1,7 @@
 package com.example.app.detail
 
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -76,7 +77,21 @@ class BlankFragment1 : DialogFragment() {
         }
 
         return view
+    }
+    // 다이얼로그 크기 및 위치 설정
+    override fun onStart() {
+        super.onStart()
+        val dialog = dialog
+        val window = dialog?.window
+        val params = window?.attributes
 
+        // 화면의 반으로 크기 설정
+        params?.width = (resources.displayMetrics.widthPixels * 0.7).toInt() // 80% 크기로 설정
+
+        // 화면의 가운데 배치
+        params?.height = (resources.displayMetrics.heightPixels * 0.4).toInt() // 50% 높이로 설정
+        window?.attributes = params
+        window?.setGravity(Gravity.CENTER) // 화면의 중앙에 배치
     }
 
     companion object {

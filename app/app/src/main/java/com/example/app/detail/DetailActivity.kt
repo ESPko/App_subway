@@ -16,8 +16,8 @@ import com.example.app.R
 import com.example.app.databinding.ActivityDetailBinding
 import com.example.app.dto.CategoryDTO
 import com.example.app.retrofit.AppServerClass
-import okhttp3.Callback
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -72,6 +72,7 @@ class DetailActivity : AppCompatActivity() {
         // 출발역과 도착역 정보가 있을 때 API 호출
         selectedDeparture?.let { departure ->
             selectedArrival?.let { arrival ->
+                // 출발역과 도착역의 이름을 전달하여 getTravelTime 호출
                 getTravelTime(departure.name, arrival.name)
             }
         }
@@ -244,7 +245,9 @@ class DetailActivity : AppCompatActivity() {
                     }
                 } else {
                     // 실패 시 로깅
+
                     Log.e("DetailActivity", "API 호출 실패: ${response.code()}")
+                    Log.d("DetailActivity", "Sending request with departure: $stationStart, arrival: $stationEnd")
                     Toast.makeText(this@DetailActivity, "소요 시간 가져오기 실패", Toast.LENGTH_SHORT).show()
                 }
             }

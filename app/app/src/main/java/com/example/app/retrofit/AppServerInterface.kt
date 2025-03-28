@@ -46,6 +46,12 @@ interface AppServerInterface {
 
   fun getCategories(): Call<List<CategoryDTO>>  // Returns the list of CategoryDTO
 
+  @GET("time/total/{stStation}/{edStation}")
+  fun getDistance(
+    @Path("stStation") stStation: String,
+    @Path("edStation") edStation: String
+  ): Call<Int>  // 소요 시간(분)을 반환
+
 
   @GET("app")
   fun getApi(): Call<String>

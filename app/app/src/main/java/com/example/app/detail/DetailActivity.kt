@@ -5,6 +5,7 @@ import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -14,6 +15,13 @@ import com.example.app.MainActivity
 import com.example.app.R
 import com.example.app.databinding.ActivityDetailBinding
 import com.example.app.dto.CategoryDTO
+import com.example.app.retrofit.AppServerClass
+import okhttp3.Callback
+import retrofit2.Call
+import retrofit2.Response
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class DetailActivity : AppCompatActivity() {
 
@@ -22,7 +30,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private var isFavoriteActive = false
-    private var selectedTime = "09:05"
+    private var selectedTime = getCurrentTime() // 현재 시간으로 초기화
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +48,8 @@ class DetailActivity : AppCompatActivity() {
         binding.timePickerContainer.visibility = View.GONE
 
         // Intent로부터 CategoryDTO 객체들을 받아오기
-        val selectedDeparture: CategoryDTO? = intent.getParcelableExtra("departure")
-        val selectedArrival: CategoryDTO? = intent.getParcelableExtra("arrival")
+        val selectedDeparture = intent.getParcelableExtra<CategoryDTO>("departure")
+        val selectedArrival = intent.getParcelableExtra<CategoryDTO>("arrival")
 
         Log.d("csy", "Received departure: $selectedDeparture, arrival: $selectedArrival")
 
@@ -50,6 +58,7 @@ class DetailActivity : AppCompatActivity() {
             binding.btnDetailStart1.text = it.name
             binding.btnDetailStart2.text = it.name
         }
+
         selectedArrival?.let {
             binding.btnDetailArrival1.text = it.name
             binding.btnDetailArrival2.text = it.name
@@ -58,6 +67,13 @@ class DetailActivity : AppCompatActivity() {
         // 출발역의 lineColor 설정
         selectedDeparture?.let {
             setLineColor(it.line)
+        }
+
+        // 출발역과 도착역 정보가 있을 때 API 호출
+        selectedDeparture?.let { departure ->
+            selectedArrival?.let { arrival ->
+                getTravelTime(departure.name, arrival.name)
+            }
         }
 
         // 상단 뒤로가기 버튼
@@ -116,11 +132,26 @@ class DetailActivity : AppCompatActivity() {
     private fun setLineColor(line: Int?) {
         val lineColorView = binding.lineColor
         val lineColor = when (line) {
-            1 -> R.color.line1Color
-            2 -> R.color.line2Color
-            3 -> R.color.line3Color
-            4 -> R.color.line4Color
-            else -> R.color.defaultColor
+            1 -> {
+                lineColorView.text = "1호선"  // 호선 이름을 텍스트로 표시
+                R.color.line1Color  // 색상 설정
+            }
+            2 -> {
+                lineColorView.text = "2호선"  // 호선 이름을 텍스트로 표시
+                R.color.line2Color  // 색상 설정
+            }
+            3 -> {
+                lineColorView.text = "3호선"  // 호선 이름을 텍스트로 표시
+                R.color.line3Color  // 색상 설정
+            }
+            4 -> {
+                lineColorView.text = "4호선"  // 호선 이름을 텍스트로 표시
+                R.color.line4Color  // 색상 설정
+            }
+            else -> {
+                lineColorView.text = "알 수 없음"  // 기본 텍스트
+                R.color.defaultColor  // 기본 색상
+            }
         }
         lineColorView.setBackgroundColor(ContextCompat.getColor(this, lineColor))
     }
@@ -186,5 +217,44 @@ class DetailActivity : AppCompatActivity() {
             binding.detailInfoLayout.visibility = View.GONE
             binding.timePickerContainer.visibility = View.VISIBLE
         }
+    }
+
+    // 현재 시간을 "HH:mm" 형식으로 반환하는 메소드
+    private fun getCurrentTime(): String {
+        val calendar = Calendar.getInstance()
+        val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return simpleDateFormat.format(calendar.time)
+    }
+
+    // 출발역과 도착역 정보를 기반으로 소요 시간을 가져오는 메소드
+    private fun getTravelTime(stationStart: String, stationEnd: String) {
+        val api = AppServerClass.instance
+
+        // 서버에서 이동 시간 소요를 요청
+        api.getDistance(stationStart, stationEnd).enqueue(object : Callback<Int> {
+            // onResponse 시 서버 응답을 처리하는 메소드
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                if (response.isSuccessful) {
+                    // 서버에서 받은 소요 시간 (분 단위)
+                    val travelTime = response.body()
+
+                    // 소요 시간이 정상적으로 반환되었을 때
+                    travelTime?.let {
+                        binding.useTime.text = "$it 분"
+                    }
+                } else {
+                    // 실패 시 로깅
+                    Log.e("DetailActivity", "API 호출 실패: ${response.code()}")
+                    Toast.makeText(this@DetailActivity, "소요 시간 가져오기 실패", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            // onFailure 시 네트워크 오류 처리
+            override fun onFailure(call: Call<Int>, t: Throwable) {
+                // 실패 시 로그와 토스트 메시지 출력
+                Log.e("DetailActivity", "API 호출 실패: ${t.message}")
+                Toast.makeText(this@DetailActivity, "네트워크 오류", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

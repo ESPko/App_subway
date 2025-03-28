@@ -14,6 +14,7 @@
         <!--        역 이름 호선 띠-->
 
         <GridLayout
+            android:id="@+id/line_color"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -96,6 +97,7 @@
                 android:orientation="vertical">
                 <!--                회색 큰 제목 -->
                 <TextView
+                    android:id="@+id/down_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
@@ -110,12 +112,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/down_title_text1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:text="다대포해수욕장" />
 
                     <TextView
+                        android:id="@+id/down_time_text1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -131,12 +135,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/down_title_text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:text="다대포해수욕장" />
 
                     <TextView
+                        android:id="@+id/down_time_text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -152,12 +158,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/down_title_text3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:text="다대포해수욕장" />
 
                     <TextView
+                        android:id="@+id/down_time_text3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -185,6 +193,7 @@
                 android:orientation="vertical">
                 <!--                회색 큰 제목 -->
                 <TextView
+                    android:id="@+id/up_title_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="6dp"
@@ -199,12 +208,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/up_title_text1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:text="노포" />
 
                     <TextView
+                        android:id="@+id/up_time_text1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -220,12 +231,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/up_title_text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:text="노포" />
 
                     <TextView
+                        android:id="@+id/up_time_text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -241,12 +254,14 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/up_title_text3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
                         android:text="노포" />
 
                     <TextView
+                        android:id="@+id/up_time_text3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -264,13 +279,150 @@
             android:background="#e2e2e2" />
 
     </LinearLayout>
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/fragment_container"
-        android:layout_marginTop="4dp"
+        android:orientation="vertical"
         >
-    </FrameLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="시설 정보"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            />
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:columnCount="2"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:id="@+id/tv_door"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="내리는문 오른쪽"
+                android:layout_rowSpan="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                />
+            <TextView
+                android:id="@+id/tv_toilet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="화장실 외부"
+                android:layout_rowSpan="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                />
 
+            <TextView
+                android:id="@+id/tv_across"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="횡단 불가능"
+                android:layout_rowSpan="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                />
+            <TextView
+                android:id="@+id/tv_flatform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="플랫폼 양쪽"
+                android:layout_rowSpan="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                />
+            <TextView
+                android:id="@+id/tv_storage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="물품 보관함"
+                android:layout_rowSpan="1"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:layout_marginTop="8dp"
+                />
+        </GridLayout>
+        <TextView
+            android:id="@+id/tv_util"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="수유실, 자전거보관소, 엘리베이터, 무인민원발급기, 유실물센터"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="8dp"
+            android:textSize="15sp"
+            />
+    </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#e2e2e2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="주소 및 전화번호"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="주소"
+                />
+            <TextView
+                android:id="@+id/tv_addr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="부산광역시 부산진구 중앙대로 지하 730"
+                android:layout_marginLeft="16dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전화"
+                />
+            <TextView
+                android:id="@+id/tv_tel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="051-678-6119"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/lineColor_4"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="#e2e2e2" />
 </LinearLayout>

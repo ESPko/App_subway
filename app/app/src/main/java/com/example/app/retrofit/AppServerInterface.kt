@@ -41,17 +41,19 @@ interface AppServerInterface {
   fun deleteTest1(@Query("param1") param1: String): Call<String>
 
 
+
   @GET("app")
   fun getTest5(): Call<String>
 
   @GET("time")
   fun getTime() : Call<List<String>>
 
-  @GET("category/stations")
+
+  @GET("app/category")
   fun getStations(): Call<List<Station>>
 
-  @GET("app/category")  // Ensure this matches the server URL path
   fun getCategories(): Call<List<CategoryDTO>>  // Returns the list of CategoryDTO
+
 }
 
 

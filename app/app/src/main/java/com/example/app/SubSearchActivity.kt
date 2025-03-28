@@ -1,5 +1,7 @@
 package com.example.app
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,24 +17,29 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import android.util.Log
+import android.widget.TextView
+
 
 //  역 검색 화면을 관리하는 액티비티
 class SubSearchActivity : AppCompatActivity() {
 
 
-  private val binding:ActivitySubSearchBinding by lazy {
+  private val binding: ActivitySubSearchBinding by lazy {
     ActivitySubSearchBinding.inflate(layoutInflater)
   }
 
-//  SubSearchAdapter 연결
+  //  SubSearchAdapter 연결
   private lateinit var stationAdapter: SubSearchAdapter
 
   // 전체 역 리스트 저장
-  private var allStations: List<Station> = emptyList()
+  private var allStation: List<Station> = emptyList()
 
-// Retrofit 인스턴스 가져오기
+  //  현재 선택된 필터 상태
+  private var selectedLine: Int? = null
+  private var searchQuery: String = ""
+
+  // Retrofit 인스턴스 가져오기
   private val apiService: AppServerInterface = AppServerClass.instance
-
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -52,103 +59,112 @@ class SubSearchActivity : AppCompatActivity() {
     setupSearch()
 
 
-//  테스트용 더미
-    loadDummyStations()
-
-    stationAdapter.updateData(allStations)
+    stationAdapter.updateData(allStation)
 
 
-////    서버에서 역 목록
-//    loadStationsFromServer()
+//    서버에서 역 목록
+    loadStationsFromServer()
 
   }
-
-//  더미 데이터
-  private fun loadDummyStations() {
-    allStations = listOf(
-      // 1호선
-      Station("다대포해수욕장", 1),
-      Station("다대포항", 1),
-      Station("낫개", 1),
-      Station("하단", 1),
-      Station("서면", 1),
-      Station("부산역", 1),
-      Station("서면",1),
-
-      // 2호선
-      Station("장산", 2),
-      Station("해운대", 2),
-      Station("동백", 2),
-      Station("수영", 2),
-      Station("광안", 2),
-      Station("서면", 2),
-
-      // 3호선
-      Station("대저", 3),
-      Station("체육공원", 3),
-      Station("강서구청", 3),
-      Station("연산", 3),
-      Station("수영", 3),
-      Station("미남", 3),
-
-      // 4호선
-      Station("안평", 4),
-      Station("석대", 4),
-      Station("반여", 4),
-      Station("동래", 4),
-      Station("미남", 4)
-    )
-  }
-
-
 
   // 역 목록 데이터 생성
-  private fun setupRecyclerView(){
-    stationAdapter = SubSearchAdapter(emptyList())
-    binding.rvStation.apply{
+  private fun setupRecyclerView() {
+    stationAdapter = SubSearchAdapter(allStation)
+    binding.rvStation.apply {
       adapter = stationAdapter
       layoutManager = LinearLayoutManager(this@SubSearchActivity)
     }
   }
 
-//  호선 버튼
-  private fun setupFilterButtons(){
-    binding.btnLine1.setOnClickListener { filterStations(1) }
-    binding.btnLine2.setOnClickListener { filterStations(2) }
-    binding.btnLine3.setOnClickListener { filterStations(3) }
-    binding.btnLine4.setOnClickListener { filterStations(4) }
+
+  //  노선별 색상 지정
+  private val lineColors = mapOf(
+    1 to "#F06A00", // 1호선 주황색
+    2 to "#81BF48", // 2호선 초록색
+    3 to "#BB8C00", // 3호선 갈색
+    4 to "#217DCB"  // 4호선 파랑색
+  )
+
+// 비활성화 버튼 색상
+  private val defaultTextColor = "#BDBDBD"
+
+  //  호선 버튼 클릭 설정
+  private fun setupFilterButtons() {
+    val buttons = mapOf(
+      1 to binding.btnLine1,
+      2 to binding.btnLine2,
+      3 to binding.btnLine3,
+      4 to binding.btnLine4
+    )
+    buttons.forEach{(line, button) ->
+      button.setOnClickListener{
+        selectedLine = if (selectedLine == line) null else line
+        updateButtonStyles(buttons)
+        applyFilters()
+      }
+    }
+  }
+
+//  버튼 스타일 클릭시 반응
+  private fun updateButtonStyles(buttons: Map<Int, TextView>){
+    buttons.forEach { (line, button) ->
+      if (selectedLine == line){
+        button.setTextColor(Color.parseColor(lineColors[line]))
+        button.setTypeface(null, Typeface.BOLD)
+      }else{
+        button.setTextColor(Color.parseColor(defaultTextColor))
+        button.setTypeface(null, Typeface.NORMAL)
+      }
+    }
   }
 
 
-  private fun searchStations(query: String) {
-    val filteredStations = allStations.filter { it.name.contains(query, ignoreCase = true) }
-    stationAdapter.updateData(filteredStations)
-  }
-
+  // 역 검색 기능
   private fun setupSearch() {
     binding.searchBar.addTextChangedListener(object : TextWatcher {
       override fun afterTextChanged(s: Editable?) {
-        val query = s?.toString()?.trim() ?: ""
-        searchStations(query)
+        searchQuery  = s?.toString()?.trim() ?: ""
+        applyFilters()
       }
-
       override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
       override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
     })
   }
 
 
-//  서버에서 역정보 들고오기
+  // 필터 적용 (검색어 + 노선)
+
+  private fun applyFilters() {
+    var filteredStations = allStation
+
+//    검색어 필터
+    if (searchQuery.isNotEmpty()) {
+      filteredStations = filteredStations.filter { it.name.contains(searchQuery, ignoreCase = true) }
+    }
+//    노선 필터
+    selectedLine?.let { line ->
+      filteredStations = filteredStations.filter { it.line == line }
+    }
+    stationAdapter.updateData(filteredStations)
+  }
+
+
+
+
+
+  //  서버에서 역정보 들고오기
   private fun loadStationsFromServer() {
     apiService.getStations().enqueue(object : Callback<List<Station>> {
       override fun onResponse(call: Call<List<Station>>, response: Response<List<Station>>) {
         if (response.isSuccessful) {
           response.body()?.let { stations ->
-            allStations = stations
-            stationAdapter.updateData(stations) // RecyclerView 업데이트
+            allStation = stations
+            stationAdapter.updateData(stations)
           }
+        } else {
+          Log.d("fullstack503", "서버 응답 실패: ${response.errorBody()?.string()}")
         }
+
       }
 
       override fun onFailure(call: Call<List<Station>>, t: Throwable) {
@@ -157,10 +173,8 @@ class SubSearchActivity : AppCompatActivity() {
     })
   }
 
-  // 노선에 따라 필터링하는 함수
-  private fun filterStations(line: Int) {
-    allStations?.let { stations ->  }
-    val filteredStations = allStations.filter { it.line == line }
-    stationAdapter.updateData(filteredStations)
-  }
+
 }
+
+
+

@@ -7,9 +7,9 @@ import com.example.app.databinding.ItemStationBinding
 
 
 //  SubSearchAdapter: 역 목록을 표시하는 RecyclerView 어댑터
-class SubSearchAdapter(private var stations: List<Station>) : RecyclerView.Adapter<SubSearchAdapter.StationViewHolder>() {
+class SubSearchAdapter(private var categories: List<Station>) : RecyclerView.Adapter<SubSearchAdapter.StationViewHolder>() {
 
-  private var allStations: List<Station> = stations
+  private var allCategories: List<Station> = categories
 
 //  ViewHolder 클래스: 각 역 항목(ItemStationBinding)을 화면에 바인딩하는 역할을 수행
   class StationViewHolder(val binding: ItemStationBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -44,21 +44,16 @@ class SubSearchAdapter(private var stations: List<Station>) : RecyclerView.Adapt
 
 //  ViewHolder와 데이터를 연결하는 함수
   override fun onBindViewHolder(holder: StationViewHolder, position: Int) {
-    val station = stations[position]
+    val station = categories[position]
     holder.bind(station)
   }
 //  데이터 개수를 반환
-  override fun getItemCount() = stations.size
+  override fun getItemCount() = categories.size
 
   // RecyclerView 데이터 업데이트 함수
-  fun updateData(newStations: List<Station>) {
-    this.allStations = newStations
-    this.stations = newStations
+  fun updateData(newCategories: List<Station>) {
+    this.categories = newCategories
+    this.allCategories = newCategories
     notifyDataSetChanged()
-  }
-
-  // 전체 역 데이터를 반환하는 함수 (필터링용)
-  fun getAllStations(): List<Station>{
-    return allStations
   }
 }

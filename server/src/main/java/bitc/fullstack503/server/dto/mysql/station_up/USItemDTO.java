@@ -1,10 +1,10 @@
-package bitc.fullstack503.server.dto.station_up;
+package bitc.fullstack503.server.dto.mysql.station_up;
 
 
 import lombok.Data;
 
 @Data
-public class SItemDTO {
+public class USItemDTO {
     private String startSn;
     private String startSc;
     private String endSn;

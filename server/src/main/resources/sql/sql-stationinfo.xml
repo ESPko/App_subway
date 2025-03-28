@@ -5,15 +5,9 @@
 <mapper namespace="bitc.fullstack503.server.mapper.StationMapper">
 
 <!-- 지하철 역 정보 -->
-    <select id="getStationInfoList" parameterType="String" resultType="bitc.fullstack503.server.dto.mysql.StationInfoDTO">
+    <select id="getstationInfoList" parameterType="String" resultType="bitc.fullstack503.server.dto.mysql.StationInfoDTO">
         SELECT * FROM station
     </select>
-
-
-
-
-
-
 
 
 </mapper>

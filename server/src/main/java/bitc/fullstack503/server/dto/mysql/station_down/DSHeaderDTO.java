@@ -1,9 +1,9 @@
-package bitc.fullstack503.server.dto.station_down;
+package bitc.fullstack503.server.dto.mysql.station_down;
 
 import lombok.Data;
 
 @Data
-public class SDHeaderDTO {
+public class DSHeaderDTO {
     private String resultCode;
     private String resultMsg;
 }

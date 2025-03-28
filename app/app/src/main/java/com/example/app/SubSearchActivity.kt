@@ -1,7 +1,6 @@
 package com.example.app
 
-import android.app.Activity
-import android.content.Intent
+import SubSearchAdapter
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -34,7 +33,7 @@ class SubSearchActivity : AppCompatActivity() {
   private lateinit var stationAdapter: SubSearchAdapter
 
   // 전체 역 리스트 저장
-  private var allStation: List<Station> = emptyList()
+  private var allStationSearch: List<StationSearch> = emptyList()
 
   //  현재 선택된 필터 상태
   private var selectedLine: Int? = null
@@ -61,7 +60,7 @@ class SubSearchActivity : AppCompatActivity() {
     setupSearch()
 
 
-    stationAdapter.updateData(allStation)
+    stationAdapter.updateData(allStationSearch)
 
 
 //    서버에서 역 목록
@@ -74,7 +73,7 @@ class SubSearchActivity : AppCompatActivity() {
 
   // 역 목록 데이터 생성
   private fun setupRecyclerView() {
-    stationAdapter = SubSearchAdapter(allStation)
+    stationAdapter = SubSearchAdapter(allStationSearch)
     binding.rvStation.apply {
       adapter = stationAdapter
       layoutManager = LinearLayoutManager(this@SubSearchActivity)
@@ -140,7 +139,7 @@ class SubSearchActivity : AppCompatActivity() {
   // 필터 적용 (검색어 + 노선)
 
   private fun applyFilters() {
-    var filteredStations = allStation
+    var filteredStations = allStationSearch
 
 //    검색어 필터
     if (searchQuery.isNotEmpty()) {
@@ -159,11 +158,11 @@ class SubSearchActivity : AppCompatActivity() {
 
   //  서버에서 역정보 들고오기
   private fun loadStationsFromServer() {
-    apiService.getStations().enqueue(object : Callback<List<Station>> {
-      override fun onResponse(call: Call<List<Station>>, response: Response<List<Station>>) {
+    apiService.getStations().enqueue(object : Callback<List<StationSearch>> {
+      override fun onResponse(call: Call<List<StationSearch>>, response: Response<List<StationSearch>>) {
         if (response.isSuccessful) {
           response.body()?.let { stations ->
-            allStation = stations
+            allStationSearch = stations
             stationAdapter.updateData(stations)
           }
         } else {
@@ -172,7 +171,7 @@ class SubSearchActivity : AppCompatActivity() {
 
       }
 
-      override fun onFailure(call: Call<List<Station>>, t: Throwable) {
+      override fun onFailure(call: Call<List<StationSearch>>, t: Throwable) {
         Log.d("fullstack503", "서버에서 데이터 가져오기 실패: ${t.message}")
       }
     })

@@ -40,6 +40,11 @@ class MainActivity : AppCompatActivity() {
       startActivity(intent)
       finish()
     }
+    binding.btnDetail.setOnClickListener {
+      val intent = Intent(this@MainActivity, StationDetailActivity::class.java)
+      startActivity(intent)
+      finish()
+    }
 
     // Retrofit 초기화
     val retrofit = Retrofit.Builder()
@@ -64,19 +69,6 @@ class MainActivity : AppCompatActivity() {
       fetchCategories(api, "arrival")
     }
 
-    binding.btnGet3.setOnClickListener {
-      Log.d("csy", "gettest3 시작")
-      val api = AppServerClass.instance
-      val call = api.getTest3(param1 = "path 방식 파라미터1", param2 = "path 방식 파라미터2")
-      retrofitResponse(call)
-    }
-
-    binding.btnPost1.setOnClickListener {
-      Log.d("csy", "posttest1 시작")
-      val api = AppServerClass.instance
-      val call = api.postTest1()
-      retrofitResponse(call)
-    }
   }
 
   // Retrofit을 통해 카테고리 데이터를 가져오는 함수

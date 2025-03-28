@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.app.R
+import com.example.app.TrainResponse
 import com.example.app.databinding.FragmentLine1Binding
 import com.example.app.retrofit.AppServerClass
 import org.w3c.dom.Text
@@ -178,19 +179,23 @@ class Line1Fragment : Fragment() {
     })
   }
 
-  private fun retrofitResponse2(call: Call<List<Train>>) {
-    call.enqueue(object : Callback<List<Train>> {
-      override fun onResponse(call: Call<List<Train>>, res: Response<List<Train>>) {
+  private fun retrofitResponse2(call: Call<TrainResponse>) {
+    call.enqueue(object : Callback<TrainResponse> {
+      override fun onResponse(call: Call<TrainResponse>, res: Response<TrainResponse>) {
         if (res.isSuccessful) {
           val result = res.body()
           Log.d("csy", "result : $result")
+          result?.let {
+            Log.d("csy", "result ${it.노포}")
+            Log.d("csy", "result ${it.다대포해수욕장}")
+          }
 
         } else {
           Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
         }
       }
 
-      override fun onFailure(call: Call<List<Train>>, t: Throwable) {
+      override fun onFailure(call: Call<TrainResponse>, t: Throwable) {
         Log.d("csy", "message : ${t.message}")
       }
     })

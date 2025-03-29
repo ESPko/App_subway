@@ -89,16 +89,13 @@ public class AppServerController {
 
     if (stStationInt < edStationInt) {
 
-      int temp = stStationInt;
-      stStationInt = edStationInt;
-      edStationInt = temp;
 
-      result = stationservice.getTimeTotalDown(stStation, edStation);
+      result = stationservice.getTimeTotalUp(stStation, edStation);
 
     }
     else {
 
-      result = stationservice.getTimeTotalUp(stStation, edStation);
+      result = stationservice.getTimeTotalDown(stStation, edStation);
     }
 
     return result;
@@ -128,26 +125,35 @@ public class AppServerController {
 
     return result;
   }
-
-  // 현재 시간과 가까운 지하철 시간 선택( 평일/ 주말 / 공휴일 )
+////   현재 시간과 가까운 지하철 시간 선택( 평일/ 주말 / 공휴일 )
+//
+//  private List<Integer> calculateTrainTimeDifference(List<TItemDTO> trainList, int minTime) {
+//    List<Integer> resultList = new ArrayList<>();
+//    for (TItemDTO train : trainList) {
+//      int trainTimeHour = train.getHour();
+//      int trainTimeMinutes = train.getTime();
+//      int trainminTime = trainTimeHour * 60 + trainTimeMinutes;
+//      int result = trainminTime - minTime;
+//      resultList.add(result);
+//    }
+//    return resultList;
+//  }
 //
 //  @GetMapping("/app/traintime/{tscode}/{tsttime}/{tday}")
 //  public Map<String, List<Integer>> gettraintime(@PathVariable String tscode, @PathVariable String tsttime, @PathVariable String tday) throws Exception {
 //
-//    int hour = Integer.parseInt(tsttime.substring(0,2));
+//    int hour = Integer.parseInt(tsttime.substring(0, 2));
 //    int minutes = Integer.parseInt(tsttime.substring(2, 4));
 //    int minTime = hour * 60 + minutes;
 //
 //    String serviceKey = "?serviceKey=" + trainServiceKey;
 //    String tstime = "&tstime=" + tsttime;
 //
-//    // 필수옵션
 //    String essentialOpt = "&act=json";
 //    String essentialOpt1 = "&tscode=" + tscode;
 //
-//    String url = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&tday=" + tday + tstime + "&enum=3&updown=0"  ;
-//    String url2 = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&tday=" + tday + tstime + "&enum=3&updown=1"  ;
-////        System.out.println(url);
+//    String url = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&tday=" + tday + tstime + "&enum=3&updown=0";
+//    String url2 = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&tday=" + tday + tstime + "&enum=3&updown=1";
 //
 //    List<TItemDTO> TrainJsonList = apiservice.getTrainJson(url);
 //    List<TItemDTO> TrainJsonList2 = apiservice.getTrainJson(url2);
@@ -155,43 +161,19 @@ public class AppServerController {
 //    String downendcode = TrainJsonList.get(0).getEndcode();
 //    String upendcode = TrainJsonList2.get(0).getEndcode();
 //
-//    // 종착역 이름 나오는거
-//    String DownendStationName =categoryservice.getStationName(downendcode);
-//    String UpendStationName =categoryservice.getStationName(upendcode);
+//    String DownendStationName = categoryservice.getStationName(downendcode);
+//    String UpendStationName = categoryservice.getStationName(upendcode);
 //
-//    // 리스트로 만든값
-//    List<Integer> resultList1 = new ArrayList<>();  // 다대포해수욕장의 result 값들
-//    List<Integer> resultList2 = new ArrayList<>(); // 노포 result 값
+//    List<Integer> resultList1 = calculateTrainTimeDifference(TrainJsonList, minTime);
+//    List<Integer> resultList2 = calculateTrainTimeDifference(TrainJsonList2, minTime);
 //
-//    System.out.println(DownendStationName);
-//    for (TItemDTO train : TrainJsonList) {
-//      int trainTimeHour = train.getHour();
-//      int trainTimeMinutes = train.getTime();
-//      int trainminTime = trainTimeHour * 60 + trainTimeMinutes;
-//      int result = trainminTime - minTime;
-//
-//      System.out.println("result = " + result);
-//      resultList1.add(result); // 다대포해수욕장의 result 값들
-//
-//    }
-//    System.out.println(UpendStationName);
-//    for(TItemDTO train : TrainJsonList2){
-//      int trainTimeHour = train.getHour();
-//      int trainTimeMinutes = train.getTime();
-//      int trainminTime = trainTimeHour * 60 + trainTimeMinutes;
-//      int result2 = trainminTime - minTime;
-//
-//      System.out.println("result2 = " + result2);
-//      resultList2.add(result2); // 노포의 result2 값들
-//    }
-//    // map List 로 만들어서 값 넘기기.
 //    Map<String, List<Integer>> resultMap = new HashMap<>();
 //    resultMap.put(DownendStationName, resultList1);
 //    resultMap.put(UpendStationName, resultList2);
 //
-//
 //    return resultMap;
 //  }
+//
 
 
 

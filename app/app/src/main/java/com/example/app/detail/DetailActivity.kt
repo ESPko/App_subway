@@ -246,8 +246,8 @@ class DetailActivity : AppCompatActivity() {
                     }
                 } else {
                     // 실패 시 로깅
-                    Log.e("DetailActivity", "API 호출 실패: ${response.code()}")
-                    Log.d("DetailActivity", "Sending request with departure: ${stationStart.scode}, arrival: ${stationEnd.scode}")
+                    Log.e("csy", "API 호출 실패: ${response.code()}")
+                    Log.d("csy", "Sending request with departure: ${stationStart.scode}, arrival: ${stationEnd.scode}")
                     Toast.makeText(this@DetailActivity, "소요 시간 가져오기 실패", Toast.LENGTH_SHORT).show()
                 }
             }

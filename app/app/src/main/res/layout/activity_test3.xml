@@ -192,9 +192,10 @@
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/tel"/>
 
-<!--        역 정보 -->
 
-        <!-- '역 정보' 위에 작은 아이콘 추가 -->
+<!--                역 정보 -->
+<!--         '역 정보' 위에 작은 아이콘 추가 -->
+
         <ImageView
             android:id="@+id/station_info_icon"
             android:layout_width="24dp"
@@ -219,40 +220,54 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-        <TextView
-            android:id="@+id/line1"
+
+
+                <TextView
+                    android:id="@+id/line1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="|"
+                    android:textColor="#e2e2e2"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/station_infor"
+                    app:layout_constraintStart_toEndOf="@+id/station_infor"
+                    app:layout_constraintTop_toTopOf="@+id/station_infor" />
+
+
+        <!-- 출구 컨테이너 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/exit_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="|"
-            android:textColor="#e2e2e2"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
             app:layout_constraintBottom_toBottomOf="@+id/station_infor"
-            app:layout_constraintStart_toEndOf="@+id/station_infor"
-            app:layout_constraintTop_toTopOf="@+id/station_infor" />
+            app:layout_constraintStart_toEndOf="@+id/station_infor">
 
-        <ImageView
-            android:id="@+id/exit_info_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="14dp"
-            android:src="@drawable/ic_exit_info"
-            android:contentDescription="출구 정보 아이콘"
-            app:layout_constraintBottom_toTopOf="@id/exit_infor"
-            app:layout_constraintStart_toStartOf="@id/exit_infor"
-            android:layout_marginBottom="4dp" />
+            <!-- 시간표 아이콘 -->
+            <ImageView
+                android:id="@+id/exit_info_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/ic_exit_info"
+                android:contentDescription="출구 정보 아이콘"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-<!--        출구 정보 -->
-        <TextView
-            android:id="@+id/exit_infor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="출구 정보"
-            app:layout_constraintBottom_toBottomOf="@+id/station_infor"
-            app:layout_constraintStart_toEndOf="@+id/station_infor" />
+            <!-- 시간표 텍스트 -->
+            <TextView
+                android:id="@+id/exit_infor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="출구 정보"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/exit_info_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/line2"
@@ -260,38 +275,54 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="|"
+            android:layout_marginEnd="8dp"
             android:textColor="#e2e2e2"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/exit_infor"
-            app:layout_constraintStart_toEndOf="@+id/exit_infor"
-            app:layout_constraintTop_toTopOf="@+id/exit_infor" />
-
-        <ImageView
-            android:id="@+id/bus_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="15dp"
-            android:src="@drawable/time_table_icon"
-            android:contentDescription="시간표 아이콘"
-            app:layout_constraintBottom_toTopOf="@id/bus"
-            app:layout_constraintStart_toStartOf="@id/bus"
-            android:layout_marginBottom="4dp" />
+            app:layout_constraintBottom_toBottomOf="@+id/exit_container"
+            app:layout_constraintStart_toEndOf="@+id/exit_container"
+            app:layout_constraintTop_toTopOf="@+id/exit_container" />
 
 
-<!--        주변 버스-->
-        <TextView
-            android:id="@+id/bus"
+        <!-- 시간표 컨테이너 -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/time_table_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:text="시간표"
-            app:layout_constraintBottom_toBottomOf="@+id/exit_infor"
-            app:layout_constraintStart_toEndOf="@+id/exit_infor" />
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/exit_container"
+            app:layout_constraintStart_toEndOf="@+id/exit_container">
+
+            <!-- 시간표 아이콘 -->
+            <ImageView
+                android:id="@+id/time_table_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/time_table_icon"
+                android:contentDescription="시간표 아이콘"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- 시간표 텍스트 -->
+            <TextView
+                android:id="@+id/time_table"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="시간표"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time_table_icon" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-<!--        출발, 경유 , 도착 -->
+
+
+
+
+        <!--        출발, 경유 , 도착 -->
         <View
             android:id="@+id/view4"
             android:layout_width="match_parent"

@@ -31,6 +31,19 @@ class MainActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
 
+    // 인텐트에서 값 가져오기
+    val selectedStation = intent.getStringExtra("selectedStation")
+    val selectedArrival = intent.getStringExtra("selectedArrival")
+
+    // 값이 존재하면 출발 버튼 텍스트 변경
+    selectedStation?.let {
+      findViewById<Button>(R.id.btnDeparture).text = it
+    }
+
+    selectedArrival?.let {
+      findViewById<Button>(R.id.btnArrival).text = it
+    }
+
 
     val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
 

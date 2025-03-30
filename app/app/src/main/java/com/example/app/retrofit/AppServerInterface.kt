@@ -72,6 +72,13 @@ interface AppServerInterface {
   @GET("app/station/{scode}")
   fun getStationInfo(@Path("scode") scode: String): Call<String>
 
+  @GET("app/traintime/{scode}/{sttime}/{day}")
+  fun getTrainTime(
+    @Path("scode") scode: String,
+    @Path("sttime") sttime: String,
+    @Path("day") day: String
+  ): Call<Map<String, List<Int>>> // 서버 응답은 Map<String, List<Integer>> 형태
+
 }
 
 

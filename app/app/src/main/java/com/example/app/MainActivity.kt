@@ -14,7 +14,6 @@ import com.example.app.detail.DetailActivity
 import com.example.app.dto.CategoryDTO
 import com.example.app.min.LocationTest3Activity
 import com.example.app.min.QuickTest2Activity
-import com.example.app.min.SearchTestActivity
 import com.example.app.min.SettingTest4Activity
 import com.example.app.retrofit.AppServerInterface
 import retrofit2.Call
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
       Toast.makeText(this, "역검색 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, SearchTestActivity::class.java))
+      startActivity(Intent(this, SubSearchActivity::class.java))
     }
 
     toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {

@@ -27,6 +27,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
+
+
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="52dp"-->
+<!--            android:layout_height="43dp"-->
+<!--            tools:layout_editor_absoluteX="270dp"-->
+<!--            tools:layout_editor_absoluteY="600dp">-->
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- 툴바 오버레이 -->
@@ -95,280 +108,273 @@
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/persistent_bottom_sheet"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="16dp"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        app:behavior_fitToContents="false"
-        app:behavior_peekHeight="0dp"
-        app:behavior_expandedOffset="350dp"
-        android:background="@color/white"
-        app:behavior_hideable="false">
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="40dp"
-            android:layout_height="6dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-<!--        역 이름 -->
-        <TextView
-            android:id="@+id/station_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:gravity="center"
-            android:text="역이름"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view2" />
-
-        <TextView
-            android:id="@+id/subway_station"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="2dp"
-            android:text="지하철역"
-            app:layout_constraintBottom_toBottomOf="@+id/station_name"
-            app:layout_constraintStart_toEndOf="@+id/station_name" />
-
-<!--        거리 -->
-        <TextView
-            android:id="@+id/distance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="거리(m or km)"
-            android:textColor="#434343"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/station_name"
-            app:layout_constraintTop_toBottomOf="@+id/station_name" />
-
-<!--            내 위치에서 -->
-        <TextView
-            android:id="@+id/distance_from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="내 위치에서 선택한 장소까지의 거리"
-            android:textColor="#727272"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="@id/distance"
-            app:layout_constraintTop_toBottomOf="@id/distance" />
-
-<!--         전화번호 -->
-        <TextView
-            android:id="@+id/tel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="051-1234-5678"
-            android:textColor="#0385FF"
-            android:textSize="14sp"
-            android:layout_marginTop="4dp"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="@id/distance_from"
-            app:layout_constraintTop_toBottomOf="@id/distance_from" />
-
-
-<!--        역 정보, 출구 정보, 주변 버스 , 시간표 -->
-        <View
-            android:id="@+id/view3"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/persistent_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="0.4dp"
-            android:background="#d3d3d3"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/tel"/>
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:elevation="16dp"
+            app:behavior_expandedOffset="350dp"
+            app:behavior_fitToContents="false"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="0dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="40dp"
+                android:layout_height="6dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!--        역 이름 -->
+            <TextView
+                android:id="@+id/station_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:gravity="center"
+                android:text="역이름"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+            <TextView
+                android:id="@+id/subway_station"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="2dp"
+                android:text="지하철역"
+                app:layout_constraintBottom_toBottomOf="@+id/station_name"
+                app:layout_constraintStart_toEndOf="@+id/station_name" />
+
+            <!--        거리 -->
+            <TextView
+                android:id="@+id/distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="거리(m or km)"
+                android:textColor="#434343"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/station_name"
+                app:layout_constraintTop_toBottomOf="@+id/station_name" />
+
+            <!--            내 위치에서 -->
+            <TextView
+                android:id="@+id/distance_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="내 위치에서 선택한 장소까지의 거리"
+                android:textColor="#727272"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/distance"
+                app:layout_constraintTop_toBottomOf="@id/distance" />
+
+            <!--         전화번호 -->
+            <TextView
+                android:id="@+id/tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:text="051-1234-5678"
+                android:textColor="#0385FF"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/distance_from"
+                app:layout_constraintTop_toBottomOf="@id/distance_from" />
 
 
-<!--                역 정보 -->
-<!--         '역 정보' 위에 작은 아이콘 추가 -->
+            <!--        역 정보, 출구 정보, 주변 버스 , 시간표 -->
 
-        <ImageView
-            android:id="@+id/station_info_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginLeft="11dp"
-            android:src="@drawable/ic_station_info"
-            android:contentDescription="역 정보 아이콘"
-            app:layout_constraintBottom_toTopOf="@id/station_infor"
-            app:layout_constraintStart_toStartOf="@id/station_infor"
-            android:layout_marginBottom="4dp" />
-
-        <TextView
-            android:id="@+id/station_infor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginStart="16dp"
-            android:gravity="center"
-            android:text="역 정보"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view3" />
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="0.4dp"
+                android:layout_marginTop="16dp"
+                android:background="#d3d3d3"
+                app:layout_constraintTop_toBottomOf="@+id/tel" />
 
 
 
+            <ImageView
+                android:id="@+id/station_info_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="11dp"
+                android:src="@drawable/ic_station_info"
+                android:contentDescription="역 정보 아이콘"
+                app:layout_constraintBottom_toTopOf="@id/station_infor"
+                app:layout_constraintStart_toStartOf="@id/station_infor"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/station_infor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:gravity="center"
+                android:text="역 정보"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+            <TextView
+                android:id="@+id/line1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="|"
+                android:textColor="#e2e2e2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/station_infor"
+                app:layout_constraintStart_toEndOf="@+id/station_infor"
+                app:layout_constraintTop_toTopOf="@+id/station_infor" />
+
+
+            <!-- 출구 컨테이너 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/exit_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/station_infor"
+                app:layout_constraintStart_toEndOf="@+id/station_infor">
+
+
+
+                <ImageView
+                    android:id="@+id/exit_info_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:contentDescription="출구 정보 아이콘"
+                    android:src="@drawable/ic_exit_info"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 시간표 텍스트 -->
                 <TextView
-                    android:id="@+id/line1"
+                    android:id="@+id/exit_infor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="|"
-                    android:textColor="#e2e2e2"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/station_infor"
-                    app:layout_constraintStart_toEndOf="@+id/station_infor"
-                    app:layout_constraintTop_toTopOf="@+id/station_infor" />
-
-
-        <!-- 출구 컨테이너 -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/exit_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/station_infor"
-            app:layout_constraintStart_toEndOf="@+id/station_infor">
-
-            <!-- 시간표 아이콘 -->
-            <ImageView
-                android:id="@+id/exit_info_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginBottom="4dp"
-                android:src="@drawable/ic_exit_info"
-                android:contentDescription="출구 정보 아이콘"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- 시간표 텍스트 -->
-            <TextView
-                android:id="@+id/exit_infor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="출구 정보"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/exit_info_icon" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/line2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="|"
-            android:layout_marginEnd="8dp"
-            android:textColor="#e2e2e2"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/exit_container"
-            app:layout_constraintStart_toEndOf="@+id/exit_container"
-            app:layout_constraintTop_toTopOf="@+id/exit_container" />
-
-
-        <!-- 시간표 컨테이너 -->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/time_table_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/exit_container"
-            app:layout_constraintStart_toEndOf="@+id/exit_container">
-
-            <!-- 시간표 아이콘 -->
-            <ImageView
-                android:id="@+id/time_table_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginBottom="4dp"
-                android:src="@drawable/time_table_icon"
-                android:contentDescription="시간표 아이콘"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <!-- 시간표 텍스트 -->
-            <TextView
-                android:id="@+id/time_table"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="시간표"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/time_table_icon" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-
-        <!--        출발, 경유 , 도착 -->
-        <View
-            android:id="@+id/view4"
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="#d3d3d3"
-            android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/station_infor"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/start"
-                    android:layout_width="72dp"
-                    android:layout_height="36dp"
-                    android:layout_marginStart="12dp"
-                    android:text="출발"
-                    android:textColor="#FB122F"
-                    android:textSize="14sp"
+                    android:text="출구 정보"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/arrive"
-                    app:layout_constraintBottom_toBottomOf="@id/arrive" />
+                    app:layout_constraintTop_toBottomOf="@+id/exit_info_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/line2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="|"
+                android:textColor="#e2e2e2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/exit_container"
+                app:layout_constraintStart_toEndOf="@+id/exit_container"
+                app:layout_constraintTop_toTopOf="@+id/exit_container" />
 
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/layover"
-            android:layout_width="72dp"
-            android:layout_height="36dp"
-            android:layout_marginEnd="8dp"
-            android:text="경유"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/arrive"
-            app:layout_constraintBottom_toBottomOf="@id/arrive" />
+            <!-- 시간표 컨테이너 -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/time_table_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/exit_container"
+                app:layout_constraintStart_toEndOf="@+id/exit_container">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/arrive"
-            android:layout_width="72dp"
-            android:layout_height="36dp"
-            android:layout_margin="12dp"
-            android:text="도착"
-            android:textColor="#0385FF"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@id/view4"
-            app:layout_constraintTop_toBottomOf="@id/view4" />
+                <!-- 시간표 아이콘 -->
+                <ImageView
+                    android:id="@+id/time_table_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:contentDescription="시간표 아이콘"
+                    android:src="@drawable/time_table_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 시간표 텍스트 -->
+                <TextView
+                    android:id="@+id/time_table"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="시간표"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/time_table_icon" />
 
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--        출발, 경유 , 도착 -->
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:layout_marginTop="16dp"
+                android:background="#d3d3d3"
+                app:layout_constraintTop_toBottomOf="@+id/station_infor" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/start"
+                android:layout_width="72dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:text="출발"
+                android:textColor="#FB122F"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/arrive"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/arrive" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/layover"
+                android:layout_width="72dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="8dp"
+                android:text="경유"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@id/arrive"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/arrive" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/arrive"
+                android:layout_width="72dp"
+                android:layout_height="36dp"
+                android:layout_margin="12dp"
+                android:text="도착"
+                android:textColor="#0385FF"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@id/view4"
+                app:layout_constraintTop_toBottomOf="@id/view4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

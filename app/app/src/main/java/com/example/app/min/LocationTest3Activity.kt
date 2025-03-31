@@ -22,6 +22,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.app.MainActivity
 import com.example.app.NaverMapActivity
 import com.example.app.R
+import com.example.app.SubSearchActivity
 import com.example.app.databinding.ActivityTest3Binding
 import com.example.app.detail.DetailActivity
 import com.example.app.dto.CategoryDTO

@@ -22,6 +22,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.app.MainActivity
 import com.example.app.NaverMapActivity
 import com.example.app.R
+import com.example.app.SubSearchActivity
 import com.example.app.databinding.ActivityTest3Binding
 import com.example.app.detail.DetailActivity
 import com.example.app.dto.CategoryDTO
@@ -212,7 +213,7 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
 
 // 툴바 안 내용 수정
         val titleEditView = EditText(this).apply {
-            hint = "검색어를 입력해 주세요"
+            hint = "더블클릭 해주세요."
             setHintTextColor(resources.getColor(android.R.color.darker_gray))
             setTextColor(resources.getColor(android.R.color.black))
             textSize = 16f
@@ -331,15 +332,27 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
 
 
 //        검색 클릭
-        titleEditView.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val searchText = titleEditView.text.toString()
-                performSearch(searchText)
-                true
-            } else {
-                false
-            }
+        searchContainer.setOnClickListener {
+            val intent = Intent(this, SubSearchActivity::class.java)
+            startActivity(intent)
         }
+
+        titleEditView.setOnClickListener {
+            val intent = Intent(this, SubSearchActivity::class.java)
+            startActivity(intent)
+        }
+
+//        titleEditView.setOnEditorActionListener { _, actionId, _ ->
+//            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                val searchText = titleEditView.text.toString().trim()
+//
+////                performSearch(searchText)
+//                true
+//            } else {
+//                false
+//            }
+//
+//        }
 
         // 검색 클릭
 //        val edit: EditText = findViewById(R.id.search)

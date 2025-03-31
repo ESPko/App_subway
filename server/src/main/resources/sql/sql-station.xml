@@ -26,16 +26,18 @@
 
 <!--    지하철 역 간 이동 시간(상행) -->
     <select id="getTimeTotalUp" resultType="int" parameterType="map">
-        SELECT round((SUM(time) + SUM(stopping_time)) / 60) AS total_sum
+        SELECT ROUND(COALESCE(SUM(time) + SUM(stopping_time), 0) / 60) AS total_sum
         FROM station_up
-        WHERE start_Sc BETWEEN #{stStation} AND #{edStation}
+        WHERE start_Sc BETWEEN #{stStationInt} AND #{edStationInt}
+        AND NOT end_sc = #{edStationInt} + 1
     </select>
 
     <!--    지하철 역 간 이동 시간(하행) -->
     <select id="getTimeTotalDown" resultType="int" parameterType="map">
-        SELECT round((SUM(time) + SUM(stopping_time)) / 60) AS total_sum
+        SELECT ROUND(COALESCE(SUM(time) + SUM(stopping_time), 0) / 60) AS total_sum
         FROM station_down
-        WHERE start_Sc BETWEEN #{stStation} AND #{edStation}
+        WHERE start_Sc BETWEEN #{edStationInt} AND #{stStationInt}
+        AND NOT end_sc = #{edStationInt} - 1
     </select>
 
 
@@ -43,14 +45,16 @@
     <select id="getExchangeUp" resultType="int" parameterType="map">
         SELECT count(*) AS total_sum
         FROM station_up
-        WHERE start_sc BETWEEN #{stStation} AND #{edStation} AND exchange = 'N';
+        WHERE start_sc BETWEEN #{stStationInt} AND #{edStationInt} AND exchange = 'N'
+        AND NOT end_sc = #{edStationInt} + 1
     </select>
 
     <!--  지하철 경유갯수 (하행)  -->
     <select id="getExchangeDown" resultType="int" parameterType="map">
         SELECT count(*) AS total_sum
         FROM station_down
-        WHERE start_sc BETWEEN #{stStation} AND #{edStation} AND exchange = 'N';
+        WHERE start_sc BETWEEN #{edStationInt} AND #{stStationInt} AND exchange = 'N'
+        AND NOT end_sc = #{edStationInt} - 1
     </select>
 
 

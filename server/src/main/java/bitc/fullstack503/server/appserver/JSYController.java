@@ -1,8 +1,7 @@
 package bitc.fullstack503.server.appserver;
 
-import bitc.fullstack503.server.dto.mysql.CategoryDTO;
+import bitc.fullstack503.server.dto.mysql.*;
 import bitc.fullstack503.server.dto.api.train.TItemDTO;
-import bitc.fullstack503.server.dto.mysql.StationInfoDTO;
 import bitc.fullstack503.server.service.Apiservice;
 import bitc.fullstack503.server.service.Categoryservice;
 import bitc.fullstack503.server.service.StationService;
@@ -41,7 +40,7 @@ public class JSYController {
     private StationService stationservice;
 
     // select * from category where scode = ?
-    @GetMapping("/app/category/{scode}")
+    @GetMapping("/app/stationListName/{scode}")
     public List<CategoryDTO> getStationListName(@PathVariable String scode) throws Exception {
 
         List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(scode);
@@ -77,6 +76,8 @@ public class JSYController {
         // 종착역 이름 나오는거
         String DownendStationName =categoryservice.getStationName(downendcode);
         String UpendStationName =categoryservice.getStationName(upendcode);
+
+
 
         // 리스트로 만든값
         List<Integer> resultList1 = new ArrayList<>();  // 다대포해수욕장의 result 값들
@@ -115,6 +116,22 @@ public class JSYController {
     @GetMapping("/app/station/{scode}")
     public List<StationInfoDTO> getStationInfo(@PathVariable String scode) throws Exception {
         return stationservice.getStationInfoList(scode);
+    }
+
+
+    @GetMapping("/app/StationSheet/{scode}")
+    public StationSheetDTO getStationSheet(@PathVariable String scode) throws Exception {
+        // service에서 필요한 데이터 가져오기
+        List<TimeUPDTO> timeups = stationservice.getTimeUpList(scode);
+        List<TimeDownDTO> timedowns = stationservice.getTimeDownList(scode);
+
+        // StationSheetDTO 생성 후 리스트 세팅
+        StationSheetDTO stationSheet = new StationSheetDTO();
+        stationSheet.setTimeups(timeups);
+        stationSheet.setTimedowns(timedowns);
+
+        // 결과 반환
+        return stationSheet;
     }
 
 }

@@ -10,4 +10,16 @@
         WHERE scode = #{scode}
     </select>
 
+    <select id="getTimeUpList" resultType="bitc.fullstack503.server.dto.mysql.TimeUPDTO" parameterType="String">
+        SELECT scode, day, sat, holi FROM
+        time_up
+        WHERE scode = #{scode}
+    </select>
+
+    <select id="getTimeDownList" resultType="bitc.fullstack503.server.dto.mysql.TimeDownDTO" parameterType="String">
+        SELECT scode, day, sat, holi FROM
+        time_down
+        WHERE scode = #{scode}
+    </select>
+
 </mapper>

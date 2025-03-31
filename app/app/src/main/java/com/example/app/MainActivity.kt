@@ -5,18 +5,23 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.app.databinding.ActivityMainBinding
 import com.example.app.detail.DetailActivity
 import com.example.app.dto.CategoryDTO
+import com.example.app.min.LocationTest3Activity
+import com.example.app.min.QuickTest2Activity
+import com.example.app.min.SettingTest4Activity
 import com.example.app.retrofit.AppServerInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.jvm.java
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +33,47 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
+
+    // Intent에서 출발역과 도착역 값 가져오기
+    val receivedDeparture = intent.getStringExtra("selectedDeparture")
+    val receivedArrival = intent.getStringExtra("selectedArrival")
+
+    // 값이 있을 경우 버튼 텍스트 및 변수 업데이트
+    if (receivedDeparture != null) {
+      selectedDeparture = CategoryDTO(receivedDeparture, 0, 0) // 기본값 0으로 설정
+      binding.btnDeparture.text = receivedDeparture
+    }
+
+    if (receivedArrival != null) {
+      selectedArrival = CategoryDTO(receivedArrival, 0, 0) // 기본값 0으로 설정
+      binding.btnArrival.text = receivedArrival
+    }
+
+      val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+
+      toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
+          Toast.makeText(this, "역검색 클릭", Toast.LENGTH_SHORT).show()
+          startActivity(Intent(this, SubSearchActivity::class.java))
+      }
+
+      toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
+          Toast.makeText(this, "빠른검색 클릭", Toast.LENGTH_SHORT).show()
+          startActivity(Intent(this, QuickTest2Activity::class.java))
+      }
+
+      toolbar.findViewById<LinearLayout>(R.id.around).setOnClickListener {
+          Toast.makeText(this, "내 주변 클릭", Toast.LENGTH_SHORT).show()
+          startActivity(Intent(this, LocationTest3Activity::class.java))
+      }
+
+      toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
+          Toast.makeText(this, "설정 클릭", Toast.LENGTH_SHORT).show()
+          startActivity(Intent(this, SettingTest4Activity::class.java))
+      }
+
+      toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
+          Toast.makeText(this, "더보기 클릭", Toast.LENGTH_SHORT).show()
+      }
 
     // 검색 버튼 클릭 리스너
     binding.btnSearch.setOnClickListener {

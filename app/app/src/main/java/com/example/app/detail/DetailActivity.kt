@@ -63,15 +63,27 @@ class DetailActivity : AppCompatActivity() {
             // 출발역 코드로 getClosestTrainTime 호출
             getClosestTrainTime(it.scode.toString())        }
 
+        selectedArrival?.let {
+            // 출발역 코드로 getClosestTrainTime 호출
+            // 출발역 코드로 getClosestTrainTime 호출
+            getClosestTrainTime(it.scode.toString())        }
+
+
         // 출발역과 도착역 정보를 화면에 표시
         selectedDeparture?.let {
             binding.btnDetailStart1.text = it.name
             binding.btnDetailStart2.text = it.name
+            stScode = it.scode.toString()  // 출발역 코드 stScode에 할당
+            // 출발역 코드로 getClosestTrainTime 호출
+            getClosestTrainTime(it.scode.toString())
         }
 
         selectedArrival?.let {
             binding.btnDetailArrival1.text = it.name
             binding.btnDetailArrival2.text = it.name
+            edScode = it.scode.toString()  // 도착역 코드 edScode에 할당
+            // 도착역 코드로 getClosestTrainTime 호출
+            getClosestTrainTime(it.scode.toString())
         }
 
         // 출발역의 lineColor 설정
@@ -295,14 +307,21 @@ class DetailActivity : AppCompatActivity() {
             }
         })
     }
+
+
+    var stScode=""
+    var edScode=""
+
+
     // **변경된 부분** 추가
     private fun getClosestTrainTime(stationCode: String) {
         val currentTime = getCurrentTime()  // 현재 시간
-        val currentDate = getCurrentDate()  // 현재 날짜
+
+
 
         // API 호출
-        AppServerClass.instance.getTrainTime(stationCode, currentTime, currentDate).enqueue(object : Callback<Map<String, List<Int>>> {
-            override fun onResponse(call: Call<Map<String, List<Int>>>, response: Response<Map<String, List<Int>>>) {
+        AppServerClass.instance.getTrainTime(stScode, edScode, currentTime, "1").enqueue(object : Callback<String> {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
                 if (response.isSuccessful) {
                     val trainTimeDifferences = response.body()
 
@@ -311,27 +330,24 @@ class DetailActivity : AppCompatActivity() {
 
                     // 가장 가까운 출발 시간 찾기
                     trainTimeDifferences?.let {
-                        val closestTime = findClosestDepartureTime(it)
+
+
                         // btnOp3 버튼에 가장 가까운 출발 시간 표시
-                        binding.detailStart.text = closestTime  // TextView에 값 설정
-                        Log.d("TrainTimeActivity", "Closest departure time: $closestTime")
+                        binding.detailStart.text = trainTimeDifferences  // TextView에 값 설정
+                        Log.d("TrainTimeActivity", "Closest departure time: $trainTimeDifferences")
                     }
                 } else {
                     Log.e("TrainTimeActivity", "API 호출 실패: ${response.code()}")
                 }
             }
 
-            override fun onFailure(call: Call<Map<String, List<Int>>>, t: Throwable) {
+            override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.e("TrainTimeActivity", "네트워크 오류: ${t.message}")
             }
         })
     }
 
-    private fun getCurrentDate(): String {
-        val calendar = Calendar.getInstance()
-        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        return simpleDateFormat.format(calendar.time)
-    }
+
 
     // 서버에 요청할 때 시간 값을 HHmm 형식으로 변환
     private fun getCurrentTimeWithoutColon(): String {
@@ -339,52 +355,9 @@ class DetailActivity : AppCompatActivity() {
         return currentTime.replace(":", "")  // 콜론을 제거하여 "HHmm" 형식으로 반환
     }
 
-    // 가장 가까운 출발 시간을 구하는 메소드
-    private fun findClosestDepartureTime(trainTimeDifferences: Map<String, List<Int>>): String {
-        var closestTimeDifference = Int.MAX_VALUE
-        var closestTime = ""
-
-        Log.d("TrainTimeActivity", "Finding closest departure time from differences: $trainTimeDifferences")
-
-        for ((station, differences) in trainTimeDifferences) {
-            Log.d("TrainTimeActivity", "Station: $station, Differences: $differences")  // 각 역과 차이 로그로 출력
-
-            for (diff in differences) {
-                Log.d("TrainTimeActivity", "Time difference: $diff")  // 각 시간 차이 로그로 출력
-
-                if (diff >= 0 && diff < closestTimeDifference) {
-                    closestTimeDifference = diff
-                    Log.d("TrainTimeActivity", "New closest time difference: $closestTimeDifference")
-
-                    // 현재 시간을 HH:mm 형식에서 분으로 계산하여 가장 가까운 출발 시간을 계산
-                    val currentTime = getCurrentTime()  // "HH:mm" 형식
-                    val currentHour = currentTime.split(":")[0].toInt()  // HH 추출
-                    val currentMinute = currentTime.split(":")[1].toInt()  // mm 추출
-                    val currentTotalMinutes = currentHour * 60 + currentMinute  // 현재 시간을 분으로 변환
-
-                    // 가장 가까운 시간 계산 (현재 시간에 차이를 더함)
-                    val closestTimeInMinutes = currentTotalMinutes + closestTimeDifference
-
-                    // 로그로 계산된 가장 가까운 시간 출력
-                    Log.d("TrainTimeActivity", "Closest time in minutes: $closestTimeInMinutes")
-
-                    // HH:mm 형식으로 변환
-                    val closestHour = closestTimeInMinutes / 60
-                    val closestMinute = closestTimeInMinutes % 60
-                    closestTime = String.format("%02d:%02d", closestHour, closestMinute)  // 02자리로 포맷
-
-                    Log.d("TrainTimeActivity", "Formatted closest time: $closestTime")
-                }
-            }
-        }
-
-        return closestTime
-    }
 
 
-    // 서버에서 받은 시간 값을 HH:mm 형식으로 변환
-    val formattedTime = formatTimeToHHmm("1030")  // 예시로 "1030" -> "10:30"
-}
+
 
 private fun formatTimeToHHmm(time: String): String {
     // 입력값이 4자리 "HHmm" 형식인지 확인
@@ -398,3 +371,4 @@ private fun formatTimeToHHmm(time: String): String {
         return "Invalid Time"  // 또는 다른 오류 처리 방법
     }
 }
+    }

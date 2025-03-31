@@ -19,6 +19,7 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import com.example.app.StationInfoList
 import com.example.app.TrainResponse
 import com.example.app.retrofit.AppServerClass
 import retrofit2.Call
@@ -41,7 +42,7 @@ class StationDetailActivity : AppCompatActivity() {
 
   var currentTime: String = ""
 
-
+  val api = AppServerClass.instance
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -109,6 +110,7 @@ class StationDetailActivity : AppCompatActivity() {
     CurrentTime()
     loadData(scode)
     loadTrainData(scode)
+    loadStationInfo(scode)
 
 //    if (savedInstanceState == null) {
 //      replaceFragment(Line1Fragment())  // 첫 번째로 1호선 정보 Fragment를 표시
@@ -119,6 +121,7 @@ class StationDetailActivity : AppCompatActivity() {
       CurrentTime()
       loadData(scode)
       loadTrainData(scode)
+      loadStationInfo(scode)
       when(scode){
         95, 201,301,401 -> {
           binding.tvLeft.isEnabled = false
@@ -136,6 +139,7 @@ class StationDetailActivity : AppCompatActivity() {
       CurrentTime()
       loadData(scode)
       loadTrainData(scode)
+      loadStationInfo(scode)
       when(scode){
         134,243,317,414 -> {
           binding.tvRight.isEnabled = false
@@ -176,18 +180,14 @@ class StationDetailActivity : AppCompatActivity() {
     Log.d("csy", "Current Time: $currentTime")
   }
   private fun loadData(scode: Int) {
-    Log.d("csy","LoadData 에서의 scode : $scode")
-    val api = AppServerClass.instance
     val call = api.getCategoryName(scode = scode.toString())
     retrofitResponse(call, scode)
   }
   private fun loadTrainData(scode: Int) {
-    val api = AppServerClass.instance
     val call = api.getTrainTimeAndName(scode = scode.toString(), sttime = currentTime, day = "1")
     retrofitResponse2(call)
   }
   private fun loadStationInfo(scode: Int){
-    val api = AppServerClass.instance
     val call = api.getStationInfo(scode = scode.toString())
     retrofitResponse3(call)
   }
@@ -197,10 +197,10 @@ class StationDetailActivity : AppCompatActivity() {
       override fun onResponse(call: Call<List<Station>>, res: Response<List<Station>>) {
         if (res.isSuccessful) {
           val result = res.body()
-          Log.d("csy", "station Result !!!!!!!!!! : $result")
+          Log.d("csy", "역 정보 리스트 : $result")
           result?.let {
             if (it.isNotEmpty()) {
-              Log.d("csy","RetrofitResponse 안에서의 scode 값 : $scode")
+//              Log.d("csy","RetrofitResponse 안에서의 scode 값 : $scode")
               when (scode) {
                 95, 201,301,401 -> {
                   binding.tvLeft.text = "종착"
@@ -236,7 +236,7 @@ class StationDetailActivity : AppCompatActivity() {
       override fun onResponse(call: Call<TrainResponse>, res: Response<TrainResponse>) {
         if (res.isSuccessful) {
           val result = res.body()
-          Log.d("csy", "result : $result")
+          Log.d("csy", "scode 기준 열차 도착 남은 정보 : $result")
 
           result?.let {
             val stations = listOf(
@@ -350,26 +350,40 @@ class StationDetailActivity : AppCompatActivity() {
   }
 
 
-  private fun retrofitResponse3(call: Call<String>) {
-    call.enqueue(object : Callback<String> {
-      override fun onResponse(call: Call<String>, res: Response<String>) {
+  private fun retrofitResponse3(call: Call<List<StationInfoList>>) {
+    call.enqueue(object : Callback<List<StationInfoList>> {
+      override fun onResponse(call: Call<List<StationInfoList>>, res: Response<List<StationInfoList>>) {
         if (res.isSuccessful) {
           val result = res.body()
-          Log.d("csy", "result : $result")
+          Log.d("csy", "시설 정보 : $result")
 
 
+          result?.forEach {
+            binding.tvDoor.text = it.door
+            binding.tvToilet.text = it.toilet
+            binding.tvAcross.text = it.across
+            binding.tvFlatform.text = it.flatform
+            binding.tvStorage.text = it.storage
+            binding.tvUtil.text = it.util
+            binding.tvAddr.text = it.address
+            binding.tvTel.text = it.number
+          }
 
         } else {
           Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
         }
       }
-      override fun onFailure(call: Call<String>, t: Throwable) {
+      override fun onFailure(call: Call<List<StationInfoList>>, t: Throwable) {
         Log.d("csy", "message : ${t.message}")
       }
     })
   }
+
   override fun onSupportNavigateUp(): Boolean {
     finish()
     return true
   }
+
 }
+
+

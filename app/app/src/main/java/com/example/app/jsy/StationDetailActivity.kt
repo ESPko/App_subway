@@ -66,6 +66,7 @@ class StationDetailActivity : AppCompatActivity() {
       }
     }
 
+
     toolbar.addView(titleTextView)
 
     setSupportActionBar(toolbar)
@@ -84,6 +85,15 @@ class StationDetailActivity : AppCompatActivity() {
     var scode = intent.getIntExtra("scode", 0)
     val stationName = intent.getStringExtra("name") ?: ""
     val lineNumber = intent.getIntExtra("line", 0)
+
+    binding.btnStationTimeTable.setOnClickListener {
+      val intent = android.content.Intent(this, StationTimeTableActivity::class.java)
+      intent.putExtra("scode", scode)  // 역 코드
+      intent.putExtra("name", stationName)  // 역 이름
+      intent.putExtra("line", lineNumber)  // 역 노선
+
+      startActivity(intent)
+    }
 
     Log.d("csy","몇호선인가요? : $lineNumber")
     when(lineNumber){
@@ -110,6 +120,9 @@ class StationDetailActivity : AppCompatActivity() {
     loadTrainData(scode)
     loadStationInfo(scode)
 
+
+
+
 //    if (savedInstanceState == null) {
 //      replaceFragment(Line1Fragment())  // 첫 번째로 1호선 정보 Fragment를 표시
 //    }
@@ -120,7 +133,6 @@ class StationDetailActivity : AppCompatActivity() {
       loadData(scode)
       loadTrainData(scode)
       loadStationInfo(scode)
-      loadStationSheet(scode)
       when(scode){
         95, 201,301,401 -> {
           binding.tvLeft.isEnabled = false
@@ -139,7 +151,6 @@ class StationDetailActivity : AppCompatActivity() {
       loadData(scode)
       loadTrainData(scode)
       loadStationInfo(scode)
-      loadStationSheet(scode)
       when(scode){
         134,243,317,414 -> {
           binding.tvRight.isEnabled = false
@@ -191,10 +202,7 @@ class StationDetailActivity : AppCompatActivity() {
     val call = api.getStationInfo(scode = scode.toString())
     retrofitResponse3(call)
   }
-  private fun loadStationSheet(scode: Int){
-    val call = api.getStationSheet(scode = scode.toString())
-    retrofitResponse4(call)
-  }
+
 
   private fun retrofitResponse(call: Call<List<Station>>, scode: Int) {
     call.enqueue(object : Callback<List<Station>> {
@@ -383,32 +391,7 @@ class StationDetailActivity : AppCompatActivity() {
     })
   }
 
-  private fun retrofitResponse4(call: Call<StationScheduleResponse>) {
-    call.enqueue(object : Callback<StationScheduleResponse> {
-      override fun onResponse(call: Call<StationScheduleResponse>, res: Response<StationScheduleResponse>) {
-        if (res.isSuccessful) {
-          val stationScheduleResponse = res.body()
-          Log.d("csy", "timeups: ${stationScheduleResponse?.timeups}")
-          Log.d("csy", "timedowns: ${stationScheduleResponse?.timedowns}")
 
-          stationScheduleResponse?.timeups?.let {
-            val upAdapter = TimeDataAdapter(this@StationDetailActivity, it)
-            binding.listUpStation.adapter = upAdapter
-          }
-          stationScheduleResponse?.timedowns?.let {
-            val downAdapter = TimeDataAdapter(this@StationDetailActivity, it)
-            binding.listDownStation.adapter = downAdapter
-          }
-
-        } else {
-          Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
-        }
-      }
-      override fun onFailure(call: Call<StationScheduleResponse>, t: Throwable) {
-        Log.d("csy", "message : ${t.message}")
-      }
-    })
-  }
 
   override fun onSupportNavigateUp(): Boolean {
     finish()

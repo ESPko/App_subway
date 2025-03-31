@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/toolbar_layout" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- 역 이름 호선 띠 -->
+            <GridLayout
+                android:id="@+id/line_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/lineColor_1"
+                android:columnCount="5">
+
+                <TextView
+                    android:id="@+id/tv_left_lt"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="6dp"
+                    android:text="&lt;"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/tv_left"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="다대포해수욕장"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/btn_station_name"
+                    android:gravity="center"
+                    android:text="서면역"
+                    android:textColor="@color/lineColor_1" />
+
+                <TextView
+                    android:id="@+id/tv_right"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="1"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:text="부산역"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_right_gt"
+                    android:layout_width="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowSpan="1"
+                    android:layout_columnWeight="0"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="6dp"
+                    android:text="&gt;"
+                    android:textColor="#FFFFFF" />
+            </GridLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!-- 하단의 리스트뷰 두 개를 독립적으로 스크롤하도록 처리 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- NestedScrollView로 두 ListView를 감싸서 수직 스크롤을 동기화 -->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ListView
+                    android:id="@+id/list_up_station"
+                    android:layout_width="0dp"
+                    android:layout_height="15000dp"
+                    android:layout_weight="1" />
+
+                <ListView
+                    android:id="@+id/list_down_station"
+                    android:layout_width="0dp"
+                    android:layout_height="15000dp"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+
+</LinearLayout>

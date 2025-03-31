@@ -298,10 +298,12 @@ class DetailActivity : AppCompatActivity() {
     // **변경된 부분** 추가
     private fun getClosestTrainTime(stationCode: String) {
         val currentTime = getCurrentTime()  // 현재 시간
+
+
         val currentDate = getCurrentDate()  // 현재 날짜
 
         // API 호출
-        AppServerClass.instance.getTrainTime(stationCode, currentTime, currentDate).enqueue(object : Callback<Map<String, List<Int>>> {
+        AppServerClass.instance.getTrainTime(stationCode, "1100", "1").enqueue(object : Callback<Map<String, List<Int>>> {
             override fun onResponse(call: Call<Map<String, List<Int>>>, response: Response<Map<String, List<Int>>>) {
                 if (response.isSuccessful) {
                     val trainTimeDifferences = response.body()

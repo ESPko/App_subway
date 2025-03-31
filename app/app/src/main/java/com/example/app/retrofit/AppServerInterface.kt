@@ -1,10 +1,10 @@
 package com.example.app.retrofit
-import com.example.app.StationInfoList
-import com.example.app.TrainResponse
+import com.example.app.dto.StationInfoList
+import com.example.app.dto.TrainResponse
 import com.example.app.dto.CategoryDTO
+import com.example.app.dto.StationScheduleResponse
 import com.example.app.dto.UserDTO
 import com.example.app.jsy.Station
-import com.example.app.jsy.Train
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -72,6 +72,9 @@ interface AppServerInterface {
 
   @GET("app/station/{scode}")
   fun getStationInfo(@Path("scode") scode: String): Call<List<StationInfoList>>
+
+  @GET("app/StationSheet/{scode}")
+  fun getStationSheet(@Path("scode") scode: String): Call<StationScheduleResponse>
 
   @GET("app/trainTime/{stScode}/{edScode}/{sttime}/{day}")
   fun getTrainTime(

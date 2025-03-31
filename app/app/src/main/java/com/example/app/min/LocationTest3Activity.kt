@@ -352,7 +352,11 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
 //            finish() // 현재 액티비티 종료
 //        }
 
-//        역 정보 클릭 
+//        역 정보 클릭
+        val stationinfo : ImageView = findViewById(R.id.station_info_icon)
+        stationinfo.setOnClickListener {
+
+        }
 
 //        출구 정보 클릭
 
@@ -393,7 +397,7 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
     private fun performSearch(query: String) {
         if (query.isNotBlank()) {
             Toast.makeText(this, "검색: $query", Toast.LENGTH_SHORT).show()
-            // 검색 로직 추가 (API 요청, DB 조회 등)
+
         } else {
             Toast.makeText(this, "검색어를 입력해주세요.", Toast.LENGTH_SHORT).show()
         }

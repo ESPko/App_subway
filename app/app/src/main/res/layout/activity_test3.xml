@@ -350,19 +350,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/arrive"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/arrive" />
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/layover"
-                android:layout_width="72dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
-                android:text="경유"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/arrive"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/arrive" />
+            
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/arrive"

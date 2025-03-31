@@ -43,7 +43,7 @@
             android:background="@drawable/btn_style"
             android:contentDescription="출발"
             android:scaleType="centerInside"
-            android:src="@drawable/start"
+            android:src="@drawable/start_1"
             android:padding="1dp"/>
 
 
@@ -56,8 +56,8 @@
             android:layout_marginRight="16dp"
             android:contentDescription="정보"
             android:scaleType="centerInside"
-            android:src="@drawable/info"
-            android:background="@drawable/btn_style"
+            android:src="@drawable/info_1"
+            android:background="@drawable/btn_style2"
             android:padding="1dp"/>
     </LinearLayout>
 

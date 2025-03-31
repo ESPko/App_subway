@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.ScaleGestureDetector
 import android.widget.Button
 import android.widget.PopupMenu
 import android.widget.Toast
@@ -25,16 +26,26 @@ class MainActivity : AppCompatActivity() {
   private var selectedDeparture: CategoryDTO? = null // 선택된 출발역
   private var selectedArrival: CategoryDTO? = null // 선택된 도착역
 
+  private lateinit var scaleGestureDetector: ScaleGestureDetector
+  private var scaleFactor = 1f // 초기 크기 (배율)
+
+
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
 
+    // ScaleGestureDetector 초기화
+    scaleGestureDetector = ScaleGestureDetector(this, ScaleListener())
+
+
+
     // 검색 버튼 클릭 리스너
-    binding.btnSearch.setOnClickListener {
-      val intent = Intent(this@MainActivity, SubSearchActivity::class.java)
-      startActivity(intent)
-      finish()
-    }
+//    binding.btnSearch.setOnClickListener {
+//      val intent = Intent(this@MainActivity, SubSearchActivity::class.java)
+//      startActivity(intent)
+//      finish()
+//    }
 
     // Retrofit 초기화
     val retrofit = Retrofit.Builder()
@@ -77,6 +88,13 @@ class MainActivity : AppCompatActivity() {
       startActivity(intent)
       finish()
     }
+
+    // ImageView 확대/축소 기능 추가
+    binding.mainRoute.setOnTouchListener { _, event ->
+      scaleGestureDetector.onTouchEvent(event)
+      true
+    }
+
   }
 
   // Retrofit을 통해 카테고리 데이터를 가져오는 함수
@@ -136,5 +154,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     popupMenu.show()
+  }
+
+  // ScaleListener로 노선도 확대/축소 설정
+  private inner class ScaleListener : ScaleGestureDetector.SimpleOnScaleGestureListener(){
+    override fun onScale(detector: ScaleGestureDetector): Boolean {
+      // 두 손가락의 확대/축소 배율을 받아옵니다.
+      scaleFactor *= detector.scaleFactor
+      scaleFactor = scaleFactor.coerceIn(0.1f, 5f) // 최소 0.1배, 최대 5배까지 확대 가능
+
+      // 이미지를 줌(확대/축소)합니다.
+      binding.mainRoute.scaleX = scaleFactor
+      binding.mainRoute.scaleY = scaleFactor
+
+      return true
+    }
   }
 }

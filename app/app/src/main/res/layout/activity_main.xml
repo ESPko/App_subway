@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,13 +14,13 @@
             layout="@layout/toolbar_layout"/>
     </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_search"
-        android:text="search 액티비티로 이동"
-        android:layout_marginHorizontal="8dp"
-        android:backgroundTint="@color/black" />
+<!--    <Button-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/btn_search"-->
+<!--        android:text="search 액티비티로 이동"-->
+<!--        android:layout_marginHorizontal="8dp"-->
+<!--        android:backgroundTint="@color/black" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,31 +28,40 @@
         android:orientation="horizontal">
 
         <!-- 출발역 선택 버튼 -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnDeparture"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:text="출발역 선택"
             android:layout_margin="8dp"/>
 
         <!-- 도착역 선택 버튼 -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnArrival"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/baseline_arrow_drop_down_18"
             android:layout_weight="1"
             android:text="도착역 선택"
             android:layout_margin="8dp"/>
     </LinearLayout>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_intro"
         android:text="경로 검색"
         android:layout_marginTop="8dp"
+        android:background="@drawable/detail_opt2"
         android:layout_marginHorizontal="8dp"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/main_route"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/route1"/>
 
 
 

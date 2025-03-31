@@ -38,7 +38,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginRight="16dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/start"
+            android:src="@drawable/start_1"
             android:contentDescription="출발"
             android:background="@drawable/btn_style"
             android:scaleType="centerInside" />

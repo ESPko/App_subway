@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.app.databinding.ActivityMainBinding
 import com.example.app.detail.DetailActivity
 import com.example.app.dto.CategoryDTO
+import com.example.app.min.LocationTest3Activity
+import com.example.app.min.QuickTest2Activity
+import com.example.app.min.SettingTest4Activity
 import com.example.app.retrofit.AppServerInterface
 import retrofit2.Call
 import retrofit2.Callback

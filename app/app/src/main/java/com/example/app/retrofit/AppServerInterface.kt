@@ -1,4 +1,5 @@
 package com.example.app.retrofit
+import com.example.app.StationInfoList
 import com.example.app.TrainResponse
 import com.example.app.dto.CategoryDTO
 import com.example.app.dto.UserDTO
@@ -63,14 +64,14 @@ interface AppServerInterface {
   @GET("app/{param1}/{param2}")
   fun getApi2(@Path("param1") param1: String, @Path("param2") param2: String): Call<String>
 
-  @GET("app/category/{scode}")
+  @GET("app/stationListName/{scode}")
   fun getCategoryName(@Path("scode") scode: String): Call<List<Station>>
 
   @GET("app/train/{scode}/{sttime}/{day}")
   fun getTrainTimeAndName(@Path("scode") scode: String, @Path("sttime") sttime: String, @Path("day") day: String): Call<TrainResponse>
 
   @GET("app/station/{scode}")
-  fun getStationInfo(@Path("scode") scode: String): Call<String>
+  fun getStationInfo(@Path("scode") scode: String): Call<List<StationInfoList>>
 
   @GET("app/traintime/{scode}/{sttime}/{day}")
   fun getTrainTime(

@@ -21,56 +21,61 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.jvm.java
 
 class MainActivity : AppCompatActivity() {
 
   private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+  private lateinit var categories: List<CategoryDTO> // 카테고리 데이터를 저장할 변수 추가
+  private var selectedDeparture: CategoryDTO? = null // 선택된 출발역
+  private var selectedArrival: CategoryDTO? = null // 선택된 도착역
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(binding.root)
 
-    // 인텐트에서 값 가져오기
-    val selectedStation = intent.getStringExtra("selectedStation")
-    val selectedArrival = intent.getStringExtra("selectedArrival")
+    // Intent에서 출발역과 도착역 값 가져오기
+    val receivedDeparture = intent.getStringExtra("selectedDeparture")
+    val receivedArrival = intent.getStringExtra("selectedArrival")
 
-    // 값이 존재하면 출발 버튼 텍스트 변경
-    selectedStation?.let {
-      findViewById<Button>(R.id.btnDeparture).text = it
+    // 값이 있을 경우 버튼 텍스트 및 변수 업데이트
+    if (receivedDeparture != null) {
+      selectedDeparture = CategoryDTO(receivedDeparture, 0, 0) // 기본값 0으로 설정
+      binding.btnDeparture.text = receivedDeparture
     }
 
-    selectedArrival?.let {
-      findViewById<Button>(R.id.btnArrival).text = it
+    if (receivedArrival != null) {
+      selectedArrival = CategoryDTO(receivedArrival, 0, 0) // 기본값 0으로 설정
+      binding.btnArrival.text = receivedArrival
     }
 
+      val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
 
-    val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar)
+      toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
+          Toast.makeText(this, "역검색 클릭", Toast.LENGTH_SHORT).show()
+          startActivity(Intent(this, SubSearchActivity::class.java))
+      }
 
-    toolbar.findViewById<LinearLayout>(R.id.search).setOnClickListener {
-      Toast.makeText(this, "역검색 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, SubSearchActivity::class.java))
-    }
+      toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
+          Toast.makeText(this, "빠른검색 클릭", Toast.LENGTH_SHORT).show()
+          startActivity(Intent(this, QuickTest2Activity::class.java))
+      }
 
-    toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
-      Toast.makeText(this, "빠른검색 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, QuickTest2Activity::class.java))
-    }
+      toolbar.findViewById<LinearLayout>(R.id.around).setOnClickListener {
+          Toast.makeText(this, "내 주변 클릭", Toast.LENGTH_SHORT).show()
+          startActivity(Intent(this, LocationTest3Activity::class.java))
+      }
 
-    toolbar.findViewById<LinearLayout>(R.id.around).setOnClickListener {
-      Toast.makeText(this, "내 주변 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, LocationTest3Activity::class.java))
-    }
+      toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
+          Toast.makeText(this, "설정 클릭", Toast.LENGTH_SHORT).show()
+          startActivity(Intent(this, SettingTest4Activity::class.java))
+      }
 
-    toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
-      Toast.makeText(this, "설정 클릭", Toast.LENGTH_SHORT).show()
-      startActivity(Intent(this, SettingTest4Activity::class.java))
-    }
+      toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
+          Toast.makeText(this, "더보기 클릭", Toast.LENGTH_SHORT).show()
+      }
 
-    toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
-      Toast.makeText(this, "더보기 클릭", Toast.LENGTH_SHORT).show()
-    }
-
-
+    // 검색 버튼 클릭 리스너
     binding.btnSearch.setOnClickListener {
       val intent = Intent(this@MainActivity, SubSearchActivity::class.java)
       startActivity(intent)
@@ -100,22 +105,23 @@ class MainActivity : AppCompatActivity() {
       fetchCategories(api, "arrival")
     }
 
-    // 검색 버튼 클릭 리스너
-    val searchButton: Button = findViewById(R.id.btn_intro)
-    searchButton.setOnClickListener {
-      val departureText = btnDeparture.text.toString()
-      val arrivalText = btnArrival.text.toString()
-
-      if (departureText.isNotEmpty() && arrivalText.isNotEmpty()) {
-        // 검색 후 디테일 액티비티로 이동
-        val intent = Intent(this, DetailActivity::class.java).apply {
-          putExtra("departure", departureText)
-          putExtra("arrival", arrivalText)
-        }
-        startActivity(intent)
-      } else {
-        Toast.makeText(this, "출발역과 도착역을 선택해주세요.", Toast.LENGTH_SHORT).show()
+    // 'Intro' 버튼 클릭 시 출발역과 도착역이 선택되지 않았으면 알림
+    binding.btnIntro.setOnClickListener {
+      if (selectedDeparture == null || selectedArrival == null) {
+        Toast.makeText(this@MainActivity, "출발역과 도착역을 선택해 주세요.", Toast.LENGTH_SHORT).show()
+        return@setOnClickListener
       }
+
+      // 선택된 출발역과 도착역을 포함한 CategoryDTO 리스트 생성
+      val categoryList = categories.toMutableList() // 이미 가져온 카테고리 데이터
+      val intent = Intent(this@MainActivity, DetailActivity::class.java).apply {
+        // Pass the selected departure and arrival as extras in the Intent
+        putExtra("departure", selectedDeparture)
+        putExtra("arrival", selectedArrival)
+      }
+      Log.d("csy", "출발역: ${selectedDeparture?.name}, 도착역: ${selectedArrival?.name}")
+      startActivity(intent)
+      finish()
     }
   }
 
@@ -125,6 +131,8 @@ class MainActivity : AppCompatActivity() {
       override fun onResponse(call: Call<List<CategoryDTO>>, response: Response<List<CategoryDTO>>) {
         if (response.isSuccessful && response.body() != null) {
           val categories = response.body()
+          this@MainActivity.categories = categories ?: emptyList() // 가져온 카테고리 데이터를 클래스 변수에 저장
+
           val categoryNames = categories?.map { it.name } ?: emptyList()
 
           // PopupMenu로 리스트 표시
@@ -160,6 +168,16 @@ class MainActivity : AppCompatActivity() {
 
     popupMenu.setOnMenuItemClickListener { item: MenuItem ->
       button.text = item.title  // 선택된 항목을 버튼 텍스트로 설정
+
+      // 선택된 카테고리 찾기
+      val selectedCategory = categories.find { it.name == item.title.toString() }
+
+      if (type == "departure") {
+        selectedDeparture = selectedCategory  // 출발역 선택 저장
+      } else {
+        selectedArrival = selectedCategory  // 도착역 선택 저장
+      }
+
       true
     }
 

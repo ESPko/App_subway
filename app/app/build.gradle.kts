@@ -52,7 +52,8 @@ dependencies {
     implementation(libs.androidx.wear.tooling.preview)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.core.splashscreen)
-    testImplementation(libs.junit)
+  implementation(libs.protolite.well.known.types)
+  testImplementation(libs.junit)
   implementation(libs.cronet.embedded)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
@@ -87,5 +88,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
+  
 }

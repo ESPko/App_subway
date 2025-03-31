@@ -160,10 +160,15 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         enableEdgeToEdge()
+
+//        NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("s5lqkqcw4y")
+
+        NaverMapSdk.getInstance(this).client = NaverMapSdk.NaverCloudPlatformClient("s06jicv68m")
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+
         }
 
         // Retrofit 초기화
@@ -178,7 +183,6 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
 //        fetchSubwayStations(api)
 
         bottomSheetBehavior = BottomSheetBehavior.from(findViewById(R.id.bottomSheet))
-
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
 
@@ -355,10 +359,10 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
         // 출발 버튼 클릭 리스너 추가
         val btnStart: Button = findViewById(R.id.start)
         btnStart.setOnClickListener {
-            val stationName = findViewById<TextView>(R.id.station_name).text.toString()
+            val selectedDeparture = findViewById<TextView>(R.id.station_name).text.toString()
 
             val intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("selectedStation", stationName)
+                putExtra("selectedDeparture", selectedDeparture)
             }
             startActivity(intent)
             finish() // 현재 액티비티 종료
@@ -367,10 +371,10 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
 //        도착역 버튼 클릭
         val btnArrive : Button = findViewById(R.id.arrive)
         btnArrive.setOnClickListener {
-            val stationName = findViewById<TextView>(R.id.station_name).text.toString()
+            val stationArrival = findViewById<TextView>(R.id.station_name).text.toString()
 
             val intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("selectedArrival", stationName)
+                putExtra("selectedArrival", stationArrival)
             }
             startActivity(intent)
             finish()
@@ -383,6 +387,8 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
             finish()
         }
     }
+
+
 
     private fun performSearch(query: String) {
         if (query.isNotBlank()) {

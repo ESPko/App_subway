@@ -11,17 +11,24 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:usesCleartextTraffic="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.App"
-        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".jsy.StationDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".jsy.StationInfoActivity"
+            android:exported="false" />
         <activity
             android:name=".SubSearchActivity"
             android:exported="false" />
@@ -31,11 +38,12 @@
         <activity
             android:name=".min.LocationTest3Activity"
             android:exported="false" />
+
         <activity
-            android:name=".min.QuickTest2Activity"
+            android:name=".detail.RouteActivity"
             android:exported="false" />
         <activity
-            android:name=".min.SearchTestActivity"
+            android:name=".detail.RateInformationActivity"
             android:exported="false" />
         <activity
             android:name=".detail.DetailActivity"
@@ -55,7 +63,7 @@
 
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="s06jicv68m" />
+            android:value="s5lqkqcw4y" />
     </application>
 
 </manifest>

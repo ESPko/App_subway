@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:fillViewport="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="요금정보"
+                    android:textColor="#3F51B5"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/close_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="290dp"
+                    android:text="X"
+                    android:textColor="#A4A4A4"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border2"
+                    android:gravity="center"
+                    android:text="구분"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border2"
+                    android:gravity="center"
+                    android:text="교통카드"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border2"
+                    android:gravity="center"
+                    android:text="1회권"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border3"
+                    android:gravity="center"
+                    android:text="일반"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:text="1,600"
+                    android:textColor="#00BCD4" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:text="1,700"
+                    android:textColor="#00BCD4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border3"
+                    android:gravity="center"
+                    android:text="청소년"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:text="1,050"
+                    android:textColor="#00BCD4" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:text="1,150"
+                    android:textColor="#00BCD4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border3"
+                    android:gravity="center"
+                    android:text="어린이"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:text="0"
+                    android:textColor="#00BCD4" />
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="35dp"
+                    android:background="@drawable/table_border"
+                    android:gravity="center"
+                    android:text="700"
+                    android:textColor="#00BCD4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_border3"
+                    android:gravity="center"
+                    android:text="우대"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_border"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:text="무임 (주민등록증, 유공자증 등 신분증 필수)"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="- 경로우대자(만 65세 이상), 장애인('장애정도 중증'인 경우 보호자 1인 포함)"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="- 국가유공자(1-7급) 독립유공자, 5.18민주유공자(1급은 보호자 1인 포함) "
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="- 선, 후불 교통카드(정기권 교통카드 포함) 사용 여객이 이용 방향 착오등의 사유로 최초 개표 후 5분 이내에 동일 역에서 동일 카드로 다시 개표하는 경우 1회에 한하여 기본 운임을 면제."
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:text="* 유의사항: 최초 승차역과 다른 역에서는 적용되지 않음"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="* 부산김해경전철은 만 65세 이상 경로자 무임 제외"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/table_border3"
+                    android:gravity="center"
+                    android:text="우대"
+                    android:textColor="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/table_border"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="15dp"
+                        android:text="- 유아(만 6세 미만)는 무임. 다만, 유아가 홀로 여행하거나, 가족이 아닌 보호자와 함께 여행하는 경우 3명을 초과하는 유아는 유임"
+                        android:textColor="@color/black" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="- 유아 단체(보호자 포함 20인 이상)는 어림이 운임 적용"
+                        android:textColor="@color/black" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginHorizontal="5dp"
+                        android:background="@android:color/darker_gray"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="일반"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="만 19세 이상 ~ 만 65세 미만"
+                        android:textColor="@color/black" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="청소년"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="만 13세 이상 ~ 만 18세 미만"
+                        android:textColor="@color/black" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="10dp"
+                        android:text="어린이"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:text="만 6세 이상 ~ 만 12세 미만"
+                        android:layout_marginBottom="15dp"
+                        android:textColor="@color/black" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

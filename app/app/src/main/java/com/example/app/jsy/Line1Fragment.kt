@@ -1,6 +1,5 @@
 package com.example.app.jsy
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -10,10 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.app.R
-import com.example.app.TrainResponse
-import com.example.app.databinding.FragmentLine1Binding
+import com.example.app.dto.TrainResponse
 import com.example.app.retrofit.AppServerClass
-import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

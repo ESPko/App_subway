@@ -1,14 +1,11 @@
 package com.example.app.jsy
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.text.Html
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
 import com.example.app.R
 import com.example.app.databinding.ActivityStationDetailBinding
 import java.text.SimpleDateFormat
@@ -19,8 +16,9 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import com.example.app.StationInfoList
-import com.example.app.TrainResponse
+import com.example.app.dto.StationInfoList
+import com.example.app.dto.StationScheduleResponse
+import com.example.app.dto.TrainResponse
 import com.example.app.retrofit.AppServerClass
 import retrofit2.Call
 import retrofit2.Callback
@@ -111,6 +109,7 @@ class StationDetailActivity : AppCompatActivity() {
     loadData(scode)
     loadTrainData(scode)
     loadStationInfo(scode)
+    loadStationSheet(scode)
 
 //    if (savedInstanceState == null) {
 //      replaceFragment(Line1Fragment())  // 첫 번째로 1호선 정보 Fragment를 표시
@@ -122,6 +121,7 @@ class StationDetailActivity : AppCompatActivity() {
       loadData(scode)
       loadTrainData(scode)
       loadStationInfo(scode)
+      loadStationSheet(scode)
       when(scode){
         95, 201,301,401 -> {
           binding.tvLeft.isEnabled = false
@@ -140,6 +140,7 @@ class StationDetailActivity : AppCompatActivity() {
       loadData(scode)
       loadTrainData(scode)
       loadStationInfo(scode)
+      loadStationSheet(scode)
       when(scode){
         134,243,317,414 -> {
           binding.tvRight.isEnabled = false
@@ -190,6 +191,10 @@ class StationDetailActivity : AppCompatActivity() {
   private fun loadStationInfo(scode: Int){
     val call = api.getStationInfo(scode = scode.toString())
     retrofitResponse3(call)
+  }
+  private fun loadStationSheet(scode: Int){
+    val call = api.getStationSheet(scode = scode.toString())
+    retrofitResponse4(call)
   }
 
   private fun retrofitResponse(call: Call<List<Station>>, scode: Int) {
@@ -379,6 +384,32 @@ class StationDetailActivity : AppCompatActivity() {
     })
   }
 
+  private fun retrofitResponse4(call: Call<StationScheduleResponse>) {
+    call.enqueue(object : Callback<StationScheduleResponse> {
+      override fun onResponse(call: Call<StationScheduleResponse>, res: Response<StationScheduleResponse>) {
+        if (res.isSuccessful) {
+          val stationScheduleResponse = res.body()
+          Log.d("csy", "timeups: ${stationScheduleResponse?.timeups}")
+          Log.d("csy", "timedowns: ${stationScheduleResponse?.timedowns}")
+
+          stationScheduleResponse?.timeups?.let {
+            val upAdapter = TimeDataAdapter(this@StationDetailActivity, it)
+            binding.listUpStation.adapter = upAdapter
+          }
+          stationScheduleResponse?.timedowns?.let {
+            val downAdapter = TimeDataAdapter(this@StationDetailActivity, it)
+            binding.listDownStation.adapter = downAdapter
+          }
+
+        } else {
+          Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
+        }
+      }
+      override fun onFailure(call: Call<StationScheduleResponse>, t: Throwable) {
+        Log.d("csy", "message : ${t.message}")
+      }
+    })
+  }
 
 
 

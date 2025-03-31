@@ -212,7 +212,7 @@ class LocationTest3Activity : AppCompatActivity(), OnMapReadyCallback {
 
 // 툴바 안 내용 수정
         val titleEditView = EditText(this).apply {
-            hint = "검색어를 입력해 주세요"
+            hint = "더블클릭해주세요"
             setHintTextColor(resources.getColor(android.R.color.darker_gray))
             setTextColor(resources.getColor(android.R.color.black))
             textSize = 16f

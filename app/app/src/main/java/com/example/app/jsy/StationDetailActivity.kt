@@ -416,5 +416,4 @@ class StationDetailActivity : AppCompatActivity() {
   }
 
 
-
 }

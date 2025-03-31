@@ -1,6 +1,9 @@
 package bitc.fullstack503.server.service;
 
 import bitc.fullstack503.server.dto.mysql.StationInfoDTO;
+import bitc.fullstack503.server.dto.mysql.StationSheetDTO;
+import bitc.fullstack503.server.dto.mysql.TimeDownDTO;
+import bitc.fullstack503.server.dto.mysql.TimeUPDTO;
 import bitc.fullstack503.server.dto.mysql.station_up.USItemDTO;
 import bitc.fullstack503.server.mapper.StationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +26,34 @@ public class StationServiceImpl implements StationService {
 
 
     @Override
-    public int getTimeTotalUp(String stStation, String edStation) throws Exception {
-        return stationMapper.getTimeTotalUp(stStation, edStation);
+    public int getTimeTotalUp(int stStationInt, int edStationInt) throws Exception {
+        return stationMapper.getTimeTotalUp(stStationInt, edStationInt);
     }
 
     @Override
-    public int getTimeTotalDown(String stStation, String edStation) throws Exception {
-        return stationMapper.getTimeTotalDown(stStation, edStation);
+    public int getTimeTotalDown(int stStationInt, int edStationInt) throws Exception {
+        return stationMapper.getTimeTotalDown(stStationInt, edStationInt);
     }
 
     @Override
-    public int getExchangeUp(String stStation, String edStation) throws Exception {
-        return stationMapper.getExchangeUp(stStation, edStation);
+    public int getExchangeUp(int stStationInt, int edStationInt) throws Exception {
+        return stationMapper.getExchangeUp(stStationInt, edStationInt);
     }
 
     @Override
-    public int getExchangeDown(String stStation, String edStation) throws Exception {
-        return stationMapper.getExchangeDown(stStation, edStation);
+    public int getExchangeDown(int stStationInt, int edStationInt) throws Exception {
+        return stationMapper.getExchangeDown(stStationInt, edStationInt);
     }
 
+    @Override
+    public List<TimeUPDTO> getTimeUpList(String scode) throws Exception {
+        return stationMapper.getTimeUpList(scode);
+    }
 
-
+    @Override
+    public List<TimeDownDTO> getTimeDownList(String scode) throws Exception {
+        return stationMapper.getTimeDownList(scode);
+    }
 
 
 }

@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -90,12 +91,14 @@ public class AppServerController {
     if (stStationInt < edStationInt) {
 
 
-      result = stationservice.getTimeTotalUp(stStation, edStation);
+      result = stationservice.getTimeTotalUp(stStationInt, edStationInt);
+
+      System.out.println("result : " + result);
 
     }
     else {
 
-      result = stationservice.getTimeTotalDown(stStation, edStation);
+      result = stationservice.getTimeTotalDown(stStationInt, edStationInt);
     }
 
     return result;
@@ -115,65 +118,63 @@ public class AppServerController {
 
     if (stStationInt < edStationInt) {
 
-      result = stationservice.getExchangeUp(stStation, edStation);
+      result = stationservice.getExchangeUp(stStationInt, edStationInt);
     }
 
     else {
 
-      result = stationservice.getExchangeDown(stStation, edStation);
+      result = stationservice.getExchangeDown(stStationInt, edStationInt);
     }
 
     return result;
   }
-////   현재 시간과 가까운 지하철 시간 선택( 평일/ 주말 / 공휴일 )
-//
-//  private List<Integer> calculateTrainTimeDifference(List<TItemDTO> trainList, int minTime) {
-//    List<Integer> resultList = new ArrayList<>();
-//    for (TItemDTO train : trainList) {
-//      int trainTimeHour = train.getHour();
-//      int trainTimeMinutes = train.getTime();
-//      int trainminTime = trainTimeHour * 60 + trainTimeMinutes;
-//      int result = trainminTime - minTime;
-//      resultList.add(result);
-//    }
-//    return resultList;
-//  }
-//
-//  @GetMapping("/app/traintime/{tscode}/{tsttime}/{tday}")
-//  public Map<String, List<Integer>> gettraintime(@PathVariable String tscode, @PathVariable String tsttime, @PathVariable String tday) throws Exception {
-//
-//    int hour = Integer.parseInt(tsttime.substring(0, 2));
-//    int minutes = Integer.parseInt(tsttime.substring(2, 4));
+//   현재 시간과 가까운 지하철 시간 선택( 평일 )
+
+  @GetMapping("/app/trainTime/{stScode}/{edScode}/{sttime}/{day}")
+  public String getTrain(@PathVariable String stScode, @PathVariable String edScode, @PathVariable String sttime, @PathVariable String day) throws Exception {
+//    int hour = Integer.parseInt(sttime.substring(0, 2));
+//    int minutes = Integer.parseInt(sttime.substring(2, 4));
 //    int minTime = hour * 60 + minutes;
-//
-//    String serviceKey = "?serviceKey=" + trainServiceKey;
-//    String tstime = "&tstime=" + tsttime;
-//
-//    String essentialOpt = "&act=json";
-//    String essentialOpt1 = "&tscode=" + tscode;
-//
-//    String url = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&tday=" + tday + tstime + "&enum=3&updown=0";
-//    String url2 = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&tday=" + tday + tstime + "&enum=3&updown=1";
-//
-//    List<TItemDTO> TrainJsonList = apiservice.getTrainJson(url);
-//    List<TItemDTO> TrainJsonList2 = apiservice.getTrainJson(url2);
-//
-//    String downendcode = TrainJsonList.get(0).getEndcode();
-//    String upendcode = TrainJsonList2.get(0).getEndcode();
-//
-//    String DownendStationName = categoryservice.getStationName(downendcode);
-//    String UpendStationName = categoryservice.getStationName(upendcode);
-//
-//    List<Integer> resultList1 = calculateTrainTimeDifference(TrainJsonList, minTime);
-//    List<Integer> resultList2 = calculateTrainTimeDifference(TrainJsonList2, minTime);
-//
-//    Map<String, List<Integer>> resultMap = new HashMap<>();
-//    resultMap.put(DownendStationName, resultList1);
-//    resultMap.put(UpendStationName, resultList2);
-//
-//    return resultMap;
-//  }
-//
+
+    System.out.println("sttime : " + sttime);
+
+    int startScode = Integer.parseInt(stScode);
+    int endScode = Integer.parseInt(edScode);
+
+    String serviceKey = "?serviceKey=" + trainServiceKey;
+    String stime = "&stime=" + sttime;
+
+    // 필수옵션
+    String essentialOpt = "&act=json";
+    String essentialOpt1 = "&scode=" + stScode;
+    String url;
+    if(startScode - endScode >= 0){ // 상행
+      url = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&day=" + day + stime + "&enum=1&updown=1";
+    }
+    else { // 하행
+      url = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&day=" + day + stime + "&enum=1&updown=0";
+    }
+
+    List<TItemDTO> TrainJsonList = apiservice.getTrainJson(url);
+
+
+    int TrainHour = TrainJsonList.get(0).getHour(); // 15 12 09 11 12
+    int TrainMinute = TrainJsonList.get(0).getTime(); // 23 30 40 50 60
+
+
+
+    String hourString = String.valueOf(TrainHour);
+
+    String formattedTime = String.format("%02d", TrainMinute);
+
+    String trainTime = hourString + ":" + formattedTime;
+
+    // 12 : 53 1253 -> 코틀린에서 12:53
+
+  return trainTime;
+
+
+  }
 
 
 
@@ -182,26 +183,8 @@ public class AppServerController {
 
 
 
-//  @GetMapping("/app")
-//  public List<USItemDTO> getApp() throws Exception {
-//
-//    String serviceKey = "?serviceKey=" + stationServiceKey;
-//
-//    // 필수옵션
-//    String essentialOpt = "&act=json";
-//    // 선택옵션 scode 는 역외부코드 입력하는부분
-//    String scode = "101";
-//
-////    String Opt1 = "&scode=" + scode;
-//
-//    String url = stationServiceUrl + serviceKey + essentialOpt + "&numOfRows=328" ;
-//
-//    System.out.println(url);
-//
-//    List<USItemDTO> StationJsonList = apiservice.getStationJson(url);
-//
-//    return StationJsonList;
-//  }
+
+
 
 
 

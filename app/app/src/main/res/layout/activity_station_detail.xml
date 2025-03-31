@@ -15,10 +15,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-
-
+        android:orientation="vertical"
+        >
         <!--        역 이름 호선 띠-->
 
         <GridLayout
@@ -313,7 +311,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="내리는문 오른쪽"
-                android:drawableStart="@drawable/left_arrow"
                 android:layout_rowSpan="1"
                 android:layout_columnWeight="1"
                 android:gravity="center"

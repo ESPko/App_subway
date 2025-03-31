@@ -5,6 +5,7 @@ import com.example.app.dto.CategoryDTO
 import com.example.app.dto.StationScheduleResponse
 import com.example.app.dto.UserDTO
 import com.example.app.jsy.Station
+import com.example.app.jsy.Train
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE

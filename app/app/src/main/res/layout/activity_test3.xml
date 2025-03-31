@@ -27,19 +27,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-
-
-
-
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="52dp"-->
-<!--            android:layout_height="43dp"-->
-<!--            tools:layout_editor_absoluteX="270dp"-->
-<!--            tools:layout_editor_absoluteY="600dp">-->
-
-<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- 툴바 오버레이 -->
@@ -351,18 +338,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/arrive" />
 
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/layover"
-                android:layout_width="72dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="8dp"
-                android:text="경유"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="@id/arrive"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/arrive" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/arrive"

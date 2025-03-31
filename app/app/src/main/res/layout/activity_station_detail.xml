@@ -11,6 +11,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/toolbar_layout"/>
+
+        </LinearLayout>
+
         <!--        역 이름 호선 띠-->
 
         <GridLayout

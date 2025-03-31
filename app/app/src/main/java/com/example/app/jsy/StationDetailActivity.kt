@@ -1,22 +1,24 @@
 package com.example.app.jsy
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.text.Html
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
 import com.example.app.R
 import com.example.app.databinding.ActivityStationDetailBinding
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import android.util.Log
+import android.view.Gravity
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import com.example.app.TrainResponse
+import com.example.app.dto.StationInfoList
+import com.example.app.dto.StationScheduleResponse
+import com.example.app.dto.TrainResponse
 import com.example.app.retrofit.AppServerClass
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,12 +40,40 @@ class StationDetailActivity : AppCompatActivity() {
 
   var currentTime: String = ""
 
-
+  val api = AppServerClass.instance
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContentView(binding.root)
+
+    // 툴바 가져오기
+    val toolbar = findViewById<Toolbar>(R.id.toolbar)
+
+    // 기존에 있던 Toolbar 안 내용 모두 제거
+    toolbar.removeAllViews()
+
+    // 변경될 툴바 내용
+    val titleTextView = TextView(this).apply {
+      text = "역 검색"
+      setTextColor(resources.getColor(android.R.color.white))
+      textSize = 18f
+      layoutParams = Toolbar.LayoutParams(
+        Toolbar.LayoutParams.WRAP_CONTENT,
+        Toolbar.LayoutParams.WRAP_CONTENT
+      ).apply {
+        gravity = Gravity.CENTER
+      }
+    }
+
+    toolbar.addView(titleTextView)
+
+    setSupportActionBar(toolbar)
+    supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼
+    supportActionBar?.setDisplayShowTitleEnabled(false) // 기본 타이틀 제거
+
+    toolbar.navigationIcon?.setTint(ContextCompat.getColor(this, android.R.color.white))
+
     // 시스템 바 영역을 고려하여 뷰 패딩 설정
     ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
       val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -78,6 +108,8 @@ class StationDetailActivity : AppCompatActivity() {
     CurrentTime()
     loadData(scode)
     loadTrainData(scode)
+    loadStationInfo(scode)
+    loadStationSheet(scode)
 
 //    if (savedInstanceState == null) {
 //      replaceFragment(Line1Fragment())  // 첫 번째로 1호선 정보 Fragment를 표시
@@ -88,6 +120,8 @@ class StationDetailActivity : AppCompatActivity() {
       CurrentTime()
       loadData(scode)
       loadTrainData(scode)
+      loadStationInfo(scode)
+      loadStationSheet(scode)
       when(scode){
         95, 201,301,401 -> {
           binding.tvLeft.isEnabled = false
@@ -105,6 +139,8 @@ class StationDetailActivity : AppCompatActivity() {
       CurrentTime()
       loadData(scode)
       loadTrainData(scode)
+      loadStationInfo(scode)
+      loadStationSheet(scode)
       when(scode){
         134,243,317,414 -> {
           binding.tvRight.isEnabled = false
@@ -145,20 +181,20 @@ class StationDetailActivity : AppCompatActivity() {
     Log.d("csy", "Current Time: $currentTime")
   }
   private fun loadData(scode: Int) {
-    Log.d("csy","LoadData 에서의 scode : $scode")
-    val api = AppServerClass.instance
     val call = api.getCategoryName(scode = scode.toString())
     retrofitResponse(call, scode)
   }
   private fun loadTrainData(scode: Int) {
-    val api = AppServerClass.instance
     val call = api.getTrainTimeAndName(scode = scode.toString(), sttime = currentTime, day = "1")
     retrofitResponse2(call)
   }
   private fun loadStationInfo(scode: Int){
-    val api = AppServerClass.instance
     val call = api.getStationInfo(scode = scode.toString())
     retrofitResponse3(call)
+  }
+  private fun loadStationSheet(scode: Int){
+    val call = api.getStationSheet(scode = scode.toString())
+    retrofitResponse4(call)
   }
 
   private fun retrofitResponse(call: Call<List<Station>>, scode: Int) {
@@ -166,10 +202,10 @@ class StationDetailActivity : AppCompatActivity() {
       override fun onResponse(call: Call<List<Station>>, res: Response<List<Station>>) {
         if (res.isSuccessful) {
           val result = res.body()
-          Log.d("csy", "station Result !!!!!!!!!! : $result")
+          Log.d("csy", "역 정보 리스트 : $result")
           result?.let {
             if (it.isNotEmpty()) {
-              Log.d("csy","RetrofitResponse 안에서의 scode 값 : $scode")
+//              Log.d("csy","RetrofitResponse 안에서의 scode 값 : $scode")
               when (scode) {
                 95, 201,301,401 -> {
                   binding.tvLeft.text = "종착"
@@ -205,7 +241,7 @@ class StationDetailActivity : AppCompatActivity() {
       override fun onResponse(call: Call<TrainResponse>, res: Response<TrainResponse>) {
         if (res.isSuccessful) {
           val result = res.body()
-          Log.d("csy", "result : $result")
+          Log.d("csy", "scode 기준 열차 도착 남은 정보 : $result")
 
           result?.let {
             val stations = listOf(
@@ -319,25 +355,61 @@ class StationDetailActivity : AppCompatActivity() {
   }
 
 
-  private fun retrofitResponse3(call: Call<String>) {
-    call.enqueue(object : Callback<String> {
-      override fun onResponse(call: Call<String>, res: Response<String>) {
+  private fun retrofitResponse3(call: Call<List<StationInfoList>>) {
+    call.enqueue(object : Callback<List<StationInfoList>> {
+      override fun onResponse(call: Call<List<StationInfoList>>, res: Response<List<StationInfoList>>) {
         if (res.isSuccessful) {
           val result = res.body()
-          Log.d("csy", "result : $result")
+          Log.d("csy", "시설 정보 : $result")
 
 
+          result?.forEach {
+            binding.tvDoor.text = it.door
+            binding.tvToilet.text = it.toilet
+            binding.tvAcross.text = it.across
+            binding.tvFlatform.text = it.flatform
+            binding.tvStorage.text = it.storage
+            binding.tvUtil.text = it.util
+            binding.tvAddr.text = it.address
+            binding.tvTel.text = it.number
+          }
 
         } else {
           Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
         }
       }
-      override fun onFailure(call: Call<String>, t: Throwable) {
+      override fun onFailure(call: Call<List<StationInfoList>>, t: Throwable) {
         Log.d("csy", "message : ${t.message}")
       }
     })
   }
 
+  private fun retrofitResponse4(call: Call<StationScheduleResponse>) {
+    call.enqueue(object : Callback<StationScheduleResponse> {
+      override fun onResponse(call: Call<StationScheduleResponse>, res: Response<StationScheduleResponse>) {
+        if (res.isSuccessful) {
+          val stationScheduleResponse = res.body()
+          Log.d("csy", "timeups: ${stationScheduleResponse?.timeups}")
+          Log.d("csy", "timedowns: ${stationScheduleResponse?.timedowns}")
+
+          stationScheduleResponse?.timeups?.let {
+            val upAdapter = TimeDataAdapter(this@StationDetailActivity, it)
+            binding.listUpStation.adapter = upAdapter
+          }
+          stationScheduleResponse?.timedowns?.let {
+            val downAdapter = TimeDataAdapter(this@StationDetailActivity, it)
+            binding.listDownStation.adapter = downAdapter
+          }
+
+        } else {
+          Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
+        }
+      }
+      override fun onFailure(call: Call<StationScheduleResponse>, t: Throwable) {
+        Log.d("csy", "message : ${t.message}")
+      }
+    })
+  }
 
 
 

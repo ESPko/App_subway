@@ -1,9 +1,10 @@
 package com.example.app.retrofit
-import com.example.app.TrainResponse
+import com.example.app.dto.StationInfoList
+import com.example.app.dto.TrainResponse
 import com.example.app.dto.CategoryDTO
+import com.example.app.dto.StationScheduleResponse
 import com.example.app.dto.UserDTO
 import com.example.app.jsy.Station
-import com.example.app.jsy.Train
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -63,21 +64,25 @@ interface AppServerInterface {
   @GET("app/{param1}/{param2}")
   fun getApi2(@Path("param1") param1: String, @Path("param2") param2: String): Call<String>
 
-  @GET("app/category/{scode}")
+  @GET("app/stationListName/{scode}")
   fun getCategoryName(@Path("scode") scode: String): Call<List<Station>>
 
   @GET("app/train/{scode}/{sttime}/{day}")
   fun getTrainTimeAndName(@Path("scode") scode: String, @Path("sttime") sttime: String, @Path("day") day: String): Call<TrainResponse>
 
   @GET("app/station/{scode}")
-  fun getStationInfo(@Path("scode") scode: String): Call<String>
+  fun getStationInfo(@Path("scode") scode: String): Call<List<StationInfoList>>
 
-  @GET("app/traintime/{scode}/{sttime}/{day}")
+  @GET("app/StationSheet/{scode}")
+  fun getStationSheet(@Path("scode") scode: String): Call<StationScheduleResponse>
+
+  @GET("app/trainTime/{stScode}/{edScode}/{sttime}/{day}")
   fun getTrainTime(
-    @Path("scode") scode: String,
+    @Path("stScode") stScode: String,
+    @Path("edScode") edScode: String,
     @Path("sttime") sttime: String,
     @Path("day") day: String
-  ): Call<Map<String, List<Int>>> // 서버 응답은 Map<String, List<Integer>> 형태
+  ): Call<String> // 서버 응답은 Map<String, List<Integer>> 형태
 
 }
 

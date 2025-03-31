@@ -109,7 +109,6 @@ class StationDetailActivity : AppCompatActivity() {
     loadData(scode)
     loadTrainData(scode)
     loadStationInfo(scode)
-    loadStationSheet(scode)
 
 //    if (savedInstanceState == null) {
 //      replaceFragment(Line1Fragment())  // 첫 번째로 1호선 정보 Fragment를 표시

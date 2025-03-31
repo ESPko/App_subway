@@ -456,3 +456,9 @@ private fun formatTimeToHHmm(time: String): String {
         return "Invalid Time"  // 또는 다른 오류 처리 방법
     }
 }
+        override fun onFailure(call: Call<String>, t: Throwable) {
+          Log.e("TrainTimeActivity", "네트워크 오류: ${t.message}")
+        }
+      })  // enqueue 메서드 닫는 괄호
+  }
+}

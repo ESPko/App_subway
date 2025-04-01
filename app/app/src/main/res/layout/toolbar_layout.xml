@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="24dp"
+            android:padding="32dp"
             android:id="@+id/search"
             android:orientation="vertical">
 
@@ -34,33 +34,33 @@
                 android:textColor="@android:color/white"/>
         </LinearLayout>
 
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="24dp"-->
+<!--            android:id="@+id/quick_search"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/baseline_manage_search_white_24"-->
+<!--                android:contentDescription="빠른검색"/>-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="빠른검색"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textColor="@android:color/white"/>-->
+<!--        </LinearLayout>-->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="24dp"
-            android:id="@+id/quick_search"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/baseline_manage_search_white_24"
-                android:contentDescription="빠른검색"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="빠른검색"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="24dp"
+            android:padding="32dp"
             android:id="@+id/around"
             android:orientation="vertical">
 
@@ -79,43 +79,43 @@
         </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="24dp"
-            android:id="@+id/setting"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="24dp"-->
+<!--            android:id="@+id/setting"-->
+<!--            android:orientation="vertical">-->
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/baseline_settings_24"
-                android:contentDescription="설정"/>
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/baseline_settings_24"-->
+<!--                android:contentDescription="설정"/>-->
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="설정"
-                android:textSize="12sp"
-                android:textColor="@android:color/white"/>
-        </LinearLayout>
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="설정"-->
+<!--                android:textSize="12sp"-->
+<!--                android:textColor="@android:color/white"/>-->
+<!--        </LinearLayout>-->
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="24dp"
-            android:id="@+id/more"
-            android:orientation="vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:gravity="center"-->
+<!--            android:padding="24dp"-->
+<!--            android:id="@+id/more"-->
+<!--            android:orientation="vertical">-->
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/baseline_more_vert_white_24"
-                android:contentDescription="더보기"/>
+<!--            <ImageView-->
+<!--                android:layout_width="24dp"-->
+<!--                android:layout_height="24dp"-->
+<!--                android:src="@drawable/baseline_more_vert_white_24"-->
+<!--                android:contentDescription="더보기"/>-->
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
     </androidx.appcompat.widget.Toolbar>
 

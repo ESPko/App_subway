@@ -50,7 +50,7 @@ class StationTimeTableActivity : AppCompatActivity() {
 
     // 변경될 툴바 내용
     val titleTextView = TextView(this).apply {
-      text = "역 검색"
+      text = "역 정보"
       setTextColor(resources.getColor(android.R.color.white))
       textSize = 18f
       layoutParams = Toolbar.LayoutParams(

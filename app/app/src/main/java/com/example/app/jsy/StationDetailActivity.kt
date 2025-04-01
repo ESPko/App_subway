@@ -15,6 +15,7 @@ import java.util.Date
 import java.util.Locale
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -25,6 +26,7 @@ import com.example.app.dto.StationScheduleResponse
 import com.example.app.dto.TrainResponse
 import com.example.app.retrofit.AppServerClass
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -52,8 +54,6 @@ class StationDetailActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContentView(binding.root)
-
-
     // 툴바 가져오기
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
 
@@ -103,17 +103,15 @@ class StationDetailActivity : AppCompatActivity() {
     }
 
     CurrentTime()
-    loadData(scode)
-    loadTrainData(scode)
-    loadStationInfo(scode)
+
+    loadAllData(scode)
+
     setupLineColor(lineNumber)
 
     binding.tvLeft.setOnClickListener {
       scode-- // 값 하나 감소
       CurrentTime()
-      loadData(scode)
-      loadTrainData(scode)
-      loadStationInfo(scode)
+      loadAllData(scode)
       when(scode){
         95, 201,301,401 -> {
           binding.tvLeft.isEnabled = false
@@ -129,9 +127,7 @@ class StationDetailActivity : AppCompatActivity() {
     binding.tvRight.setOnClickListener {
       scode++ // 값 하나 증가
       CurrentTime()
-      loadData(scode)
-      loadTrainData(scode)
-      loadStationInfo(scode)
+      loadAllData(scode)
       when(scode){
         134,243,317,414 -> {
           binding.tvRight.isEnabled = false
@@ -155,6 +151,28 @@ class StationDetailActivity : AppCompatActivity() {
     currentTime = formattedTime.replace(":", "")
     Log.d("csy", "Current Time: $currentTime")
   }
+  private fun loadAllData(scode: Int) {
+    lifecycleScope.launch {
+      try {
+        // 비동기 데이터 로딩
+        val loadDataResult = async { loadData(scode) }
+        val loadTrainDataResult = async { loadTrainData(scode) }
+        val loadStationInfoResult = async { loadStationInfo(scode) }
+
+        // 모든 비동기 작업이 완료될 때까지 기다리기
+        loadTrainDataResult.await()
+        loadDataResult.await()
+        loadStationInfoResult.await()
+
+        Log.d("csy", "모든 데이터 로딩 완료")
+
+      } catch (e: Exception) {
+        // 오류 발생 시
+        Log.e("csy", "데이터 로딩 중 오류 발생: ${e.message}")
+      }
+    }
+  }
+
   private fun loadData(scode: Int) {
     val call = api.getCategoryName(scode = scode.toString())
     retrofitResponse(call, scode)

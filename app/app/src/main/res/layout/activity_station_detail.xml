@@ -328,7 +328,7 @@
                             android:layout_rowSpan="1"
                             android:layout_columnWeight="1"
                             android:gravity="center"
-                            android:text="내리는문 오른쪽" />
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/tv_toilet"
@@ -337,7 +337,7 @@
                             android:layout_rowSpan="1"
                             android:layout_columnWeight="1"
                             android:gravity="center"
-                            android:text="화장실 외부" />
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/tv_across"
@@ -347,7 +347,7 @@
                             android:layout_columnWeight="1"
                             android:layout_marginTop="8dp"
                             android:gravity="center"
-                            android:text="횡단 불가능" />
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/tv_flatform"
@@ -357,7 +357,7 @@
                             android:layout_columnWeight="1"
                             android:layout_marginTop="8dp"
                             android:gravity="center"
-                            android:text="플랫폼 양쪽" />
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/tv_storage"
@@ -367,7 +367,7 @@
                             android:layout_columnWeight="1"
                             android:layout_marginTop="8dp"
                             android:gravity="center"
-                            android:text="물품 보관함" />
+                            android:text="" />
                     </GridLayout>
 
                     <TextView
@@ -376,7 +376,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="15dp"
-                        android:text="수유실, 자전거보관소, 엘리베이터, 무인민원발급기, 유실물센터"
+                        android:text=""
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -422,7 +422,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
-                            android:text="부산광역시 부산진구 중앙대로 지하 730" />
+                            android:text="" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -441,7 +441,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
-                            android:text="051-678-6119"
+                            android:text=""
                             android:textColor="#59b9ea" />
                     </LinearLayout>
 

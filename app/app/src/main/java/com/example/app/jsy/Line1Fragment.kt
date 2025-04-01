@@ -87,7 +87,7 @@ class Line1Fragment : Fragment() {
 
     CurrentTime()
     loadData(scode)
-    loadTrainData(scode)
+//    loadTrainData(scode)
     tvLeft.setOnClickListener{
       scode-- // 값 하나 감소
       loadData(scode)
@@ -145,11 +145,11 @@ class Line1Fragment : Fragment() {
     Log.d("csy", "Current Time: $currentTime")
   }
 
-  private fun loadTrainData(scode: Int){
-    val api = AppServerClass.instance
-    val call = api.getTrainTimeAndName(scode = scode.toString(), sttime = currentTime, day = "1")
-    retrofitResponse2(call)
-  }
+//  private fun loadTrainData(scode: Int){
+//    val api = AppServerClass.instance
+//    val call = api.getTrainTimeAndName(scode = scode.toString(), sttime = currentTime, day = "1")
+//    retrofitResponse2(call)
+//  }
 
   private fun retrofitResponse(call: Call<List<Station>>) {
     call.enqueue(object : Callback<List<Station>> {

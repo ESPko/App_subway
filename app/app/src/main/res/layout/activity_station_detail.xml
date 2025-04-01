@@ -122,7 +122,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="6dp"
                                 android:gravity="start"
-                                android:text="다대포해수욕장"
+                                android:text=""
                                 android:textColor="#808080" />
 
                             <LinearLayout
@@ -136,7 +136,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="다대포해수욕장" />
+                                    android:text="" />
 
                                 <TextView
                                     android:id="@+id/down_time_text1"
@@ -144,7 +144,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="10dp"
                                     android:gravity="start"
-                                    android:text="1분 후"
+                                    android:text=""
                                     android:textColor="#59b9ea" />
                             </LinearLayout>
 
@@ -159,7 +159,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="다대포해수욕장" />
+                                    android:text="" />
 
                                 <TextView
                                     android:id="@+id/down_time_text2"
@@ -167,7 +167,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="10dp"
                                     android:gravity="start"
-                                    android:text="5분 후"
+                                    android:text=""
                                     android:textColor="#59b9ea" />
                             </LinearLayout>
 
@@ -182,7 +182,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="다대포해수욕장" />
+                                    android:text="" />
 
                                 <TextView
                                     android:id="@+id/down_time_text3"
@@ -190,7 +190,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="10dp"
                                     android:gravity="start"
-                                    android:text="9분 후"
+                                    android:text=""
                                     android:textColor="#59b9ea" />
                             </LinearLayout>
                         </LinearLayout>
@@ -218,7 +218,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="6dp"
                                 android:gravity="start"
-                                android:text="노포"
+                                android:text=""
                                 android:textColor="#808080" />
 
                             <LinearLayout
@@ -232,7 +232,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="노포" />
+                                    android:text="" />
 
                                 <TextView
                                     android:id="@+id/up_time_text1"
@@ -240,7 +240,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="10dp"
                                     android:gravity="start"
-                                    android:text="4분 후"
+                                    android:text=""
                                     android:textColor="#59b9ea" />
                             </LinearLayout>
 
@@ -255,7 +255,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="노포" />
+                                    android:text="" />
 
                                 <TextView
                                     android:id="@+id/up_time_text2"
@@ -263,7 +263,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="10dp"
                                     android:gravity="start"
-                                    android:text="5분 후"
+                                    android:text=""
                                     android:textColor="#59b9ea" />
                             </LinearLayout>
 
@@ -278,7 +278,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="노포" />
+                                    android:text="" />
 
                                 <TextView
                                     android:id="@+id/up_time_text3"
@@ -286,7 +286,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="10dp"
                                     android:gravity="start"
-                                    android:text="9분 후"
+                                    android:text=""
                                     android:textColor="#59b9ea" />
                             </LinearLayout>
                         </LinearLayout>
@@ -330,7 +330,7 @@
                             android:layout_rowSpan="1"
                             android:layout_columnWeight="1"
                             android:gravity="center"
-                            android:text="내리는문 오른쪽" />
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/tv_toilet"
@@ -341,7 +341,7 @@
                             android:layout_rowSpan="1"
                             android:layout_columnWeight="1"
                             android:gravity="center"
-                            android:text="화장실 외부" />
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/tv_across"
@@ -353,7 +353,7 @@
                             android:layout_columnWeight="1"
                             android:layout_marginTop="8dp"
                             android:gravity="center"
-                            android:text="횡단 불가능" />
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/tv_flatform"
@@ -365,7 +365,7 @@
                             android:layout_columnWeight="1"
                             android:layout_marginTop="8dp"
                             android:gravity="center"
-                            android:text="플랫폼 양쪽" />
+                            android:text="" />
 
                         <TextView
                             android:id="@+id/tv_storage"
@@ -377,7 +377,7 @@
                             android:layout_columnWeight="1"
                             android:layout_marginTop="8dp"
                             android:gravity="center"
-                            android:text="물품 보관함" />
+                            android:text="" />
                     </GridLayout>
 
                     <TextView
@@ -389,7 +389,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="15dp"
-                        android:text="수유실, 자전거보관소, 엘리베이터, 무인민원발급기, 유실물센터"
+                        android:text=""
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -404,7 +404,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:padding="16dp">
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="역 전체 시간표"
+                        android:layout_gravity="end"
+                        android:id="@+id/btn_station_time_table"
+                        android:textColor="#59b9ea"
+                        />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -428,7 +435,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
-                            android:text="부산광역시 부산진구 중앙대로 지하 730" />
+                            android:text="" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -447,8 +454,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="16dp"
-                            android:text="051-678-6119"
-                            android:textColor="@color/lineColor_4" />
+                            android:text=""
+                            android:textColor="#59b9ea" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -456,17 +463,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="101dp"
                 android:layout_marginTop="10dp"
                 android:background="#e2e2e2" />
-
-            <Button
-                android:id="@+id/btn_station_time_table"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="역 전체 시간표"
-                />
-
 
         </LinearLayout>
     </ScrollView>

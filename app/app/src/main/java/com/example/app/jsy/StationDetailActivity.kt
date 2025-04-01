@@ -1,6 +1,8 @@
 package com.example.app.jsy
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Html
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,10 +18,15 @@ import android.view.Gravity
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.os.postDelayed
+import androidx.lifecycle.lifecycleScope
 import com.example.app.dto.StationInfoList
 import com.example.app.dto.StationScheduleResponse
 import com.example.app.dto.TrainResponse
 import com.example.app.retrofit.AppServerClass
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,17 +42,17 @@ class StationDetailActivity : AppCompatActivity() {
   private val binding: ActivityStationDetailBinding by lazy {
     ActivityStationDetailBinding.inflate(layoutInflater)
   }
+
   private var stationName: String? = null
   private var lineNumber: Int = 0
-
   var currentTime: String = ""
-
   val api = AppServerClass.instance
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     enableEdgeToEdge()
     setContentView(binding.root)
+
 
     // 툴바 가져오기
     val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -95,37 +102,11 @@ class StationDetailActivity : AppCompatActivity() {
       startActivity(intent)
     }
 
-    Log.d("csy","몇호선인가요? : $lineNumber")
-    when(lineNumber){
-      1 -> {
-        binding.lineColor.setBackgroundColor(ContextCompat.getColor(this, R.color.lineColor_1))
-        binding.btnCenter.setTextColor(ContextCompat.getColor(this,R.color.lineColor_1))
-      }
-      2 -> {
-        binding.lineColor.setBackgroundColor(ContextCompat.getColor(this, R.color.lineColor_2))
-        binding.btnCenter.setTextColor(ContextCompat.getColor(this,R.color.lineColor_2))
-      }
-      3 -> {
-        binding.lineColor.setBackgroundColor(ContextCompat.getColor(this, R.color.lineColor_3))
-        binding.btnCenter.setTextColor(ContextCompat.getColor(this,R.color.lineColor_3))
-      }
-      4 -> {
-        binding.lineColor.setBackgroundColor(ContextCompat.getColor(this, R.color.lineColor_4))
-        binding.btnCenter.setTextColor(ContextCompat.getColor(this,R.color.lineColor_4))
-      }
-    }
-
     CurrentTime()
     loadData(scode)
     loadTrainData(scode)
     loadStationInfo(scode)
-
-
-
-
-//    if (savedInstanceState == null) {
-//      replaceFragment(Line1Fragment())  // 첫 번째로 1호선 정보 Fragment를 표시
-//    }
+    setupLineColor(lineNumber)
 
     binding.tvLeft.setOnClickListener {
       scode-- // 값 하나 감소
@@ -165,22 +146,6 @@ class StationDetailActivity : AppCompatActivity() {
 
   }
 
-//  private fun replaceFragment(fragment: Fragment) {
-//    // Fragment에 데이터를 전달하기 위해 Bundle에 넣어서 전달
-//    val stationData = Bundle()
-//    stationData.putInt("scode", intent.getIntExtra("scode", 100))
-//    stationData.putString("name", intent.getStringExtra("name"))
-//    stationData.putInt("line", intent.getIntExtra("line", 0))
-//
-//    fragment.arguments = stationData  // Fragment에 인수로 데이터 전달
-//
-//    // Fragment 전환
-//    supportFragmentManager.beginTransaction()
-//      .replace(R.id.fragment_container, fragment)
-//      .addToBackStack(null)  // 백스택에 넣어두어 뒤로가기 시 이전 Fragment로 돌아갈 수 있게 함
-//      .commit()
-//  }
-
   private fun CurrentTime() {
     val date = Date()  // 현재 시스템 시간 가져오기
     val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
@@ -195,14 +160,43 @@ class StationDetailActivity : AppCompatActivity() {
     retrofitResponse(call, scode)
   }
   private fun loadTrainData(scode: Int) {
-    val call = api.getTrainTimeAndName(scode = scode.toString(), sttime = currentTime, day = "1")
-    retrofitResponse2(call)
+    lifecycleScope.launch{
+      try{
+        val response = withContext(Dispatchers.IO){
+          api.getTrainTimeAndName(scode = scode.toString(), sttime = currentTime, day = "1")
+        }
+        retrofitResponse2(response)
+      }catch (e: Exception){
+        Log.d("csy", "Error: ${e.message}")
+      }
+    }
   }
+
   private fun loadStationInfo(scode: Int){
     val call = api.getStationInfo(scode = scode.toString())
     retrofitResponse3(call)
   }
 
+  private fun setupLineColor(lineNumber: Int) {
+    when (lineNumber) {
+      1 -> {
+        binding.lineColor.setBackgroundColor(ContextCompat.getColor(this, R.color.lineColor_1))
+        binding.btnCenter.setTextColor(ContextCompat.getColor(this, R.color.lineColor_1))
+      }
+      2 -> {
+        binding.lineColor.setBackgroundColor(ContextCompat.getColor(this, R.color.lineColor_2))
+        binding.btnCenter.setTextColor(ContextCompat.getColor(this, R.color.lineColor_2))
+      }
+      3 -> {
+        binding.lineColor.setBackgroundColor(ContextCompat.getColor(this, R.color.lineColor_3))
+        binding.btnCenter.setTextColor(ContextCompat.getColor(this, R.color.lineColor_3))
+      }
+      4 -> {
+        binding.lineColor.setBackgroundColor(ContextCompat.getColor(this, R.color.lineColor_4))
+        binding.btnCenter.setTextColor(ContextCompat.getColor(this, R.color.lineColor_4))
+      }
+    }
+  }
 
   private fun retrofitResponse(call: Call<List<Station>>, scode: Int) {
     call.enqueue(object : Callback<List<Station>> {
@@ -243,123 +237,60 @@ class StationDetailActivity : AppCompatActivity() {
     })
   }
 
-  private fun retrofitResponse2(call: Call<TrainResponse>) {
-    call.enqueue(object : Callback<TrainResponse> {
-      override fun onResponse(call: Call<TrainResponse>, res: Response<TrainResponse>) {
-        if (res.isSuccessful) {
-          val result = res.body()
-          Log.d("csy", "scode 기준 열차 도착 남은 정보 : $result")
+  private fun updateStationUI(
+    stationName: String,
+    times: List<Int?>,
+    titleTextViews: List<TextView>,
+    timeTextViews: List<TextView>
+  ) {
+    val timeStrings = times.map { time ->
+      when {
+        time == null -> "데이터 없음"
+        time == 0 -> "곧 도착"
+        else -> "$time 분 후"
+      }
+    }
+    // titleTextViews와 timeTextViews를 동시에 업데이트
+    titleTextViews.forEach { it.text = stationName }
 
-          result?.let {
-            val stations = listOf(
-              "노포" to it.노포,
-              "다대포해수욕장" to it.다대포해수욕장,
-              "양산" to it.양산,
-              "장산" to it.장산,
-              "수영" to it.수영,
-              "대저" to it.대저,
-              "미남" to it.미남,
-              "안평" to it.안평
-            )
+    timeTextViews.forEachIndexed { index, textView ->
+      textView.text = timeStrings.getOrElse(index) { "데이터 없음" }
+    }
+  }
 
-            stations.forEach { (stationName, times) ->
-              times?.let {
-                when (stationName) {
-                  "노포" -> {
-                    binding.upTitleText.text = "노포"
-                    binding.upTitleText1.text = "노포"
-                    binding.upTitleText2.text = "노포"
-                    binding.upTitleText3.text = "노포"
-                    binding.upTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.upTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.upTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                  "다대포해수욕장" -> {
-                    binding.downTitleText.text = "다대포해수욕장"
-                    binding.downTitleText1.text = "다대포해수욕장"
-                    binding.downTitleText2.text = "다대포해수욕장"
-                    binding.downTitleText3.text = "다대포해수욕장"
-                    binding.downTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                  "장산" -> {
-                    binding.upTitleText.text = "장산"
-                    binding.upTitleText1.text = "장산"
-                    binding.upTitleText2.text = "장산"
-                    binding.upTitleText3.text = "장산"
-                    binding.upTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.upTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.upTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                  "양산" -> {
-                    binding.downTitleText.text = "양산"
-                    binding.downTitleText1.text = "양산"
-                    binding.downTitleText2.text = "양산"
-                    binding.downTitleText3.text = "양산"
-                    binding.downTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                  "대저" -> {
-                    binding.upTitleText.text = "대저"
-                    binding.upTitleText1.text = "대저"
-                    binding.upTitleText2.text = "대저"
-                    binding.upTitleText3.text = "대저"
-                    binding.upTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.upTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.upTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                  "수영" -> {
-                    binding.downTitleText.text = "수영"
-                    binding.downTitleText1.text = "수영"
-                    binding.downTitleText2.text = "수영"
-                    binding.downTitleText3.text = "수영"
-                    binding.downTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                  "안평" -> {
-                    binding.upTitleText.text = "안평"
-                    binding.upTitleText1.text = "안평"
-                    binding.upTitleText2.text = "안평"
-                    binding.upTitleText3.text = "안평"
-                    binding.upTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.upTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.upTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                  "미남" -> {
-                    binding.downTitleText.text = "미남"
-                    binding.downTitleText1.text = "미남"
-                    binding.downTitleText2.text = "미남"
-                    binding.downTitleText3.text = "미남"
-                    binding.downTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                  else -> {
-                    // 그 외 다른 역에 대해서도 처리
-                    binding.downTitleText.text = stationName
-                    binding.downTimeText1.text = it.getOrNull(0)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText2.text = it.getOrNull(1)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                    binding.downTimeText3.text = it.getOrNull(2)?.let { time -> "$time 분 후" } ?: "데이터 없음"
-                  }
-                }
-              }
-            }
+  private suspend fun retrofitResponse2(response: TrainResponse) {
+    withContext(Dispatchers.Main) {
+      Log.d("csy", "scode 기준 열차 도착 남은 정보 : $response")
+      val stations = listOf(
+        "노포" to response.노포,
+        "다대포해수욕장" to response.다대포해수욕장,
+        "양산" to response.양산,
+        "장산" to response.장산,
+        "수영" to response.수영,
+        "대저" to response.대저,
+        "미남" to response.미남,
+        "안평" to response.안평
+      )
+
+      stations.forEach { (stationName, times) ->
+        times?.let {
+          val titleTextViews = when (stationName) {
+            "노포", "장산", "대저", "안평" -> listOf(binding.upTitleText, binding.upTitleText1, binding.upTitleText2, binding.upTitleText3)
+            else -> listOf(binding.downTitleText, binding.downTitleText1, binding.downTitleText2, binding.downTitleText3)
           }
 
+          val timeTextViews = when (stationName) {
+            "노포", "장산", "대저", "안평" -> listOf(binding.upTimeText1, binding.upTimeText2, binding.upTimeText3)
+            else -> listOf(binding.downTimeText1, binding.downTimeText2, binding.downTimeText3)
+          }
 
-        } else {
-          Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
+          updateStationUI(stationName, it, titleTextViews, timeTextViews)
         }
       }
-
-      override fun onFailure(call: Call<TrainResponse>, t: Throwable) {
-        Log.d("csy", "message : ${t.message}")
-      }
-    })
+    }
   }
+
+
 
 
   private fun retrofitResponse3(call: Call<List<StationInfoList>>) {
@@ -393,10 +324,9 @@ class StationDetailActivity : AppCompatActivity() {
 
 
 
+
   override fun onSupportNavigateUp(): Boolean {
     finish()
     return true
   }
-
-
 }

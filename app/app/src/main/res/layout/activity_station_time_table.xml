@@ -98,12 +98,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            >
+            <TextView
+                android:id="@+id/tv_left_endName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/tv_right_endName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_columnWeight="1"
+                android:gravity="center"
+                android:text=""
+                android:textStyle="bold"
+                />
+        </GridLayout>
+
 
         <!-- NestedScrollView로 두 ListView를 감싸서 수직 스크롤을 동기화 -->
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,14 +138,16 @@
                 <ListView
                     android:id="@+id/list_up_station"
                     android:layout_width="0dp"
-                    android:layout_height="15000dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" />
 
                 <ListView
                     android:id="@+id/list_down_station"
                     android:layout_width="0dp"
-                    android:layout_height="15000dp"
-                    android:layout_weight="1" />
+                    android:layout_height="13000dp"
+                    android:layout_weight="1"
+
+                    />
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

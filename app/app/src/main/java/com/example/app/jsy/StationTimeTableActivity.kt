@@ -16,11 +16,15 @@ import android.widget.AbsListView
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.app.databinding.ActivityStationTimeTableBinding
 import com.example.app.dto.StationInfoList
 import com.example.app.dto.StationScheduleResponse
 import com.example.app.dto.TrainResponse
 import com.example.app.retrofit.AppServerClass
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,14 +108,14 @@ class StationTimeTableActivity : AppCompatActivity() {
     CurrentTime()
     loadData(scode)
     loadTrainData(scode)
-    loadStationInfo(scode)
-
+//    loadStationInfo(scode)
+    loadStationSheet(scode)
     binding.tvLeft.setOnClickListener {
       scode-- // 값 하나 감소
       CurrentTime()
       loadData(scode)
       loadTrainData(scode)
-      loadStationInfo(scode)
+//      loadStationInfo(scode)
       loadStationSheet(scode)
       when(scode){
         95, 201,301,401 -> {
@@ -130,7 +134,7 @@ class StationTimeTableActivity : AppCompatActivity() {
       CurrentTime()
       loadData(scode)
       loadTrainData(scode)
-      loadStationInfo(scode)
+//      loadStationInfo(scode)
       loadStationSheet(scode)
       when(scode){
         134,243,317,414 -> {
@@ -199,8 +203,16 @@ class StationTimeTableActivity : AppCompatActivity() {
   }
 
   private fun loadTrainData(scode: Int) {
-    val call = api.getTrainTimeAndName(scode = scode.toString(), sttime = currentTime, day = "1")
-    retrofitResponse2(call)
+    lifecycleScope.launch{
+      try{
+        val response = withContext(Dispatchers.IO){
+          api.getTrainTimeAndName(scode = scode.toString(), sttime = currentTime, day = "1")
+        }
+        retrofitResponse2(response)
+      }catch (e: Exception){
+        Log.d("csy", "Error: ${e.message}")
+      }
+    }
   }
 
   private fun loadStationInfo(scode: Int){
@@ -251,21 +263,41 @@ class StationTimeTableActivity : AppCompatActivity() {
     })
   }
 
-  private fun retrofitResponse2(call: Call<TrainResponse>) {
-    call.enqueue(object : Callback<TrainResponse> {
-      override fun onResponse(call: Call<TrainResponse>, res: Response<TrainResponse>) {
-        if (res.isSuccessful) {
-          val result = res.body()
-          Log.d("csy", "scode 기준 열차 도착 남은 정보 : $result")
-        } else {
-          Log.d("csy", "송신 실패, 응답 코드: ${res.code()} 메시지: ${res.message()}")
+  private fun updateStationUI(
+    stationName: String,
+    times: List<Int?>,
+    titleTextViews: List<TextView>
+  ) {
+    // titleTextViews와 timeTextViews를 동시에 업데이트
+    titleTextViews.forEach { it.text = stationName }
+
+  }
+
+  private suspend fun retrofitResponse2(response: TrainResponse) {
+    withContext(Dispatchers.Main) {
+      Log.d("csy", "scode 기준 열차 도착 남은 정보 : $response")
+      val stations = listOf(
+        "노포" to response.노포,
+        "다대포해수욕장" to response.다대포해수욕장,
+        "양산" to response.양산,
+        "장산" to response.장산,
+        "수영" to response.수영,
+        "대저" to response.대저,
+        "미남" to response.미남,
+        "안평" to response.안평
+      )
+
+      stations.forEach { (stationName, times) ->
+        times?.let {
+          val titleTextViews = when (stationName) {
+            "노포", "장산", "대저", "안평" -> listOf(binding.tvRightEndName)
+            else -> listOf(binding.tvLeftEndName)
+          }
+
+          updateStationUI(stationName, it, titleTextViews)
         }
       }
-
-      override fun onFailure(call: Call<TrainResponse>, t: Throwable) {
-        Log.d("csy", "message : ${t.message}")
-      }
-    })
+    }
   }
 
   private fun retrofitResponse3(call: Call<List<StationInfoList>>) {

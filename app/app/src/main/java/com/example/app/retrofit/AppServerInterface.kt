@@ -67,8 +67,15 @@ interface AppServerInterface {
   @GET("app/stationListName/{scode}")
   fun getCategoryName(@Path("scode") scode: String): Call<List<Station>>
 
+//  @GET("app/train/{scode}/{sttime}/{day}")
+//  fun getTrainTimeAndName(@Path("scode") scode: String, @Path("sttime") sttime: String, @Path("day") day: String): Call<TrainResponse>
+
   @GET("app/train/{scode}/{sttime}/{day}")
-  fun getTrainTimeAndName(@Path("scode") scode: String, @Path("sttime") sttime: String, @Path("day") day: String): Call<TrainResponse>
+  suspend fun getTrainTimeAndName(
+    @Path("scode") scode: String,
+    @Path("sttime") sttime: String,
+    @Path("day") day: String
+  ): TrainResponse
 
   @GET("app/station/{scode}")
   fun getStationInfo(@Path("scode") scode: String): Call<List<StationInfoList>>

@@ -382,7 +382,6 @@
 
                     <TextView
                         android:id="@+id/tv_util"
-                        android:paddingLeft="8dp"
                         android:drawablePadding="8dp"
                         android:drawableStart="@drawable/etc"
                         android:layout_width="match_parent"

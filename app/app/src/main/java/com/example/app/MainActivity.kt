@@ -67,24 +67,24 @@ class MainActivity : AppCompatActivity() {
           startActivity(Intent(this, SubSearchActivity::class.java))
       }
 
-      toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
-          Toast.makeText(this, "빠른검색 클릭", Toast.LENGTH_SHORT).show()
-          startActivity(Intent(this, QuickTest2Activity::class.java))
-      }
+//      toolbar.findViewById<LinearLayout>(R.id.quick_search).setOnClickListener {
+//          Toast.makeText(this, "빠른검색 클릭", Toast.LENGTH_SHORT).show()
+//          startActivity(Intent(this, QuickTest2Activity::class.java))
+//      }
 
       toolbar.findViewById<LinearLayout>(R.id.around).setOnClickListener {
           Toast.makeText(this, "내 주변 클릭", Toast.LENGTH_SHORT).show()
           startActivity(Intent(this, LocationTest3Activity::class.java))
       }
 
-      toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
-          Toast.makeText(this, "설정 클릭", Toast.LENGTH_SHORT).show()
-          startActivity(Intent(this, SettingTest4Activity::class.java))
-      }
-
-      toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
-          Toast.makeText(this, "더보기 클릭", Toast.LENGTH_SHORT).show()
-      }
+//      toolbar.findViewById<LinearLayout>(R.id.setting).setOnClickListener {
+//          Toast.makeText(this, "설정 클릭", Toast.LENGTH_SHORT).show()
+//          startActivity(Intent(this, SettingTest4Activity::class.java))
+//      }
+//
+//      toolbar.findViewById<LinearLayout>(R.id.more).setOnClickListener {
+//          Toast.makeText(this, "더보기 클릭", Toast.LENGTH_SHORT).show()
+//      }
 
     // 검색 버튼 클릭 리스너
 //    binding.btnSearch.setOnClickListener {

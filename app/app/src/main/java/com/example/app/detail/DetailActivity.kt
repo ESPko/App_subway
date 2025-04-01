@@ -127,33 +127,33 @@ class DetailActivity : AppCompatActivity() {
     }
 
     // 평일, 토요일, 공휴일 선택 - 프래그먼트
-    binding.btnOp1.setOnClickListener {
-      val fragment = BlankFragment1()
-      fragment.show(supportFragmentManager, "blankFragment")
-    }
+//    binding.btnOp1.setOnClickListener {
+//      val fragment = BlankFragment1()
+//      fragment.show(supportFragmentManager, "blankFragment")
+//    }
 
-    // 시간 설정 버튼
-    binding.btnOp2.text = selectedTime
-    binding.btnOp2.setOnClickListener {
-      openTimePickerFragment()
-    }
-
-    // 출발시간, 도착시간, 막차시간을 선택할 다이얼로그
-    binding.btnOp3.setOnClickListener {
-      openTimeSelectionDialog()
-    }
-
-    // 최소시간/ 최소환승 선택 버튼 클릭
-    binding.btnOp4.setOnClickListener {
-      val fragment = MinTimeDialogFragment()
-      fragment.show(supportFragmentManager, "minTimeDialog")
-    }
-
-    // 출발역과 도착역 정보를 전달하면서 StartBtnFragment 열기
-    binding.btnDetailStart2.setOnClickListener {
-      val startBtnFragment = StartBtnFragment()
-      startBtnFragment.show(supportFragmentManager, "startBtnFragment")
-    }
+//    // 시간 설정 버튼
+//    binding.btnOp2.text = selectedTime
+//    binding.btnOp2.setOnClickListener {
+//      openTimePickerFragment()
+//    }
+//
+//    // 출발시간, 도착시간, 막차시간을 선택할 다이얼로그
+//    binding.btnOp3.setOnClickListener {
+//      openTimeSelectionDialog()
+//    }
+//
+//    // 최소시간/ 최소환승 선택 버튼 클릭
+//    binding.btnOp4.setOnClickListener {
+//      val fragment = MinTimeDialogFragment()
+//      fragment.show(supportFragmentManager, "minTimeDialog")
+//    }
+//
+//    // 출발역과 도착역 정보를 전달하면서 StartBtnFragment 열기
+//    binding.btnDetailStart2.setOnClickListener {
+//      val startBtnFragment = StartBtnFragment()
+//      startBtnFragment.show(supportFragmentManager, "startBtnFragment")
+//    }
 
 // 이전열차 버튼 클릭 시 (5분 전 누적)
     binding.previousTrain.setOnClickListener {

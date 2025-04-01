@@ -172,7 +172,6 @@ class DetailActivity : AppCompatActivity() {
   }
 
 
-
   private fun setLineColor(line: Int?) {
     val lineColorView = binding.lineColor
     val lineColor = when (line) {
@@ -387,11 +386,14 @@ class DetailActivity : AppCompatActivity() {
               val totalArrivalTime = trainTimeDiffInt + travelTime
               Log.d("TrainTimeActivity", "totalArrivalTime의 값: $totalArrivalTime")
 
-              val finaltime = totalArrivalTime.toString()
+              var finaltime = totalArrivalTime.toString()
               Log.d("TrainTimeActivity", "finaltime의 값: $finaltime")
 
               // travelTimeString이 4자리 수로 올바르게 들어온다고 가정
-              if (finaltime.length == 4) {
+              if (finaltime.length == 3) {
+                finaltime = finaltime.padStart(4, '0'); // 4자리로 맞추고, 부족한 자리는 '0'으로 채움
+
+
                 // 시간과 분을 각각 추출
                 val hours = finaltime.substring(0, 2).toInt() // 첫 2자리는 시간
                 val minutes = finaltime.substring(2, 4).toInt() // 나머지 2자리는 분
@@ -401,100 +403,139 @@ class DetailActivity : AppCompatActivity() {
 
                 // formattedArrivalTime을 arrivalTime으로 표시
                 binding.detailArrival.text = formattedArrivalTime
+              } else if (finaltime.length == 4) {
+                if (finaltime[2] == '6') {
+                  // 2번째 자리수에 1을 더하고, 3번째 자리를 0으로 변경
+                  finaltime = finaltime.substring(0, 1) + (finaltime[1].toString()
+                    .toInt() + 1) + '0' + finaltime[3]
+                } else {
+
+                  // 시간과 분을 각각 추출
+                  val hours = finaltime.substring(0, 2).toInt() // 첫 2자리는 시간
+                  val minutes = finaltime.substring(2, 4).toInt() // 나머지 2자리는 분
+                  // hh:mm 형식으로 포맷
+                  val formattedArrivalTime = String.format("%02d:%02d", hours, minutes)
+                  Log.d("TrainTimeActivity", "formattedArrivalTime의 값: $formattedArrivalTime")
+
+                  // formattedArrivalTime을 arrivalTime으로 표시
+                  binding.detailArrival.text = formattedArrivalTime
+                }
               }
             }
-          } else {
-            Log.e("TrainTimeActivity", "API 호출 실패: ${response.code()}")
           }
         }
 
-        override fun onFailure(call: Call<String>, t: Throwable) {
-          Log.e("TrainTimeActivity", "네트워크 오류: ${t.message}")
-        }
-      })  // enqueue 메서드 닫는 괄호
-  }
 
 
-
-  private fun getUpdatedTrainTime() {
-    // currentTime을 업데이트된 offset에 맞게 계산
-    val updatedTime = getUpdatedTime(timeOffset).replace(":", "")
-
-    // API 호출
-    AppServerClass.instance.getTrainTime(stScode, edScode, updatedTime, "1")
-      .enqueue(object : Callback<String> {
-        override fun onResponse(call: Call<String>, response: Response<String>) {
-          if (response.isSuccessful) {
-            val trainTimeDifferences = response.body()
-
-            // 로그로 전달된 값 확인
-            Log.d("TrainTimeActivity", "Received train time differences: $trainTimeDifferences")
-
-            // 가장 가까운 출발 시간 찾기
-            trainTimeDifferences?.let {
-              // trainTimeDifferences 값을 정수로 변환
-              val trainTimeDiffInt = trainTimeDifferences.toString().replace(":", "").toInt()
-
-              // btnOp3 버튼에 가장 가까운 출발 시간 표시
-              binding.detailStart.text = trainTimeDifferences  // TextView에 값 설정
-              Log.d("TrainTimeActivity", "Closest departure time: $trainTimeDifferences")
-              Log.d("TrainTimeActivity", "trainTimeDifferInt의 값: $trainTimeDiffInt")
-
-              // travelTimes 값을 가져와서 정수로 변환
-              val travelTime = binding.useTime.text.toString().split(" ")[0].toIntOrNull() ?: 0
-
-              // totalArrivalTime을 계산 (trainTimeDiffInt + travelTime)
-              val totalArrivalTime = trainTimeDiffInt + travelTime
-              Log.d("TrainTimeActivity", "totalArrivalTime의 값: $totalArrivalTime")
-
-              val finaltime = totalArrivalTime.toString()
-              Log.d("TrainTimeActivity", "finaltime의 값: $finaltime")
-
-              // travelTimeString이 4자리 수로 올바르게 들어온다고 가정
-              if (finaltime.length == 4) {
-                // 시간과 분을 각각 추출
-                val hours = finaltime.substring(0, 2).toInt() // 첫 2자리는 시간
-                val minutes = finaltime.substring(2, 4).toInt() // 나머지 2자리는 분
-                // hh:mm 형식으로 포맷
-                val formattedArrivalTime = String.format("%02d:%02d", hours, minutes)
-                Log.d("TrainTimeActivity", "formattedArrivalTime의 값: $formattedArrivalTime")
-
-                // formattedArrivalTime을 arrivalTime으로 표시
-                binding.detailArrival.text = formattedArrivalTime
+              override fun onFailure(call: Call<String>, t: Throwable) {
+                Log.e("TrainTimeActivity", "네트워크 오류: ${t.message}")
               }
-            }
-          } else {
-            Log.e("TrainTimeActivity", "API 호출 실패: ${response.code()}")
+            })  // enqueue 메서드 닫는 괄호
           }
-        }
-
-        override fun onFailure(call: Call<String>, t: Throwable) {
-          Log.e("TrainTimeActivity", "네트워크 오류: ${t.message}")
-        }
-      })  // enqueue 메서드 닫는 괄호
-  }
-
-  private fun getUpdatedTime(offset: Int): String {
-    val calendar = Calendar.getInstance()
-    val currentTime = getCurrentTime() // 현재 시간 가져오기
-
-    // "HH:mm" 형식으로 currentTime을 파싱
-    val currentCalendar = Calendar.getInstance()
-    val currentHour = currentTime.substring(0, 2).toInt()
-    val currentMinute = currentTime.substring(3, 5).toInt()
-
-    currentCalendar.set(Calendar.HOUR_OF_DAY, currentHour)
-    currentCalendar.set(Calendar.MINUTE, currentMinute)
-
-    // 오프셋 적용 (누적된 timeOffset 값)
-    currentCalendar.add(Calendar.MINUTE, offset)
-
-    // "HH:mm" 형식으로 반환
-    val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-    return simpleDateFormat.format(currentCalendar.time)
-  }
 
 
-}
+
+          private fun getUpdatedTrainTime() {
+            // currentTime을 업데이트된 offset에 맞게 계산
+            val updatedTime = getUpdatedTime(timeOffset).replace(":", "")
+
+            // API 호출
+            AppServerClass.instance.getTrainTime(stScode, edScode, updatedTime, "1")
+              .enqueue(object : Callback<String> {
+                override fun onResponse(call: Call<String>, response: Response<String>) {
+                  if (response.isSuccessful) {
+                    val trainTimeDifferences = response.body()
+
+                    // 로그로 전달된 값 확인
+                    Log.d(
+                      "TrainTimeActivity",
+                      "Received train time differences: $trainTimeDifferences"
+                    )
+
+                    // 가장 가까운 출발 시간 찾기
+                    trainTimeDifferences?.let {
+                      // trainTimeDifferences 값을 정수로 변환
+                      val trainTimeDiffInt =
+                        trainTimeDifferences.toString().replace(":", "").toInt()
+
+                      // btnOp3 버튼에 가장 가까운 출발 시간 표시
+                      binding.detailStart.text = trainTimeDifferences  // TextView에 값 설정
+                      Log.d("TrainTimeActivity", "Closest departure time: $trainTimeDifferences")
+                      Log.d("TrainTimeActivity", "trainTimeDifferInt의 값: $trainTimeDiffInt")
+
+                      // travelTimes 값을 가져와서 정수로 변환
+                      val travelTime =
+                        binding.useTime.text.toString().split(" ")[0].toIntOrNull() ?: 0
+
+                      // totalArrivalTime을 계산 (trainTimeDiffInt + travelTime)
+                      val totalArrivalTime = trainTimeDiffInt + travelTime
+                      Log.d("TrainTimeActivity", "totalArrivalTime의 값: $totalArrivalTime")
+
+                      var finaltime = totalArrivalTime.toString()
+                      Log.d("TrainTimeActivity", "finaltime의 값: $finaltime")
+
+                      // travelTimeString이 4자리 수로 올바르게 들어온다고 가정
+                      if (finaltime.length == 3) {
+                        finaltime = finaltime.padStart(4, '0'); // 4자리로 맞추고, 부족한 자리는 '0'으로 채움
+                        // 시간과 분을 각각 추출
+                        val hours = finaltime.substring(0, 2).toInt() // 첫 2자리는 시간
+                        val minutes = finaltime.substring(2, 4).toInt() // 나머지 2자리는 분
+                        // hh:mm 형식으로 포맷
+                        val formattedArrivalTime = String.format("%02d:%02d", hours, minutes)
+                        Log.d("TrainTimeActivity", "formattedArrivalTime의 값: $formattedArrivalTime")
+
+                        // formattedArrivalTime을 arrivalTime으로 표시
+                        binding.detailArrival.text = formattedArrivalTime
+                      } else if (finaltime.length == 4) {
+                        // 시간과 분을 각각 추출
+                        if (finaltime[2] == '6') {
+                          // 2번째 자리수에 1을 더하고, 3번째 자리를 0으로 변경
+                          finaltime = finaltime.substring(0, 1) + (finaltime[1].toString()
+                            .toInt() + 1) + '0' + finaltime[3]
+                        } else {
+                          val hours = finaltime.substring(0, 2).toInt() // 첫 2자리는 시간
+                          val minutes = finaltime.substring(2, 4).toInt() // 나머지 2자리는 분
+                          // hh:mm 형식으로 포맷
+                          val formattedArrivalTime = String.format("%02d:%02d", hours, minutes)
+                          Log.d(
+                            "TrainTimeActivity",
+                            "formattedArrivalTime의 값: $formattedArrivalTime"
+                          )
+                          // formattedArrivalTime을 arrivalTime으로 표시
+                          binding.detailArrival.text = formattedArrivalTime
+                        }
+                      }
+                    }
+                  }
+                }
+
+                  override fun onFailure(call: Call<String>, t: Throwable) {
+                    Log.e("TrainTimeActivity", "네트워크 오류: ${t.message}")
+                  }
+                })  // enqueue 메서드 닫는 괄호
+              }
+
+                  private fun getUpdatedTime(offset: Int): String {
+                val calendar = Calendar.getInstance()
+                val currentTime = getCurrentTime() // 현재 시간 가져오기
+
+                // "HH:mm" 형식으로 currentTime을 파싱
+                val currentCalendar = Calendar.getInstance()
+                val currentHour = currentTime.substring(0, 2).toInt()
+                val currentMinute = currentTime.substring(3, 5).toInt()
+
+                currentCalendar.set(Calendar.HOUR_OF_DAY, currentHour)
+                currentCalendar.set(Calendar.MINUTE, currentMinute)
+
+                // 오프셋 적용 (누적된 timeOffset 값)
+                currentCalendar.add(Calendar.MINUTE, offset)
+
+                // "HH:mm" 형식으로 반환
+                val simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+                return simpleDateFormat.format(currentCalendar.time)
+              }
+
+
+          }
 
 

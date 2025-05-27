@@ -10,7 +10,13 @@
 
     <select id="getCategoryLineList" parameterType="String" resultType="bitc.fullstack503.server.dto.mysql.CategoryDTO">
         SELECT * FROM category
-        WHERE line = #{line}
+        WHERE scode BETWEEN #{scode} - 1 AND #{scode} + 1
+    </select>
+
+    <select id="getStationName" parameterType="String" resultType="String">
+        SELECT name
+        FROM category
+        WHERE scode = #{downendcode}
     </select>
 
 

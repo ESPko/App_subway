@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitc.fullstack503.server.mapper.init.InitMapper">
+
+    <insert id="insertStationList" parameterType="bitc.fullstack503.server.dto.mysql.station_up.USItemDTO">
+        INSERT INTO station_dist_schedule
+        (
+        START_SN, START_SC, END_SN, END_SC, DIST, TIME, STOPPING_TIME, EXCHANGE
+        )
+        VALUES
+        <foreach collection="list" item="station" separator=",">
+            (
+            #{station.startSn}, #{station.startSc}, #{station.endSn}, #{station.endSc},
+            #{station.dist}, #{station.time}, #{station.stoppingTime},
+            #{station.exchange}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE
+        START_SN = VALUES(START_SN),
+        START_SC = VALUES(START_SC),
+        END_SN = VALUES(END_SN),
+        END_SC = VALUES(END_SC),
+        DIST = VALUES(DIST),
+        TIME = VALUES(TIME),
+        STOPPING_TIME = VALUES(STOPPING_TIME),
+        EXCHANGE = VALUES(EXCHANGE)
+    </insert>
+
+
+</mapper>

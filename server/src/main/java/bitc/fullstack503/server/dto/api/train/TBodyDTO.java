@@ -1,6 +1,5 @@
-package bitc.fullstack503.server.dto.train;
+package bitc.fullstack503.server.dto.api.train;
 
-import bitc.fullstack503.server.dto.station.SItemDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +10,4 @@ public class TBodyDTO {
     private String numOfRows;
     private String pageNo;
     private String totalCount;
-
 }

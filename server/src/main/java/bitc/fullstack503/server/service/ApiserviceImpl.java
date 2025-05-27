@@ -1,9 +1,9 @@
 package bitc.fullstack503.server.service;
 
-import bitc.fullstack503.server.dto.station.SItemDTO;
-import bitc.fullstack503.server.dto.station.StationDTO;
-import bitc.fullstack503.server.dto.train.TItemDTO;
-import bitc.fullstack503.server.dto.train.TrainDTO;
+import bitc.fullstack503.server.dto.api.station.SItemDTO;
+import bitc.fullstack503.server.dto.api.station.StationDTO;
+import bitc.fullstack503.server.dto.api.train.TItemDTO;
+import bitc.fullstack503.server.dto.api.train.TrainDTO;
 import com.google.gson.Gson;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,11 +69,8 @@ public class ApiserviceImpl implements Apiservice {
         return StationList;
     }
 
-    // train
-
     @Override
-    public List<TItemDTO> getTrainJson(String url) throws Exception {
-
+    public List<TItemDTO> getTrainJson(String url) {
         List<TItemDTO> TrainList = new ArrayList<>();
 
         URL Serviceurl = null;
@@ -92,32 +88,31 @@ public class ApiserviceImpl implements Apiservice {
             if (contentType != null && contentType.contains("charset=")) {
                 encoding = contentType.substring(contentType.indexOf("charset=") + 8);
             }
+
             reader = new BufferedReader(new InputStreamReader(UrlCon.getInputStream(), encoding));
+
 
             StringBuilder sb = new StringBuilder();
             String line;
 
             while((line = reader.readLine()) != null){
+                if(line.contains("<!DOCTYPE")) {
+                    return null;
+                }
                 sb.append(line);
             }
-
-//            System.out.println("응답 데이터: " + sb.toString());
             Gson gson = new Gson();
 
             TrainDTO TrainJson = gson.fromJson(sb.toString(), TrainDTO.class);
 
-
-           TrainList = TrainJson.getResponse().getBody().getItem();
+            TrainList = TrainJson.getResponse().getBody().getItem();
 
         }catch (Exception e){
             e.printStackTrace();
         }
 
 
+
         return TrainList;
     }
-
-
-
-
 }

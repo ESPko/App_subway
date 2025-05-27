@@ -1,4 +1,4 @@
-package bitc.fullstack503.server.dto.station;
+package bitc.fullstack503.server.dto.api.station;
 
 import lombok.Data;
 

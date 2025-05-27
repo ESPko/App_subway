@@ -1,15 +1,14 @@
 package bitc.fullstack503.server.appserver;
 
 import bitc.fullstack503.server.dto.UserDTO;
+import bitc.fullstack503.server.dto.api.train.TItemDTO;
 import bitc.fullstack503.server.dto.mysql.CategoryDTO;
-import bitc.fullstack503.server.dto.station.SItemDTO;
-import bitc.fullstack503.server.dto.train.TItemDTO;
 import bitc.fullstack503.server.service.Apiservice;
 import bitc.fullstack503.server.service.Categoryservice;
+import bitc.fullstack503.server.service.StationService;
 import bitc.fullstack503.server.service.Testservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +24,13 @@ public class AppServerController {
   @Value("${team3.station.service.url}")
   private String stationServiceUrl;
 
+
+  @Value("${team3.train.service.url}")
+  private String trainServiceUrl;
+
+  @Value("${team3.train.service.key}")
+  private String trainServiceKey;
+
   @Autowired
   private Apiservice apiservice;
 
@@ -34,6 +40,8 @@ public class AppServerController {
   @Autowired
   private Testservice testservice;
 
+  @Autowired
+  private StationService stationservice;
 
   @GetMapping("/gettest1")
   public String getTest1() {
@@ -42,6 +50,7 @@ public class AppServerController {
     return "get test1";
   }
 
+  // 지하철 호선 정보
   @GetMapping("/app/category")
   public List<CategoryDTO> getCategory() throws Exception {
 
@@ -49,35 +58,129 @@ public class AppServerController {
 
     return categoryList;
   }
+
+  // 지하철 호선 이름
   @GetMapping("/app/category/{line}")
   public List<CategoryDTO> getCategory(@PathVariable String line) throws Exception {
+      line = "1";
 
+      List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(line);
 
-    line = "1";
-
-    List<CategoryDTO> categoryList = categoryservice.getCategoryLineList(line);
-
-    return categoryList;
+      return categoryList;
   }
 
-  @GetMapping("/app")
-  public List<SItemDTO> getApp() throws Exception {
 
-    String serviceKey = "?serviceKey=" + stationServiceKey;
+ // 지하철 역간 이동시간
+  @GetMapping("/time/total/{stStation}/{edStation}")
+  public int getDistance(@PathVariable String stStation, @PathVariable String edStation) throws Exception {
+
+    int result;
+    // startSc와 endSc에 해당하는 dist 값을 합산하여 반환
+
+
+    int stStationInt = Integer.parseInt(stStation);
+    int edStationInt = Integer.parseInt(edStation);
+
+
+    if (stStationInt < edStationInt) {
+
+
+      result = stationservice.getTimeTotalUp(stStationInt, edStationInt);
+
+      System.out.println("result : " + result);
+
+    }
+    else {
+
+      result = stationservice.getTimeTotalDown(stStationInt, edStationInt);
+    }
+
+    return result;
+  }
+
+  // 지하철 경유 갯수
+  @GetMapping("/station/exchange/{stStation}/{edStation}")
+  public int getExchange(@PathVariable String stStation, @PathVariable String edStation) throws Exception {
+
+    int result;
+    // startSc와 endSc에 해당하는 dist 값을 합산하여 반환
+
+
+    int stStationInt = Integer.parseInt(stStation);
+    int edStationInt = Integer.parseInt(edStation);
+
+
+    if (stStationInt < edStationInt) {
+
+      result = stationservice.getExchangeUp(stStationInt, edStationInt);
+    }
+
+    else {
+
+      result = stationservice.getExchangeDown(stStationInt, edStationInt);
+    }
+
+    return result;
+  }
+//   현재 시간과 가까운 지하철 시간 선택( 평일 )
+
+  @GetMapping("/app/trainTime/{stScode}/{edScode}/{sttime}/{day}")
+  public String getTrain(@PathVariable String stScode, @PathVariable String edScode, @PathVariable String sttime, @PathVariable String day) throws Exception {
+//    int hour = Integer.parseInt(sttime.substring(0, 2));
+//    int minutes = Integer.parseInt(sttime.substring(2, 4));
+//    int minTime = hour * 60 + minutes;
+
+    System.out.println("sttime : " + sttime);
+
+    int startScode = Integer.parseInt(stScode);
+    int endScode = Integer.parseInt(edScode);
+
+    String serviceKey = "?serviceKey=" + trainServiceKey;
+    String stime = "&stime=" + sttime;
 
     // 필수옵션
     String essentialOpt = "&act=json";
-    // 선택옵션 scode 는 역외부코드 입력하는부분
-    String scode = "101";
+    String essentialOpt1 = "&scode=" + stScode;
+    String url;
+    if(startScode - endScode >= 0){ // 상행
+      url = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&day=" + day + stime + "&enum=1&updown=1";
+    }
+    else { // 하행
+      url = trainServiceUrl + serviceKey + essentialOpt + essentialOpt1 + "&day=" + day + stime + "&enum=1&updown=0";
+    }
 
-    String Opt1 = "&scode=" + scode;
+    List<TItemDTO> TrainJsonList = apiservice.getTrainJson(url);
 
-    String url = stationServiceUrl + serviceKey + essentialOpt + Opt1;
 
-    List<SItemDTO> StationJsonList = apiservice.getStationJson(url);
+    int TrainHour = TrainJsonList.get(0).getHour(); // 15 12 09 11 12
+    int TrainMinute = TrainJsonList.get(0).getTime(); // 23 30 40 50 60
 
-    return StationJsonList;
+
+
+    String hourString = String.valueOf(TrainHour);
+
+    String formattedTime = String.format("%02d", TrainMinute);
+
+    String trainTime = hourString + ":" + formattedTime;
+
+    // 12 : 53 1253 -> 코틀린에서 12:53
+
+  return trainTime;
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
 
 //  파라미터로만 데이터 받을 경우
   @GetMapping("/gettest2")
@@ -120,29 +223,28 @@ public class AppServerController {
   }
 
 
-  @GetMapping("/app/{param1}")
-  public List<SItemDTO> getApi3(@PathVariable("param1") String param1) throws Exception {
-    String serviceKey = "?serviceKey=" + stationServiceKey;
-
-    // 필수옵션
-    String essentialOpt = "&act=json";
-    // 선택옵션 scode 는 역외부코드 입력하는부분
-    String scode = param1;
-
-    String Opt1 = "&scode=" + scode;
-
-    String url = stationServiceUrl + serviceKey + essentialOpt + Opt1;
-
-    List<SItemDTO> StationJsonList = apiservice.getStationJson(url);
-
-    if(StationJsonList != null){
-      return StationJsonList;
-    }else{
-      return null;
-    }
-
-
-  }
+//  @GetMapping("/app/{param1}")
+//  public List<USItemDTO> getApi3(@PathVariable("param1") String param1) throws Exception {
+//    String serviceKey = "?serviceKey=" + stationServiceKey;
+//
+//    // 필수옵션
+//    String essentialOpt = "&act=json";
+//    // 선택옵션 scode 는 역외부코드 입력하는부분
+//    String scode = param1;
+//
+//    String Opt1 = "&scode=" + scode;
+//
+//    String url = stationServiceUrl + serviceKey + essentialOpt + Opt1;
+//
+//    List<USItemDTO> StationJsonList = apiservice.getStationJson(url);
+//
+//    if(StationJsonList != null){
+//      return StationJsonList;
+//    }else{
+//      return null;
+//    }
+//
+//  }
 
   @PostMapping("/posttest1")
   public String postTest1() {
